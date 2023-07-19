@@ -1,0 +1,527 @@
+.register-container{
+  width: 100%;
+  height: auto;
+  .register-content{
+    width: 100%;
+    height:100%;
+    min-height: 100vh;
+    overflow:hidden;
+    /* 加载背景图 */
+    background: url("../../assets/images/register-bg.png") no-repeat center/cover  fixed ;
+    display: flex;
+    justify-content: space-between;
+    .register-left-info{
+      width: 67.8%;
+      height: auto;
+      .introduce{
+        width: 100%;
+        margin: 120px 0 0 120px;
+        &>img{
+          width: 5rem;
+          height: 5rem;
+        }
+        &>.title{
+          font-size:3.75rem;
+          font-family: "SourceHanSansCN-Bold-, SourceHanSansCN-Bold";
+          color: #FFFFFF;
+          line-height: 1.5rem;
+          margin-top: 1.875rem;
+        }
+        &>.intr-text{
+          width: 52.3%;
+          height: 6.875rem;
+          font-size: 1.5rem;
+          font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular";
+          font-weight: normal;
+          margin-top: 3.75rem;
+          color: #FFFFFF;
+          line-height: 2.625rem;
+        }
+        &>.intr-text-two{
+          width: 52.3%;
+          height: 68px;
+          font-size: 24px;
+          font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular",serif;
+          font-weight: normal;
+          margin-top: 120px;
+          color: #FFFFFF;
+          line-height: 42px;
+        }
+        &>.rock{
+          width: 75.4%;
+          height: 4.8125rem;
+          margin-top: 15.9375rem;
+          position: relative;
+          &>p{
+            position: absolute;
+            top: -9%;
+            left: 3%;
+            font-size: 2.875rem;
+            font-family: "Arial-BoldMT-, Arial-BoldMT";
+            font-weight: normal;
+            color: #FFFFFF;
+            line-height: 1.125rem;
+            letter-spacing: 0.3125rem;
+            z-index: 8;
+          }
+          &>.slider{
+            width: 75.4%;
+            height: 3.125rem;
+            z-index: 2;
+            background: linear-gradient(90deg, #1DC5B7 0%, rgba(30,205,190,0) 100%);
+          }
+        }
+      }
+    }
+    .register-right-form{
+      width: 32.3%;
+      height: auto;
+      background-color: #fff;
+      z-index:99;
+      .login-content{
+        width: 80.6%;
+        height: auto;
+        margin:7.25rem auto 0;
+        .system-name{
+          .bold-name{
+            height: 65px;
+            font-size: 3.375rem;
+            font-family: "SourceHanSansCN-Bold-, SourceHanSansCN-Bold";
+            font-weight: normal;
+            color: #313848;
+            line-height: 5.9375rem;
+          }
+          .line{
+            width: 60px;
+            height: 4px;
+            margin-top: 1.3125rem;
+            background: #313848;
+          }
+        }
+        .account-for-login{
+          width: 100%;
+          .login-style{
+            width: 62%;
+            height: auto;
+            margin-top: 3.75rem ;
+            .type{
+              width: 100%;
+              height: auto;
+              font-size: 1.5rem;
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+              font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
+              font-weight: 500;
+              color:  #313848;
+              line-height: 1.5rem;
+              &>p{
+                display: inline-block;
+              }
+              .fontColor{
+                color: #18318C;
+                font-size: 1.5rem;
+              }
+              .split{
+                width: 1.5px;
+                height: 20px;
+                background: #313848;
+                border-radius: 2px;
+                margin: 0 15px;
+              }
+            }
+          }
+          .form-box{
+            .demo-ruleForm{
+              .el-form-item{
+                width: 100%;
+                height: 68px;
+                background: #F6F7F9;
+                border-radius: 10px;
+                margin: 2.25rem 0 1.875rem 0;
+                box-sizing: border-box;
+                padding: 11px 0 22px 0;
+                .el-form-item__label {
+                  text-align: right;
+                  vertical-align: middle;
+                  float: left;
+                  font-size: 1.125rem;
+                  color: #606266;
+                  line-height: 40px;
+                  padding: 0 12px 0 0;
+                  box-sizing: border-box;
+                }
+                .el-input-group__append .el-button, .el-input-group__append .el-input, .el-input-group__prepend .el-button, .el-input-group__prepend .el-input, .el-input__inner {
+                  font-size: 1.125rem;
+                }
+                .el-input__inner {
+                  -webkit-appearance: none;
+                  background-color: rgba(49, 56, 62, 0);
+                  background-image: none;
+                  border-radius: 4px;
+                  border: none;
+                  box-sizing: border-box;
+                  color: #999999;
+                  font-size: 1.125rem;
+                  caret-color: #18318C;
+                  display: inline-block;
+                  height: 40px;
+                  line-height: 40px;
+                  outline: 0;
+                  padding: 0 15px;
+                  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+                  width: 100%;
+                }
+                .el-form-item__error {
+                  color: #DF4B3C;
+                  font-size: 14px;
+                  line-height: 1;
+                  padding-top: 19px;
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                }
+              }
+            }
+            .remeber-pass{
+              .el-checkbox__inner {
+                width: 1.125rem;
+                height: 1.125rem;
+              }
+              .el-checkbox__input.is-checked .el-checkbox__inner,
+              .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+                background-color: #18318C;
+                border-color: #18318C;
+              }
+              .el-checkbox__input.is-checked + .el-checkbox__label {
+                color: #18318C;
+              }
+              .el-checkbox__inner:hover {
+                border-color: #18318C;
+              }
+              .el-checkbox__input.is-checked .el-checkbox__inner::after {
+                transform: rotate(45deg) scaleY(1);
+              }
+              .el-checkbox__inner::after {
+                box-sizing: content-box;
+                content: "";
+                border: 1px solid #FFF;
+                border-left: 0;
+                border-top: 0;
+                height: 7px;
+                left: 5px;
+                position: absolute;
+                top: 3px;
+                transform: rotate(45deg) scaleY(0);
+                width: 5px;
+                transition: transform .15s ease-in .05s;
+                transform-origin: center;
+              }
+            }
+            .el-button {
+              display: inline-block;
+              width: 100%;
+              height: 4.25rem;
+              cursor: pointer;
+              background: #18318C;
+              text-align: center;
+              border: none;
+              margin: 8.375rem 0 0;
+              border-radius: 0.625rem;
+              font-size: 1.5rem;
+              font-family: "SourceHanSansCN-Medium-, SourceHanSansCN-Medium";
+              color: #FFFFFF;
+            }
+            .register{
+              width: 100%;
+              margin: 1.25rem auto;
+              text-align: center;
+              font-size: 1.125rem;
+              font-family: "Source Han Sans CN-Normal, Source Han Sans CN";
+              &>span{
+                display: inline-block;
+                color: #999999;
+              }
+              &>p{
+                cursor: pointer;
+                display: inline-block;
+                color: #18318C;
+              }
+            }
+          }
+          .captcha-login{
+            .form-horizontal{
+              .el-form-item{
+                width: 100%;
+                height: 4.25rem;
+                background: #F6F7F9;
+                border-radius: 10px;
+                margin: 2.25rem 0 1.875rem 0;
+                box-sizing: border-box;
+                padding: 11px 0 22px 0;
+                .codeBtn{
+                  display: inline-block;
+                  cursor: pointer;
+                  font-size: 1.125rem;
+                  font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular",serif;
+                  font-weight: normal;
+                  color: #18318C;
+                }
+                .el-form-item__label {
+                  text-align: right;
+                  vertical-align: middle;
+                  float: left;
+                  font-size: 1.125rem;
+                  color: #606266;
+                  line-height: 40px;
+                  padding: 0 12px 0 0;
+                  box-sizing: border-box;
+                }
+                .el-input-group__append .el-button, .el-input-group__append .el-input, .el-input-group__prepend .el-button, .el-input-group__prepend .el-input, .el-input__inner {
+                  font-size: 1.125rem;
+                }
+                .el-input__inner {
+                  -webkit-appearance: none;
+                  background-color: rgba(49, 56, 62, 0);
+                  background-image: none;
+                  border-radius: 4px;
+                  border: none;
+                  box-sizing: border-box;
+                  color: #999999;
+                  caret-color: #18318C;
+                  display: inline-block;
+                  height: 40px;
+                  line-height: 40px;
+                  outline: 0;
+                  padding: 0 15px;
+                  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+                  width: 100%;
+                }
+
+                .el-form-item__error {
+                  color: #DF4B3C;
+                  font-size: 14px;
+                  line-height: 1;
+                  padding-top: 19px;
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                }
+              }
+              .el-form-item:nth-child(2){
+                .el-color-picker__icon, .el-input, .el-textarea {
+                  display: inline-block;
+                  width: 72%;
+                }
+              }
+            }
+            .el-button {
+              display: inline-block;
+              width: 100%;
+              height: 4.25rem;
+              cursor: pointer;
+              background: #18318C;
+              text-align: center;
+              border: none;
+              margin: 8.375rem 0 0;
+              border-radius: 0.625rem;
+              font-size: 1.5rem;
+              font-family: "SourceHanSansCN-Medium-, SourceHanSansCN-Medium";
+              color: #FFFFFF;
+            }
+          }
+
+        }
+        .set-pass{
+          width: 100%;
+          .login-style{
+            width: 62%;
+            height: auto;
+            margin-top: 3.75rem ;
+            .type{
+              width: 100%;
+              height: auto;
+              font-size: 1.5rem;
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+              font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
+              font-weight: 500;
+              color:  #313848;
+              line-height: 1.5rem;
+              &>p{
+                display: inline-block;
+              }
+              .fontColor{
+                color: #18318C;
+                font-size: 1.5rem;
+              }
+              .split{
+                width: 1.5px;
+                height: 20px;
+                background: #313848;
+                border-radius: 2px;
+                margin: 0 15px;
+              }
+            }
+          }
+          .form-box{
+            .setPass-ruleForm{
+              .el-form-item{
+                width: 100%;
+                height: 68px;
+                background: #F6F7F9;
+                border-radius: 10px;
+                margin: 2.25rem 0 1.875rem 0;
+                box-sizing: border-box;
+                padding: 11px 0 22px 0;
+                .el-form-item__label {
+                  text-align: right;
+                  vertical-align: middle;
+                  float: left;
+                  font-size: 1.125rem;
+                  color: #606266;
+                  line-height: 40px;
+                  padding: 0 12px 0 0;
+                  box-sizing: border-box;
+                }
+                .el-input-group__append .el-button, .el-input-group__append .el-input, .el-input-group__prepend .el-button, .el-input-group__prepend .el-input, .el-input__inner {
+                  font-size: 1.125rem;
+                }
+                .el-input__inner {
+                  -webkit-appearance: none;
+                  background-color: rgba(49, 56, 62, 0);
+                  background-image: none;
+                  border-radius: 4px;
+                  border: none;
+                  box-sizing: border-box;
+                  color: #999999;
+                  font-size: 1.125rem;
+                  caret-color: #18318C;
+                  display: inline-block;
+                  height: 40px;
+                  line-height: 40px;
+                  outline: 0;
+                  padding: 0 15px;
+                  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+                  width: 100%;
+                }
+                .el-form-item__error {
+                  color: #DF4B3C;
+                  font-size: 14px;
+                  line-height: 1;
+                  padding-top: 19px;
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                }
+              }
+            }
+            .remeber-pass{
+              .el-checkbox__inner {
+                width: 1.125rem;
+                height: 1.125rem;
+              }
+              .el-checkbox__input.is-checked .el-checkbox__inner,
+              .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+                background-color: #18318C;
+                border-color: #18318C;
+              }
+              .el-checkbox__input.is-checked + .el-checkbox__label {
+                color: #18318C;
+              }
+              .el-checkbox__inner:hover {
+                border-color: #18318C;
+              }
+              .el-checkbox__input.is-checked .el-checkbox__inner::after {
+                transform: rotate(45deg) scaleY(1);
+              }
+              .el-checkbox__inner::after {
+                box-sizing: content-box;
+                content: "";
+                border: 1px solid #FFF;
+                border-left: 0;
+                border-top: 0;
+                height: 7px;
+                left: 5px;
+                position: absolute;
+                top: 3px;
+                transform: rotate(45deg) scaleY(0);
+                width: 5px;
+                transition: transform .15s ease-in .05s;
+                transform-origin: center;
+              }
+            }
+            .el-button {
+              display: inline-block;
+              width: 100%;
+              height: 4.25rem;
+              cursor: pointer;
+              background: #18318C;
+              text-align: center;
+              border: none;
+              margin: 8.375rem 0 0;
+              border-radius: 0.625rem;
+              font-size: 1.5rem;
+              font-family: "SourceHanSansCN-Medium-, SourceHanSansCN-Medium";
+              color: #FFFFFF;
+            }
+            .register{
+              width: 100%;
+              margin: 1.25rem auto;
+              text-align: center;
+              font-size: 1.125rem;
+              font-family: "Source Han Sans CN-Normal, Source Han Sans CN";
+              &>span{
+                display: inline-block;
+                color: #999999;
+              }
+              &>p{
+                cursor: pointer;
+                display: inline-block;
+                color: #18318C;
+              }
+            }
+          }
+          .support-devices{
+            width: 100%;
+            margin: 7.5rem auto 6.25rem;
+            text-align: center;
+            .logo-list{
+              &>img{
+                width: 2.5rem;
+                height: 2.5rem;
+              }
+            }
+            .copyright{
+              font-size: 0.75rem;
+              font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light",serif;
+              font-weight: normal;
+              color: #ABADB2;
+              line-height: 24px;
+            }
+          }
+        }
+        .support-devices{
+          width: 100%;
+          margin: 7.5rem auto 6.25rem;
+          text-align: center;
+          .logo-list{
+            &>img{
+              width: 2.5rem;
+              height: 2.5rem;
+            }
+          }
+          .copyright{
+            font-size: 0.75rem;
+            font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light",serif;
+            font-weight: normal;
+            color: #ABADB2;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+
+  }
+}

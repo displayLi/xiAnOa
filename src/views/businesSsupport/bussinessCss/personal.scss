@@ -1,0 +1,226 @@
+.index-container {
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 49, 140, 0.05);
+  overflow: auto;
+  .tab-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .personal-info{
+      display: flex;
+      margin: 30px 0 30px 30px;
+      justify-content: flex-start;
+      &>p{
+        font-size: 18px;
+        color: #666666;
+        span{
+          color: #18318C;
+        }
+      }
+      p:nth-child(2){
+        margin-left: 30px;
+      }
+    }
+    .picker{
+      margin: 1.25rem 1.875rem 0 0 ;
+    }
+  }
+  .team-box{
+    display: flex;
+    justify-content: flex-start;
+    .team-info{
+      display: flex;
+      justify-content: flex-start;
+      margin: 1.25rem 0 0 1.875rem;
+      .l-info{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        &>img{
+          display: inline-block;
+          width: 3.125rem;
+          height: 3.125rem;
+        }
+        .num-info{
+          margin-left: 0.625rem;
+          .info-title{
+            font-size: 1rem;
+            font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+            color: #ABADB2;
+          }
+          .number{
+            font-size: 1.5rem;
+            font-family: "Roboto-Medium, Roboto";
+            font-weight: 500;
+            color: #313848;
+          }
+        }
+      }
+      .r-info{
+        margin-left: 2.4375rem;
+        &>img{
+          display: inline-block;
+          width: 3.125rem;
+          height: 3.125rem;
+        }
+      }
+    }
+    .team-info:nth-child(2){
+      margin: 0 11.25rem 0 11.25rem;
+    }
+  }
+
+  .team-type {
+    width: 96.3%;
+    height: 10rem;
+    margin: 1.875rem auto 1.25rem;
+    background: #FFFFFF;
+    border-radius: 0.625rem;
+  }
+  .table-information {
+    width: 96.3%;
+    height: auto;
+    margin: auto;
+    overflow: auto;
+    min-height: 43.75rem;
+    background: #FFFFFF;
+    border-radius: 0.625rem;
+
+    .table-header {
+      width: 96.2%;
+      display: flex;
+      justify-content: space-around;
+      margin: 1.875rem auto 1.25rem;
+
+      .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+        border-color: #18318C;
+      }
+
+      .el-select .el-input__inner:focus {
+        border-color: #18318C;
+      }
+
+      .el-select:first-child .el-input .el-select__caret {
+        color: #C0C4CC;
+        font-size: 14px;
+        transition: transform .3s;
+        transform: rotateZ(0deg);
+        cursor: pointer;
+      }
+
+      .el-select:first-child .el-input .el-icon-::before {
+        content: "\e778";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        color: #D9B371;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .el-select:not(:first-child) {
+        width: 10.6%;
+      }
+
+      .el-icon-arrow-up:before {
+        content: "\e78f";
+      }
+
+
+      .filter {
+        width: 7.5rem;
+        height: 2.5rem;
+        text-align: center;
+        background: #18318C;
+        border-radius: 5px;
+        font-size: 0.875rem;
+        font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+        color: #FFFFFF;
+        line-height: 2.5rem;
+      }
+
+      .new {
+        width: 7.5rem;
+        height: 2.5rem;
+        background: #F4AB46;
+        text-align: center;
+        border-radius: 3px;
+        font-size: 0.875rem;
+        font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+        color: #FFFFFF;
+        line-height: 2.5rem;
+      }
+    }
+
+    .table-detail {
+      width: 96.2%;
+      margin: auto;
+
+      .el-table {
+        border-radius: 10px 10px 0 0;
+      }
+
+      .el-table th.el-table__cell > .cell {
+        display: inline-block;
+        box-sizing: border-box;
+        position: relative;
+        vertical-align: middle;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .el-table .cell {
+        box-sizing: border-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-break: break-all;
+        line-height: 23px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+      }
+
+      tagblue1 {
+        font-size: 0.875rem;
+        font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light";
+        color: #B93B3B;
+      }
+
+      .tagblue2 {
+        font-size: 0.875rem;
+        font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light";
+        color: #469F48;
+      }
+
+      .el-table__header-wrapper {
+        thead {
+          th {
+            div {
+              color: #313848;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+      .pagination {
+        width: 100%;
+        margin: 1.25rem auto;
+        text-align: center;
+
+        .el-pagination.is-background .el-pager li:not(.disabled).active {
+          background-color: #F4AB46;
+          color: #FFF;
+        }
+
+      }
+    }
+  }
+}
+
+

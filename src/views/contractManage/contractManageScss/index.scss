@@ -1,0 +1,206 @@
+.index-container {
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 49, 140, 0.05);
+  overflow: auto;
+  .team-box{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: space-around;
+    .team-info{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      //margin: 1.25rem 0 0 1.875rem;
+      &>img{
+        display: inline-block;
+        width: 4.25rem;
+        height: 4.25rem;
+      }
+      .num-info{
+        margin-left: 0.625rem;
+        .info-title{
+          font-size: 1rem;
+          margin-bottom: 0.375rem;
+          font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+          color: #ABADB2;
+        }
+        .number{
+          font-size: 1.875rem;
+          font-family: "Roboto-Medium, Roboto";
+          font-weight: 500;
+          color: #313848;
+        }
+      }
+    }
+  }
+
+  .team-type {
+    width: 96.3%;
+    height: 10rem;
+    margin: 1.875rem auto 1.25rem;
+    background: #FFFFFF;
+    border-radius: 0.625rem;
+  }
+  .table-information {
+    width: 96.3%;
+    height: auto;
+    margin: auto;
+    overflow: auto;
+    min-height: 43.75rem;
+    background: #FFFFFF;
+    border-radius: 0.625rem;
+
+    .table-header {
+      width: 96.2%;
+      display: flex;
+      justify-content: space-between;
+      margin: 1.875rem auto 1.25rem;
+      .table-left{
+        width: 74%;
+        display: flex;
+        justify-content: flex-start;
+
+        .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+          border-color: #18318C;
+        }
+
+        .el-select .el-input__inner:focus {
+          border-color: #18318C;
+        }
+
+        .el-select:first-child .el-input .el-select__caret {
+          color: #C0C4CC;
+          font-size: 14px;
+          transition: transform .3s;
+          transform: rotateZ(0deg);
+          cursor: pointer;
+        }
+
+        .el-select:first-child .el-input .el-icon-::before {
+          content: "\e778";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          color: #D9B371;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .el-select{
+          margin-right: 1.875rem;
+        }
+        .el-select:not(:first-child) {
+          width: 10.6%;
+        }
+
+        .el-icon-arrow-up:before {
+          content: "\e78f";
+        }
+
+
+        .filter {
+          width: 7.5rem;
+          height: 2.5rem;
+          text-align: center;
+          background: #18318C;
+          border-radius: 5px;
+          font-size: 0.875rem;
+          font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+          color: #FFFFFF;
+          line-height: 2.5rem;
+        }
+      }
+
+      .new {
+        width: 7.5rem;
+        height: 2.5rem;
+        background: #F4AB46;
+        text-align: center;
+        border-radius: 3px;
+        font-size: 0.875rem;
+        font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+        color: #FFFFFF;
+        line-height: 2.5rem;
+      }
+    }
+
+    .table-detail {
+      width: 96.2%;
+      margin: auto;
+
+      .el-table {
+        border-radius: 10px 10px 0 0;
+      }
+
+      .el-table th.el-table__cell > .cell {
+        display: inline-block;
+        box-sizing: border-box;
+        position: relative;
+        vertical-align: middle;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .el-table .cell {
+        box-sizing: border-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-break: break-all;
+        line-height: 23px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+      }
+      .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
+      }
+      .el-icon-arrow-down {
+        font-size: 12px;
+      }
+      tagblue1 {
+        font-size: 0.875rem;
+        font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light";
+        color: #B93B3B;
+      }
+
+      .tagblue2 {
+        font-size: 0.875rem;
+        font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light";
+        color: #469F48;
+      }
+
+      .el-table__header-wrapper {
+        thead {
+          th {
+            div {
+              color: #313848;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+      .pagination {
+        width: 100%;
+        margin: 1.25rem auto;
+        text-align: center;
+
+        .el-pagination.is-background .el-pager li:not(.disabled).active {
+          background-color: #F4AB46;
+          color: #FFF;
+        }
+
+      }
+    }
+  }
+}
+
+
