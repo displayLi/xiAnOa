@@ -171,7 +171,7 @@
             >
           </div>
           <div>
-            <el-button class="addColor" @click="addData()">新建</el-button>
+            <el-button class="addColor" @click="addData()" v-if="isAdmin">新建</el-button>
           </div>
         </div>
         <div>
@@ -239,7 +239,7 @@
                     >推送</el-button
                   >
                   <el-button type="text" size="small">驳回</el-button>
-                  <el-button type="text" size="small">接收</el-button>
+                  <el-button type="text" size="small" @click="editRow(scope.row)">接收</el-button>
                   <el-button type="text" size="small">重新推送</el-button>
                 </div>
                 <div v-if="scope.row.state == '2'">
@@ -279,281 +279,306 @@
             label-width="100px"
             class="demo-ruleForm"
           >
-            <el-form-item
-              label="业务类型"
-              prop="business_type"
-              style="width: 45%"
-            >
-              <el-select
-                v-model="ruleForm.business_type"
-                placeholder="请选择业务类型"
-                style="width: 100%"
-                :popper-append-to-body="false"
-                clearable
+            <div v-if="step == 1">
+              <el-form-item
+                label="业务类型"
+                prop="business_type"
+                style="width: 45%"
               >
-                <el-option label="自有业务" value="0"></el-option>
-                <el-option label="外包业务" value="1"></el-option>
-              </el-select>
-            </el-form-item>
-
-            <el-form-item label="项目类型" prop="type" style="width: 45%">
-              <el-select
-                v-model="ruleForm.type"
-                placeholder="请选择项目类型"
-                style="width: 100%"
-                :popper-append-to-body="false"
-                clearable
-              >
-                <el-option
-                  :label="item.name"
-                  :value="item.id"
-                  v-for="item in projectTypeList"
-                  :key="item.id"
-                />
-              </el-select>
-            </el-form-item>
-
-            <el-form-item
-              label="客户名称"
-              prop="customer_name"
-              style="width: 45%"
-            >
-              <el-input
-                v-model="ruleForm.customer_name"
-                placeholder="请输入客户名称"
-                clearable
-              ></el-input>
-            </el-form-item>
-
-            <el-form-item label="项目名称" prop="name" style="width: 45%">
-              <el-input
-                v-model="ruleForm.name"
-                placeholder="请输入项目名称"
-                clearable
-              ></el-input>
-            </el-form-item>
-
-            <el-form-item
-              label="项目授权人"
-              prop="authorized_person"
-              style="width: 45%"
-            >
-              <el-select
-                v-model="ruleForm.authorized_person"
-                placeholder="请选择项目授权人"
-                style="width: 100%"
-                :popper-append-to-body="false"
-                clearable
-              >
-                <el-option
-                  v-for="(item, index) in leadsList"
-                  :key="index"
-                  :label="item.nickname"
-                  :value="item.id"
-                  >{{ item.nickname }}</el-option
+                <el-select
+                  v-model="ruleForm.business_type"
+                  placeholder="请选择业务类型"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                  clearable
                 >
-              </el-select>
-            </el-form-item>
+                  <el-option label="自有业务" :value="0"></el-option>
+                  <el-option label="外包业务" :value="1"></el-option>
+                </el-select>
+              </el-form-item>
 
-            <el-form-item
-              prop="signing_time"
-              label="签约时间"
-              style="width: 45%"
-            >
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="ruleForm.signing_time"
-                style="width: 100%"
-                clearable
-                value-format="yyyy-MM-dd"
-              ></el-date-picker>
-            </el-form-item>
+              <el-form-item label="项目类型" prop="type" style="width: 45%">
+                <el-select
+                  v-model="ruleForm.type"
+                  placeholder="请选择项目类型"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                  clearable
+                >
+                  <el-option
+                    :label="item.name"
+                    :value="item.id"
+                    v-for="item in projectTypeList"
+                    :key="item.id"
+                  />
+                </el-select>
+              </el-form-item>
 
-            <el-form-item
-              label="合同类型"
-              prop="contract_type"
-              style="width: 45%"
-            >
-              <el-select
-                v-model="ruleForm.contract_type"
-                placeholder="请选择合同类型"
-                style="width: 100%"
-                :popper-append-to-body="false"
-                clearable
+              <el-form-item
+                label="客户名称"
+                prop="customer_name"
+                style="width: 45%"
               >
-                <el-option label="技术合同" value="技术合同"></el-option>
-                <el-option label="委托合同" value="委托合同"></el-option>
-              </el-select>
-            </el-form-item>
+                <el-input
+                  v-model="ruleForm.customer_name"
+                  placeholder="请输入客户名称"
+                  clearable
+                ></el-input>
+              </el-form-item>
 
-            <el-form-item
-              label="合同编号"
-              prop="contract_number"
-              style="width: 45%"
-            >
-              <el-input
-                v-model="ruleForm.contract_number"
-                placeholder="请输入合同编号"
-              ></el-input>
-            </el-form-item>
+              <el-form-item label="项目名称" prop="name" style="width: 45%">
+                <el-input
+                  v-model="ruleForm.name"
+                  placeholder="请输入项目名称"
+                  clearable
+                ></el-input>
+              </el-form-item>
 
-            <el-form-item
-              label="项目咨询师"
-              prop="consultant_id"
-              style="width: 45%"
-            >
-              <el-select
-                v-model="ruleForm.consultant_id"
-                placeholder="请选择项目咨询师"
-                style="width: 100%"
-                :popper-append-to-body="false"
+              <el-form-item
+                label="项目授权人"
+                prop="authorized_person"
+                style="width: 45%"
               >
-                <el-option
-                  v-for="(item, index) in userList"
-                  :key="index"
-                  :label="item.nickname"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
+                <el-select
+                  v-model="ruleForm.authorized_person"
+                  placeholder="请选择项目授权人"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                  clearable
+                >
+                  <el-option
+                    v-for="(item, index) in leadsList"
+                    :key="index"
+                    :label="item.nickname"
+                    :value="item.id"
+                    >{{ item.nickname }}</el-option
+                  >
+                </el-select>
+              </el-form-item>
 
-            <el-form-item
-              prop="business_time"
-              label="委托时间"
-              style="width: 45%"
-              v-show="ruleForm.business_type == 1"
-            >
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="ruleForm.business_time"
-                style="width: 100%"
-                value-format="yyyy-MM-dd"
-              ></el-date-picker>
-            </el-form-item>
-
-            <el-form-item
-              label="合作机构"
-              prop="partners"
-              style="width: 45%"
-              v-show="ruleForm.business_type == 1"
-            >
-              <el-input
-                v-model="ruleForm.partners"
-                placeholder="请输入合作机构"
-              ></el-input>
-            </el-form-item>
-
-            <el-form-item
-              label="委托业务"
-              prop="business"
-              style="width: 45%"
-              v-show="ruleForm.business_type == 1"
-            >
-              <el-input
-                v-model="ruleForm.business"
-                placeholder="请输入委托业务"
-              ></el-input>
-            </el-form-item>
-
-            <el-form-item label="项目工程师" prop="engineer" style="width: 45%">
-              <el-select
-                v-model="ruleForm.engineer"
-                placeholder="请选择项目工程师"
-                style="width: 100%"
-                :popper-append-to-body="false"
-                clearable
+              <el-form-item
+                prop="signing_time"
+                label="签约时间"
+                style="width: 45%"
               >
-                <el-option
-                  v-for="(item, index) in userList"
-                  :key="index"
-                  :label="item.nickname"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item
-              label="资料专员"
-              prop="data_specialist"
-              style="width: 45%"
-            >
-              <el-select
-                v-model="ruleForm.data_specialist"
-                placeholder="请选择资料专员"
-                style="width: 100%"
-                :popper-append-to-body="false"
-                clearable
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="ruleForm.signing_time"
+                  style="width: 100%"
+                  clearable
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>
+
+              <el-form-item
+                label="合同类型"
+                prop="contract_type"
+                style="width: 45%"
               >
-                <el-option
-                  v-for="(item, index) in userList"
-                  :key="index"
-                  :label="item.nickname"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
+                <el-select
+                  v-model="ruleForm.contract_type"
+                  placeholder="请选择合同类型"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                  clearable
+                >
+                  <el-option label="技术合同" value="技术合同"></el-option>
+                  <el-option label="委托合同" value="委托合同"></el-option>
+                </el-select>
+              </el-form-item>
 
-            <el-form-item
-              label="外包对接人"
-              prop="outsource"
-              style="width: 45%"
-              v-show="ruleForm.business_type == 1"
-            >
-              <el-input
-                v-model="ruleForm.outsource"
-                placeholder="请输入外包对接人"
-              ></el-input>
-            </el-form-item>
+              <el-form-item
+                label="合同编号"
+                prop="contract_number"
+                style="width: 45%"
+              >
+                <el-input
+                  v-model="ruleForm.contract_number"
+                  placeholder="请输入合同编号"
+                ></el-input>
+              </el-form-item>
 
-            <el-form-item
-              label="对接人电话"
-              prop="outsource_phone"
-              style="width: 45%"
-              v-show="ruleForm.business_type == 1"
-            >
-              <el-input
-                v-model="ruleForm.outsource_phone"
-                placeholder="请输入对接人电话"
-              ></el-input>
-            </el-form-item>
+              <el-form-item
+                label="项目咨询师"
+                prop="consultant_id"
+                style="width: 45%"
+              >
+                <el-select
+                  v-model="ruleForm.consultant_id"
+                  placeholder="请选择项目咨询师"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                >
+                  <el-option
+                    v-for="(item, index) in userList"
+                    :key="index"
+                    :label="item.nickname"
+                    :value="item.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
 
-            <el-form-item
-              prop="delivery_time"
-              label="交付时间"
-              style="width: 45%"
-            >
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="ruleForm.delivery_time"
-                style="width: 100%"
-                value-format="yyyy-MM-dd"
-              ></el-date-picker>
-            </el-form-item>
+              <el-form-item
+                prop="business_time"
+                label="委托时间"
+                style="width: 45%"
+                v-show="ruleForm.business_type == 1"
+              >
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="ruleForm.business_time"
+                  style="width: 100%"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>
 
-            <el-form-item
-              prop="deadline"
-              label="项目截止时间"
-              style="width: 45%"
-            >
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="ruleForm.deadline"
-                style="width: 100%"
-                value-format="yyyy-MM-dd"
-              ></el-date-picker>
-            </el-form-item>
+              <el-form-item
+                label="合作机构"
+                prop="partners"
+                style="width: 45%"
+                v-show="ruleForm.business_type == 1"
+              >
+                <el-input
+                  v-model="ruleForm.partners"
+                  placeholder="请输入合作机构"
+                ></el-input>
+              </el-form-item>
 
-            <el-form-item label="备注说明" prop="remark" style="width: 100%">
-              <el-input
-                v-model="ruleForm.remark"
-                placeholder="请输入备注"
-              ></el-input>
-            </el-form-item>
+              <el-form-item
+                label="委托业务"
+                prop="business"
+                style="width: 45%"
+                v-show="ruleForm.business_type == 1"
+              >
+                <el-input
+                  v-model="ruleForm.business"
+                  placeholder="请输入委托业务"
+                ></el-input>
+              </el-form-item>
+
+              <el-form-item
+                label="项目工程师"
+                prop="engineer"
+                style="width: 45%"
+              >
+                <el-select
+                  v-model="ruleForm.engineer"
+                  placeholder="请选择项目工程师"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                  clearable
+                >
+                  <el-option
+                    v-for="(item, index) in userList"
+                    :key="index"
+                    :label="item.nickname"
+                    :value="item.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item
+                label="资料专员"
+                prop="data_specialist"
+                style="width: 45%"
+              >
+                <el-select
+                  v-model="ruleForm.data_specialist"
+                  placeholder="请选择资料专员"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                  clearable
+                >
+                  <el-option
+                    v-for="(item, index) in userList"
+                    :key="index"
+                    :label="item.nickname"
+                    :value="item.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item
+                label="外包对接人"
+                prop="outsource"
+                style="width: 45%"
+                v-show="ruleForm.business_type == 1"
+              >
+                <el-input
+                  v-model="ruleForm.outsource"
+                  placeholder="请输入外包对接人"
+                ></el-input>
+              </el-form-item>
+
+              <el-form-item
+                label="对接人电话"
+                prop="outsource_phone"
+                style="width: 45%"
+                v-show="ruleForm.business_type == 1"
+              >
+                <el-input
+                  v-model="ruleForm.outsource_phone"
+                  placeholder="请输入对接人电话"
+                ></el-input>
+              </el-form-item>
+
+              <el-form-item
+                prop="delivery_time"
+                label="交付时间"
+                style="width: 45%"
+              >
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="ruleForm.delivery_time"
+                  style="width: 100%"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>
+
+              <el-form-item
+                prop="deadline"
+                label="项目截止时间"
+                style="width: 45%"
+              >
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="ruleForm.deadline"
+                  style="width: 100%"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>
+
+              <el-form-item label="备注说明" prop="remark" style="width: 100%">
+                <el-input
+                  v-model="ruleForm.remark"
+                  placeholder="请输入备注"
+                ></el-input>
+              </el-form-item>
+            </div>
+
+            <div v-if="step == 2">
+              <div style="width: 100%; font-size: 22px; margin-bottom: 20px">
+                负责人
+              </div>
+              <el-form-item :label="item.name" style="width: 45%" v-for="(item, index) in projectTypeList.filter(el => el.id == ruleForm.type).at(0)?.options" :key="index">
+                <el-select
+                  v-model="item.val"
+                  placeholder="请选择"
+                  style="width: 100%"
+                  :popper-append-to-body="false"
+                >
+                  <el-option :label="t.nickname" :value="t.id" v-for="(t, k) in personList" :key="k"></el-option>
+                </el-select>
+              </el-form-item>
+            </div>
+
+
             <el-form-item
               style="text-align: right; width: 100%; margin-top: 1.25rem"
+              v-if="isAdmin"
             >
               <el-button @click="resetForm('ruleForm')">取消</el-button>
               <el-button
@@ -563,90 +588,44 @@
                 >确认并推送</el-button
               >
             </el-form-item>
+
+            <el-form-item
+              style="text-align: right; width: 100%; margin-top: 1.25rem"
+              v-else
+            >
+              <el-button @click="step = 1" v-if="step == 2">上一步</el-button>
+              <el-button @click="resetForm('ruleForm')" v-if="step == 1">取消</el-button>
+              <el-button
+                class="addPush"
+                type="primary"
+                @click="nextStep"
+                v-if="ruleForm.business_type == 0 && step == 1"
+                >下一步</el-button
+              >
+              <el-button
+                class="addPush"
+                type="primary"
+                @click="submitForm('ruleForm')"
+                v-if="ruleForm.business_type == 1 || step == 2 || ruleForm.business_type == undefined"
+                >确认并推送</el-button
+              >
+            </el-form-item>
           </el-form>
         </el-dialog>
 
-        <el-dialog
+        <!-- <el-dialog
           title="项目建立"
           :visible.sync="dialogFormVisible1"
           class="dialog"
-        >
-          <el-form
+        > -->
+        <!-- <el-form
             :model="ruleForm"
             :rules="rules"
             ref="ruleForm"
             label-width="100px"
             class="demo-ruleForm"
           >
-            <div style="width: 100%; font-size: 22px; margin-bottom: 20px">
-              负责人
-            </div>
-            <el-form-item label="准备启动" prop="name" style="width: 45%">
-              <el-select
-                v-model="ruleForm.region"
-                placeholder="请选择"
-                style="width: 100%"
-                :popper-append-to-body="false"
-              >
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="项目筹备" prop="region" style="width: 45%">
-              <el-select
-                v-model="ruleForm.region"
-                placeholder="请选择"
-                style="width: 100%"
-                :popper-append-to-body="false"
-              >
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="申报进行中" prop="region" style="width: 45%">
-              <el-select
-                v-model="ruleForm.region"
-                placeholder="请选择"
-                style="width: 100%"
-                :popper-append-to-body="false"
-              >
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="完成提交" prop="region" style="width: 45%">
-              <el-select
-                v-model="ruleForm.region"
-                placeholder="请选择"
-                style="width: 100%"
-                :popper-append-to-body="false"
-              >
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="结果跟踪" prop="region" style="width: 45%">
-              <el-select
-                v-model="ruleForm.region"
-                placeholder="请选择"
-                style="width: 100%"
-                :popper-append-to-body="false"
-              >
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="项目完结" prop="region" style="width: 45%">
-              <el-select
-                v-model="ruleForm.region"
-                placeholder="请选择"
-                style="width: 100%"
-                :popper-append-to-body="false"
-              >
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
+            
             <el-form-item
               style="text-align: right; width: 100%; margin-top: 1.25rem"
             >
@@ -658,8 +637,8 @@
                 >确认并推送</el-button
               >
             </el-form-item>
-          </el-form>
-        </el-dialog>
+          </el-form> -->
+        <!-- </el-dialog> -->
       </div>
     </div>
   </div>
@@ -673,7 +652,10 @@ import {
   userList,
   getProjectTypeDetail,
   createProject,
+  getGroupStaff,
+  updateProject
 } from "@/api/projectApi";
+import { cloneDeep } from "lodash"
 export default {
   data() {
     return {
@@ -688,10 +670,12 @@ export default {
         signing_time: "",
         status: "",
       },
+      step: 1,
       tableData: [],
       authList: [],
       leadsList: [],
       userList: [],
+      personList: [],
       projectStatus: [
         { name: "待分配", color: "#ccc" },
         { name: "待接收", color: "#F4AB46" },
@@ -749,6 +733,7 @@ export default {
           trigger: "change",
         },
       },
+      isAdmin: localStorage.userinfo && JSON.parse(localStorage.userinfo)?.is_admin || 0
     };
   },
   methods: {
@@ -761,29 +746,11 @@ export default {
       this.getProjectList();
     },
     //点击跳转详情
-    handleClick(row, num) {
+    handleClick(row) {
       this.$router.push({
         path: "/detailPro",
         query: {
-          type: num,
-        },
-      });
-    },
-    //点击跳转详情
-    handleClick1(row, num) {
-      this.$router.push({
-        path: "/detailPro1",
-        query: {
-          type: num,
-        },
-      });
-    },
-    //点击跳转详情
-    handleClick2(row, num) {
-      this.$router.push({
-        path: "/detailPro2",
-        query: {
-          type: num,
+          id: row.id,
         },
       });
     },
@@ -798,12 +765,10 @@ export default {
     },
     addData(row, num) {
       this.dialogFormVisible = true;
-      // this.$router.push({
-      //   path: '/detailPro4',
-      //   query: {
-      // 	  type:num
-      //   }
-      // })
+      this.ruleForm = {}  
+      this.$nextTick(() => {
+        this.$refs["ruleForm"].resetFields();
+      })
     },
     //点击跳转隐藏数据也
     btnSearch() {
@@ -812,17 +777,46 @@ export default {
         query: {},
       });
     },
+    editRow(row){
+      this.dialogFormVisible = true;
+      this.ruleForm = cloneDeep(row);
+      console.log(row, "===row===")
+    },
     //新建提交保存按钮
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          //
-          let { code, data } = await createProject(this.ruleForm);
+
+          if(this.ruleForm.business_type == 0) {
+            let [curr] = this.projectTypeList.filter(el => el.id == this.ruleForm.type)
+            curr.options.forEach(el => {
+              if(!el.val) {
+                throw this.$message.error("请选择" + el.name)
+              }
+            })
+
+            this.ruleForm.options = curr.options.map(el => ({ user_id: el.val, name: el.name}))
+          } else {
+            this.ruleForm.options = []
+          }
+
+          let res = null
+          if(this.isAdmin == 1 && !this.ruleForm.id) {
+            res = await createProject(this.ruleForm);
+          } else {
+            res = await updateProject(this.ruleForm);
+          }
+
+          let { code, data } = res;
+          
+
           if (code == 1) {
             this.$message.success("创建成功");
             this.dialogFormVisible = false;
             this.getProjectList();
             this.resetForm("ruleForm");
+            this.ruleForm.options = []
+            this.step = 1
           }
         } else {
           console.log("error submit!!");
@@ -835,6 +829,13 @@ export default {
       this.dialogFormVisible = false;
       this.$refs[formName].resetFields();
     },
+    nextStep() {
+      if(['', undefined, null].includes(this.ruleForm.type)) {
+          return this.$message.error('请选择项目类型后在进行下一步操作')
+        } 
+        
+        this.step = 2
+    }, 
     async getProjectList() {
       let {
         code,
@@ -873,10 +874,21 @@ export default {
     async getProjectTypeDetail() {
       let { code, data } = await getProjectTypeDetail();
       if (code == 1) {
+        data && Array.isArray(data) && data.forEach(el => {
+          if(typeof el.options == 'string')
+            el.options = JSON.parse(el.options)
+        })
         this.projectTypeList = data;
         console.log(data, "===getProjectTypeDetail===");
       }
     },
+    async getGroupStaff() {
+      let { code, data } = await getGroupStaff();
+      if (code == 1) {
+        this.personList = data;
+        console.log(data, "====personList==")
+      }
+    },  
     getStatusObj(status) {
       return this.projectStatus[status];
     },
@@ -887,6 +899,7 @@ export default {
     this.getLeads();
     this.userLists();
     this.getProjectTypeDetail();
+    this.getGroupStaff()
   },
 };
 </script>
@@ -992,7 +1005,7 @@ export default {
   }
 }
 .dialog {
-  & /deep/ .el-form {
+  & /deep/ .el-form > div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

@@ -141,6 +141,7 @@
 </template>
 
 <script>
+	import { getProjectDetail } from "@/api/projectApi" 
 	export default {
 		data() {
 			return {
@@ -150,12 +151,6 @@
 				strokeWidth:15,
 				typeNum:''
 			};
-		},
-		computed: {
-
-		},
-		watch: {
-
 		},
 		methods: {
 			handleSizeChange(val) {
@@ -167,11 +162,17 @@
 			nextBtn(){
 				this.active ++ 
 			},
-			// dataFun(){
-			// 	return "项目进度"
-			// }
+			async getProjectDetail() {
+				let { code, data } = await getProjectDetail({
+					project: this.$route.query.id 
+				});
+				if(code == 1) {
+					console.log(data, "===daata===")
+				}
+			}
 		},
 		mounted() {
+			this.getProjectDetail();
 			this.typeNum = this.$route.query.type
 		},
 	}

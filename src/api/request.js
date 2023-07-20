@@ -41,4 +41,8 @@ export const $post = async (path, data = {}) => await service.post(path, data);
 export const $get = async (path, params) => await service.get(path, {params});
 
 
+export const $put = async (path, params) => await service.put(path, params);
+
+
+
 export default service
