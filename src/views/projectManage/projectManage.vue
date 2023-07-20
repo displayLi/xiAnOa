@@ -171,11 +171,23 @@
             >
           </div>
           <div>
-            <el-button class="addColor" @click="addData()" v-if="isAdmin">新建</el-button>
+            <el-button class="addColor" @click="addData()" v-if="isAdmin"
+              >新建</el-button
+            >
           </div>
         </div>
         <div>
-          <el-table :data="tableData" style="width: 100%">
+          <el-table
+            :data="tableData"
+            style="width: 100%"
+            :cell-style="
+              ({ row, column, rowIndex, columnIndex }) => {
+                if ([null, undefined, ''].includes(row[column.property])) {
+                  row[column.property] = '/';
+                }
+              }
+            "
+          >
             <el-table-column
               prop="customer_name"
               label="客户名称"
@@ -216,39 +228,66 @@
                 >
               </template>
             </el-table-column>
-            <el-table-column prop="address" label="操作" align="right">
+            <el-table-column
+              prop="address"
+              label="操作"
+              align="right"
+              min-width="180"
+            >
               <template slot-scope="scope">
-                <!-- v-if="scope.row.state == '1'" -->
                 <div>
+                  <!-- style="color: #abadb2" -->
                   <el-button
-                    style="color: #abadb2"
+                    :style="
+                      scope.row.status < 2
+                        ? 'color: #abadb2; cursor:not-allowed;'
+                        : 'color: #19318f'
+                    "
                     type="text"
-                    @click="handleClick(scope.row, 1)"
+                    @click="scope.row.status >= 2 && handleClick(scope.row)"
                     size="small"
                     >详情</el-button
                   >
-                  <!-- <el-button style="color: #ABADB2;" type="text" @click="handleClick1(scope.row,1)"
-										size="middle">详情1</el-button>
-									<el-button style="color: #ABADB2;" type="text" @click="handleClick2(scope.row,2)"
-										size="middle">详情2</el-button> -->
                   <el-button
+                    v-if="(isAdmin == 1 && scope.row.status == 0) || (isLeads == 1 && scope.row.status < 2)"
                     style="color: #df4b3c"
                     type="text"
                     size="small"
-                    @click="pushData(scope.row, 2)"
+                    @click="editRow(scope.row, 'push')"
                     >推送</el-button
                   >
-                  <el-button type="text" size="small">驳回</el-button>
-                  <el-button type="text" size="small" @click="editRow(scope.row)">接收</el-button>
-                  <el-button type="text" size="small">重新推送</el-button>
-                </div>
-                <div v-if="scope.row.state == '2'">
+                  <template v-if="scope.row.action && isLeads">
+                    <el-button
+                      type="text"
+                      size="small"
+                      style="color: #f2a944"
+                      @click="reCopy(scope.row)"
+                      >驳回</el-button
+                    >
+                    <el-button
+                      type="text"
+                      size="small"
+                      @click="editRow(scope.row, 'push')"
+                      style="color: #df4b3c"
+                      >接收</el-button
+                    >
+                  </template>
+                  
                   <el-button
-                    style="color: #18318c"
-                    @click="handleClick(scope.row, 2)"
                     type="text"
-                    size="middle"
-                    >详情</el-button
+                    size="small"
+                    style="color: #df4b3c"
+                    @click="editRow(scope.row, 'rePush')"
+                    v-if="isAdmin == 1 && scope.row.authorized_person == null"
+                    >重新推送</el-button
+                  >
+                  <el-button
+                   v-if="isLeads == 1 && scope.row.check_status == 0"
+                    type="text"
+                    size="small"
+                    style="color: #df4b3c"
+                    @click="approved(scope.row)"
+                    >确认审核</el-button
                   >
                 </div>
               </template>
@@ -271,6 +310,8 @@
           title="项目建立"
           :visible.sync="dialogFormVisible"
           class="dialog"
+          @close="resetForm('ruleForm')"
+          :close-on-click-modal="false"
         >
           <el-form
             :model="ruleForm"
@@ -563,22 +604,33 @@
               <div style="width: 100%; font-size: 22px; margin-bottom: 20px">
                 负责人
               </div>
-              <el-form-item :label="item.name" style="width: 45%" v-for="(item, index) in projectTypeList.filter(el => el.id == ruleForm.type).at(0)?.options" :key="index">
+              <el-form-item
+                :label="item.name"
+                style="width: 45%"
+                v-for="(item, index) in projectTypeList
+                  .filter((el) => el.id == ruleForm.type)
+                  .at(0)?.options"
+                :key="index"
+              >
                 <el-select
                   v-model="item.val"
                   placeholder="请选择"
                   style="width: 100%"
                   :popper-append-to-body="false"
                 >
-                  <el-option :label="t.nickname" :value="t.id" v-for="(t, k) in personList" :key="k"></el-option>
+                  <el-option
+                    :label="t.nickname"
+                    :value="t.id"
+                    v-for="(t, k) in personList"
+                    :key="k"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </div>
 
-
-            <el-form-item
-              style="text-align: right; width: 100%; margin-top: 1.25rem"
-              v-if="isAdmin"
+            <div
+              style="text-align: right; width: 100%; margin-top: 1.25rem; justify-content: flex-end;"
+              v-if="isAdmin == 1 && !ruleForm.id"
             >
               <el-button @click="resetForm('ruleForm')">取消</el-button>
               <el-button
@@ -587,14 +639,16 @@
                 @click="submitForm('ruleForm')"
                 >确认并推送</el-button
               >
-            </el-form-item>
+            </div>
 
-            <el-form-item
-              style="text-align: right; width: 100%; margin-top: 1.25rem"
+            <div
+              style="text-align: right; width: 100%; margin-top: 1.25rem; justify-content: flex-end;"
               v-else
             >
               <el-button @click="step = 1" v-if="step == 2">上一步</el-button>
-              <el-button @click="resetForm('ruleForm')" v-if="step == 1">取消</el-button>
+              <el-button @click="resetForm('ruleForm')" v-if="step == 1"
+                >取消</el-button
+              >
               <el-button
                 class="addPush"
                 type="primary"
@@ -606,39 +660,16 @@
                 class="addPush"
                 type="primary"
                 @click="submitForm('ruleForm')"
-                v-if="ruleForm.business_type == 1 || step == 2 || ruleForm.business_type == undefined"
+                v-if="
+                  ruleForm.business_type == 1 ||
+                  step == 2 ||
+                  ruleForm.business_type == undefined
+                "
                 >确认并推送</el-button
               >
-            </el-form-item>
+          </div>
           </el-form>
         </el-dialog>
-
-        <!-- <el-dialog
-          title="项目建立"
-          :visible.sync="dialogFormVisible1"
-          class="dialog"
-        > -->
-        <!-- <el-form
-            :model="ruleForm"
-            :rules="rules"
-            ref="ruleForm"
-            label-width="100px"
-            class="demo-ruleForm"
-          >
-            
-            <el-form-item
-              style="text-align: right; width: 100%; margin-top: 1.25rem"
-            >
-              <el-button @click="resetForm('ruleForm')">取消</el-button>
-              <el-button
-                class="addPush"
-                type="primary"
-                @click="submitForm('ruleForm')"
-                >确认并推送</el-button
-              >
-            </el-form-item>
-          </el-form> -->
-        <!-- </el-dialog> -->
       </div>
     </div>
   </div>
@@ -653,14 +684,15 @@ import {
   getProjectTypeDetail,
   createProject,
   getGroupStaff,
-  updateProject
+  updateProject,
+  approved,
+  rejectProject,
+  rePush
 } from "@/api/projectApi";
-import { cloneDeep } from "lodash"
+import { cloneDeep } from "lodash";
 export default {
   data() {
     return {
-      valueMouth: "",
-      inputSearch: "",
       img1: require("../../assets/icons/label.png"),
       img2: require("../../assets/icons/name.png"),
       queryVo: {
@@ -691,15 +723,7 @@ export default {
         limit: 10,
         total: 0,
       },
-      value1: "",
-      value2: "",
-      value3: "",
-      options1: [],
-      options2: [],
-      options3: [],
-      valDate: "",
       dialogFormVisible: false,
-      dialogFormVisible1: false,
       ruleForm: {},
       rules: {
         name: {
@@ -733,7 +757,13 @@ export default {
           trigger: "change",
         },
       },
-      isAdmin: localStorage.userinfo && JSON.parse(localStorage.userinfo)?.is_admin || 0
+      isAdmin:
+        (localStorage.userinfo &&
+          JSON.parse(localStorage.userinfo)?.is_admin) ||
+        0,
+      isLeads: (localStorage.userinfo &&
+        JSON.parse(localStorage.userinfo)?.is_admin) ||
+      0,
     };
   },
   methods: {
@@ -754,20 +784,11 @@ export default {
         },
       });
     },
-    pushData(row, num) {
-      this.dialogFormVisible1 = true;
-      // this.$router.push({
-      //   path: '/detailPro3',
-      //   query: {
-      // 	  type:num
-      //   }
-      // })
-    },
     addData(row, num) {
       this.dialogFormVisible = true;
-      this.ruleForm = {}  
+      this.ruleForm = {};
       this.$nextTick(() => {
-        this.$refs["ruleForm"].resetFields();
+        this.$refs['ruleForm'].clearValidate()
       })
     },
     //点击跳转隐藏数据也
@@ -777,46 +798,74 @@ export default {
         query: {},
       });
     },
-    editRow(row){
+    editRow(row, flag) {
       this.dialogFormVisible = true;
+      row.flag = flag;
+      let [ curr ] = this.projectTypeList.filter(el => el.id == row.type)
+      if(curr) {
+        row.options && row.options.forEach(el => {
+          curr && curr.options && curr.options.forEach(item => {
+            if(el.name == item.name) {
+                item.val = el.nickname
+            }
+          })
+        })
+      }
+     
       this.ruleForm = cloneDeep(row);
-      console.log(row, "===row===")
     },
     //新建提交保存按钮
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
 
-          if(this.ruleForm.business_type == 0) {
-            let [curr] = this.projectTypeList.filter(el => el.id == this.ruleForm.type)
-            curr.options.forEach(el => {
-              if(!el.val) {
-                throw this.$message.error("请选择" + el.name)
-              }
-            })
-
-            this.ruleForm.options = curr.options.map(el => ({ user_id: el.val, name: el.name}))
-          } else {
-            this.ruleForm.options = []
-          }
-
-          let res = null
-          if(this.isAdmin == 1 && !this.ruleForm.id) {
+          let res = null;
+          if (this.isAdmin == 1 && !this.ruleForm.id) {
             res = await createProject(this.ruleForm);
           } else {
-            res = await updateProject(this.ruleForm);
+
+            if (
+              this.ruleForm.business_type == 0 &&
+              this.ruleForm.id
+            ) {
+              let [curr] = this.projectTypeList.filter(
+                (el) => el.id == this.ruleForm.type
+              );
+              curr.options.forEach((el) => {
+                if (!el.val) {
+                  this.$message.error("请选择" + el.name);
+                  throw new Error(`请选择${el.name}输入框`);
+                }
+              });
+
+              this.ruleForm.options = curr.options.map((el) => ({
+                user_id: el.val,
+                name: el.name,
+              }));
+            } else {
+              this.ruleForm.options = []
+            }
+
+            if(this.ruleForm.flag == 'push') {
+              res = await updateProject(this.ruleForm);
+            } else if(this.ruleForm.flag == 'rePush') {
+              res = await rePush({
+                project_id: this.ruleForm.id,
+                user_id: localStorage.userinfo && JSON.parse(localStorage.userinfo)?.id
+              });
+            }
           }
 
           let { code, data } = res;
-          
 
           if (code == 1) {
-            this.$message.success("创建成功");
+            this.$message.success(!this.ruleForm.id ? "创建成功" : '操作成功');
             this.dialogFormVisible = false;
             this.getProjectList();
+            this.getProjectTypeDetail();
             this.resetForm("ruleForm");
-            this.ruleForm.options = []
-            this.step = 1
+            this.ruleForm.options = [];
+            this.step = 1;
           }
         } else {
           console.log("error submit!!");
@@ -825,72 +874,100 @@ export default {
       });
     },
     resetForm(formName) {
-      this.dialogFormVisible1 = false;
       this.dialogFormVisible = false;
       this.$refs[formName].resetFields();
+      this.getProjectTypeDetail();
+      this.step = 1;
     },
     nextStep() {
-      if(['', undefined, null].includes(this.ruleForm.type)) {
-          return this.$message.error('请选择项目类型后在进行下一步操作')
-        } 
-        
-        this.step = 2
-    }, 
+      if (["", undefined, null].includes(this.ruleForm.type)) {
+        return this.$message.error("请选择项目类型后在进行下一步操作");
+      }
+
+      this.step = 2;
+    },
     async getProjectList() {
-      let {
-        code,
-        data: { list, total },
-      } = await getProjectList({
+      let { code, data } = await getProjectList({
         ...this.queryVo,
         ...this.pageInfo,
       });
       if (code == 1) {
-        console.log(list, "===list===");
-        this.tableData = list;
-        this.pageInfo.total = total;
+        this.tableData = data.list || [];
+        this.pageInfo.total = data.total || 0;
       }
     },
     async getProjectType() {
       let { code, data } = await getProjectType();
       if (code == 1) {
         this.authList = data;
-        console.log(data, "===data===");
       }
     },
     async getLeads() {
       let { code, data } = await getLeads();
       if (code == 1) {
         this.leadsList = data;
-        console.log(data, "===leadsList===");
       }
     },
     async userLists() {
       let { code, data } = await userList();
       if (code == 1) {
         this.userList = data;
-        console.log(data, "===userList===");
       }
     },
     async getProjectTypeDetail() {
       let { code, data } = await getProjectTypeDetail();
       if (code == 1) {
-        data && Array.isArray(data) && data.forEach(el => {
-          if(typeof el.options == 'string')
-            el.options = JSON.parse(el.options)
-        })
+        data &&
+          Array.isArray(data) &&
+          data.forEach((el) => {
+            if (typeof el.options == "string")
+              el.options = JSON.parse(el.options);
+          });
         this.projectTypeList = data;
-        console.log(data, "===getProjectTypeDetail===");
       }
     },
     async getGroupStaff() {
       let { code, data } = await getGroupStaff();
       if (code == 1) {
         this.personList = data;
-        console.log(data, "====personList==")
       }
-    },  
+    },
     getStatusObj(status) {
       return this.projectStatus[status];
+    },
+    approved(row) {
+      this.$confirm("确认审核通过吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(async () => {
+          let { code, data } = await approved({
+            project_id: row.id,
+          });
+          if (code == 1) {
+            this.$message.success("审核成功");
+            this.getProjectList();
+          }
+        })
+        .catch(() => {});
+    },
+    reCopy(row) {
+      this.$confirm("确认驳回吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(async () => {
+          let { code, data } = await rejectProject({
+            project_id: row.id,
+          });
+          if (code == 1) {
+            this.$message.success("驳回成功");
+            this.getProjectList();
+          }
+        })
+        .catch(() => {});
     },
   },
   mounted() {
@@ -899,7 +976,7 @@ export default {
     this.getLeads();
     this.userLists();
     this.getProjectTypeDetail();
-    this.getGroupStaff()
+    this.getGroupStaff();
   },
 };
 </script>

@@ -9,50 +9,33 @@
 					<span style="color: #18318C;">项目状态</span>
 				</div>
 				<div class="btn_box">
-					<div class="errorBtn"><i class="el-icon-warning-outline"></i>项目异常</div>
-					<!-- <el-button type="danger" plain icon="el-icon-warning-outline">项目异常</el-button> -->
-					<div class="nextBtn" @click="nextBtn">下一步</div>
+					<div class="errorBtn" @click="nextBtn('error')"><i class="el-icon-warning-outline"></i>项目异常</div>
+					<div class="nextBtn" @click="nextBtn('warning')">下一步</div>
 				</div>	
 			</div>
 			<div class="table_wrap">
 				<!-- 此处判断步骤条状态 -->
-				<el-steps :active="active" finish-status="success" >
-				  <el-step>
+				<el-steps :active="active + 1">
+				  <el-step 
+					v-for="(item, index) in progressObj.all" 
+					:key="index" 
+					:status="
+						progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 0 ? 
+							'wait' :  // 黄色
+						progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 1 ? 
+							'success' : // 绿色
+						progressObj.now && progressObj.now[index] &&progressObj.now[index].check_status == 2 ? 
+							'error' :  // 红色
+						'process'"  
+					>
 					  <template slot="description">
-						  <div class="name">负责人：薛之谦</div>
-						  <div class="nameState">项目启动</div>
-						  <div class="nameDate">2023-7-1</div>
-					  </template>
-				  </el-step>
-				  <el-step title="">
-					<template slot="description">
-					  <div class="name">负责人：薛之谦</div>
-					  <div class="nameState">项目筹备</div>
-					  <div class="nameDate">2023-7-1</div>
-					</template>
-				  </el-step>
-				  <el-step title="" icon="el-icon-more">
-					  <template slot="description">
-					    <div class="name">负责人：薛之谦</div>
-					    <div class="nameState">申报进行中</div>
-					  </template>
-				  </el-step>
-				  <el-step title="" icon="el-icon-lock">
-					  <template slot="description">
-					    <div class="name">负责人：薛之谦</div>
-					    <div class="nameState">完成提交</div>
-					  </template>
-				  </el-step>
-				  <el-step title="" icon="el-icon-lock">
-					  <template slot="description">
-					    <div class="name">负责人：薛之谦</div>
-					    <div class="nameState">结果跟踪</div>
-					  </template>
-				  </el-step>
-				  <el-step title="" icon="el-icon-lock">
-					  <template slot="description">
-					    <div class="name">负责人：薛之谦</div>
-					    <div class="nameState">项目完结</div>
+						<!-- 
+							2023年7月20日16:25:37
+							看不懂没关系，可以慢慢看。主打的一个骚操作
+						 -->
+						  <div class="name" :style="{color: progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 0 ? '#F2A944' : progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 1 ? '#2DB52A' : progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 2 ? '#DD4C3D' : '#19318F' }">负责人：{{ item.nickname }}</div>
+						  <div class="nameState" :style="{color: progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 0 ? '#F2A944' : progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 1 ? '#2DB52A' : progressObj.now && progressObj.now[index] && progressObj.now[index].check_status == 2 ? '#DD4C3D' : '#19318F' }">{{ item.name }}</div>
+						  <div class="nameDate" v-if="progressObj.now">{{ progressObj.now[index]?.create_at }}</div>
 					  </template>
 				  </el-step>
 				</el-steps>
@@ -65,65 +48,66 @@
 						<el-image style="width: 100%;height: 100%;" :src="img1"></el-image>
 					</span>
 					<span style="color: #18318C;">项目信息</span>
-					<span class="box_name" v-if="typeNum=='1'">自有业务</span>
-					<span class="box_name" v-if="typeNum=='2'">外包业务</span>
+					<span class="box_name" v-if="projectDetail.business_type == 0">自有业务</span>
+					<span class="box_name" v-if="projectDetail.business_type == 1">外包业务</span>
 				</div>
 				<div class="content_bottom">
 					<div class="top_content">
 						<div class="content_left">
-							<div class="odd">客户名称：独角兽创业孵化器</div>
-							<div class="even">项目咨询师：刘科</div>
-							<div class="odd">合同类型：合同类型</div>
-							<div class="even">项目授权人：卓天赋</div>
-							<div class="odd" v-if="typeNum=='1'">项目工程师：卓天赋</div>
-							<div class="odd" v-if="typeNum=='2'">合作机构：消息海科技</div>
-							<div class="even" v-if="typeNum=='2'">外包对接人：薛之谦</div>
-							<div class="odd" v-if="typeNum=='2'">启动时间：2023-02-02</div>
-							<div class="even" v-if="typeNum=='1'">启动时间：2023-02-02</div>
+							<div class="odd">客户名称：{{ projectDetail.customer_name || '/' }}</div>
+							<div class="even">项目咨询师：{{ projectDetail.consultant_name || '/' }}</div>
+							<div class="odd">合同类型：{{ projectDetail.contract_type || '/' }}</div>
+							<div class="even">项目授权人：{{ projectDetail.authorized_name || '/' }}</div>
+							<div class="odd" v-if="projectDetail.business_type == 0">项目工程师：{{ projectDetail.engineer_name || '/' }}</div>
+							<div class="odd" v-if="projectDetail.business_type == 1">合作机构：{{ projectDetail.partners || '/' }}</div>
+							<div class="even" v-if="projectDetail.business_type == 1">外包对接人：{{ projectDetail.outsource || '/' }}</div>
+							<div class="odd" v-if="projectDetail.business_type == 1">启动时间：{{ progressObj.now && progressObj.now[0]?.create_at || '/' }}</div>
+							<div class="even" v-if="projectDetail.business_type == 0">启动时间：{{ progressObj.now && progressObj.now[0]?.create_at || '/' }}</div>
 						</div>
 						<div class="content_right">
-							<div class="odd">项目名称：高新技术企业认定</div>
-							<div class="even">签约时间：2023-01-01</div>
-							<div class="odd">合同编号：01</div>
-							<div class="even" v-if="typeNum=='1'">分配时间：2023-04-01</div>
-							<div class="odd" v-if="typeNum=='1'">资料专员：2023-04-01</div>
-							<div class="even" v-if="typeNum=='2'">委托时间：2023-04-01</div>
-							<div class="odd" v-if="typeNum=='2'">委托业务：高新技术企业认定</div>
-							<div class="even" v-if="typeNum=='2'">对接人电话：1999999999</div>
-							<div class="even" v-if="typeNum=='1'">交付时间：2023-08-08</div>
-							<div class="odd" v-if="typeNum=='2'">交付时间：2023-08-08</div>
+							<div class="odd">项目名称：{{ projectDetail.name || '/' }}</div>
+							<div class="even">签约时间：{{ projectDetail.signing_time || '/' }}</div>
+							<div class="odd">合同编号：{{ projectDetail.contract_number || '/' }}</div>
+							<div class="even" v-if="projectDetail.business_type == 0">分配时间：{{ projectDetail.allocation_time || '/' }}</div>
+							<div class="odd" v-if="projectDetail.business_type == 0">资料专员：{{ projectDetail.specialist_name || '/' }}</div>
+							<div class="even" v-if="projectDetail.business_type == 1">委托时间：{{ projectDetail.business_time || '/' }}</div>
+							<div class="odd" v-if="projectDetail.business_type == 1">委托业务：{{ projectDetail.business || '/' }}</div>
+							<div class="even" v-if="projectDetail.business_type == 1">对接人电话：{{ projectDetail.outsource_phone || '/' }}</div>
+							<div class="even" v-if="projectDetail.business_type == 0">交付时间：{{ projectDetail.delivery_time || '/' }}</div>
+							<div class="odd" v-if="projectDetail.business_type == 1">交付时间：{{ projectDetail.delivery_time || '/' }}</div>
 						</div>
 					</div>
-					<div class="odd" v-if="typeNum=='1'">备注说明：</div>
-					<div class="even" v-if="typeNum=='2'">备注说明：</div>
+					<div class="odd" v-if="projectDetail.business_type == 0">备注说明：{{ projectDetail.remark || '/' }}</div>
+					<div class="even" v-if="projectDetail.business_type == 1">备注说明：{{ projectDetail.remark || '/' }}</div>
 				</div>
 			</div>
 			<div class="con_right">
 				<div class="right_title"><span class="leftColor"></span>本项工作截止时间<span class="rightColor"></span></div>
 				<div class="right_time">
 					<div class="time_box">
-						<div class="num">05</div>
+						<div class="num">{{ date.day }}</div>
 						<div class="xian"></div>
 						<div class="name">天</div>
 					</div>
 					<div class="time_box">
-						<div class="num">08</div>
+						<div class="num">{{ date.hours }}</div>
 						<div class="xian"></div>
 						<div class="name">时</div>
 					</div>
 					<div class="time_box">
-						<div class="num">42</div>
+						<div class="num">{{ date.minutes }}</div>
 						<div class="xian"></div>
 						<div class="name">分</div>
 					</div>
 					<div class="time_box">
-						<div class="num">26</div>
+						<div class="num">{{ date.seconds }}</div>
 						<div class="xian"></div>
 						<div class="name">秒</div>
 					</div>
 				</div>
+
 				<div class="progress">
-					<el-progress type="circle" color="#18318C" width="180" :strokeWidth='strokeWidth' :percentage="percentage"></el-progress>
+					<el-progress type="circle" color="#18318C" :width="180" :strokeWidth='strokeWidth' :percentage="Number(progressObj.percentage ?? 0)"></el-progress>
 					<div class="progressTip">项目进度</div>
 				</div>
 				<div class="last_con">
@@ -131,8 +115,8 @@
 						<el-image :src='img1' style="width: 100%;height: 100%;"></el-image>
 					</div>
 					<div class="last_right">
-						<div>负责人：卓天赋</div>
-						<div style="color: #18318C;">截止时间：2023-05-08</div>
+						<div>负责人：{{ projectDetail.authorized_name || '/' }}</div>
+						<div style="color: #18318C; font-size: 14px">截止时间：{{ projectDetail.deadline || '/' }}</div>
 					</div>
 				</div>
 			</div>
@@ -141,15 +125,23 @@
 </template>
 
 <script>
-	import { getProjectDetail } from "@/api/projectApi" 
+	import { getProjectDetail, nextStep, getProgress, abnormalProject } from "@/api/projectApi" 
 	export default {
 		data() {
 			return {
 				img1: require("../../assets/images/detailImg1.png"),
-				active:2,
+				active: 0,
 				percentage:33,
 				strokeWidth:15,
-				typeNum:''
+				projectDetail: {},
+				progressObj: {},
+				date: {
+					day: 0,
+					hours: 0,
+					minutes: 0,
+					seconds: 0
+				},
+				timer: null
 			};
 		},
 		methods: {
@@ -159,22 +151,93 @@
 			handleCurrentChange(val) {
 				console.log(`当前页: ${val}`);
 			},
-			nextBtn(){
-				this.active ++ 
+			nextBtn(type){
+				this.$confirm(type == 'warning' ? '确定进行下一步操作吗?' : '确定执行异常操作吗?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type
+				}).then(async () => {
+					let params = {
+						project_id: this.$route.query.id,
+						status: this.progressObj.all[this.active].name || ''
+					}
+					let res;
+					if(type == 'warning') {
+						res = await nextStep(params);
+					} else {
+						res = await abnormalProject(params);
+					}
+
+					let { code, data } = res;
+
+					if(code == 1) {
+						console.log(data, "===abnormalProject===")
+						this.getProgress();
+					}
+
+					// this.active ++ 
+					
+				}).catch(err => {})
 			},
 			async getProjectDetail() {
 				let { code, data } = await getProjectDetail({
-					project: this.$route.query.id 
+					project_id: this.$route.query.id 
 				});
 				if(code == 1) {
-					console.log(data, "===daata===")
+					this.projectDetail = data;
+					console.log(data, "===projectDetail===", this.projectDetail.deadline)
+
+					if(this.projectDetail.deadline) {
+						let endDate = new Date(this.projectDetail.deadline).getTime();
+						let timeResult;
+						let t = () => {
+							timeResult = (endDate - Date.now()) / 1000; // 毫秒
+							let day = parseInt(timeResult / 86400);
+							let hours = parseInt(timeResult / 3600 % 24);
+							let minutes = parseInt((timeResult / 60) % 60);
+							let seconds = parseInt(timeResult % 60);
+
+							const formatZore = (num) => num < 10 && num >= 0 ? `0${num}` : num < 0 ? `00` : num
+								
+							this.date = {
+								day: formatZore(day) ,
+								hours:formatZore(hours) ,
+								minutes: formatZore(minutes) ,
+								seconds: formatZore(seconds) 
+							}
+							return t;
+						}
+						this.timer = setInterval(t(), 1000)
+					}
+				}
+			},
+			async getProgress() {
+				let { code, data } = await getProgress({
+					project_id: this.$route.query.id 
+				});
+				if(code == 1) {
+					if(data.now && Array.isArray(data.now) && data.all) {
+						data.now.forEach((el, index) => {
+							data.all.forEach(item => {
+								if(el.status == item.name) {
+									this.active = index;
+								}
+							})
+						})
+					}
+					this.progressObj = data;
+					console.log(data, "===progressList===", this.active)
 				}
 			}
 		},
 		mounted() {
 			this.getProjectDetail();
-			this.typeNum = this.$route.query.type
+			this.getProgress();
 		},
+		destroyed() {
+			clearInterval(this.timer);
+			this.timer = null
+		}
 	}
 </script>
 
@@ -210,6 +273,7 @@
 		// 	margin-right: 6px;
 		// }
 		.btn_box{
+			cursor: pointer;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
@@ -412,5 +476,9 @@
 			}
 		}
 		
+	}
+	/deep/ .is-wait {
+		color: #F1AC44;
+		border-color: #F1AC44;
 	}
 </style>

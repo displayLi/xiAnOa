@@ -17,3 +17,16 @@ export const getGroupStaff = params => $get('/index/getGroupStaff', params)
 export const updateProject = data => $put('/project/updateProject', data)
 
 export const getProjectDetail = params => $get('/project/getProjectDetail', params)
+
+export const nextStep = data => $post('/project/nextStep', data)
+
+export const getProgress = params => $get('/project/getProgress', params)
+
+export const abnormalProject = data => $put('/project/abnormalProject', data)
+
+export const approved = data => $put('/project/approved', data)
+
+export const rejectProject = data => $put('/project/rejectProject', data)
+
+export const rePush = data => $put('/project/rePush', data)
+

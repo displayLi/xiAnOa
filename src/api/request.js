@@ -23,6 +23,12 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use((response) => {
     //只返回config内的data的数据，其他的不展示
     const res = response.data
+
+    if(res.code != 1) {
+        Message.error(res.msg)
+        return {}
+    }
+
     return res
 }, (error) => {
     //如果请求出错会有弹框提示
