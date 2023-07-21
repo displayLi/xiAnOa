@@ -756,15 +756,16 @@ export default {
           message: "请选择签约时间",
           trigger: "change",
         },
-      },
-      isAdmin:
-        (localStorage.userinfo &&
-          JSON.parse(localStorage.userinfo)?.is_admin) ||
-        0,
-      isLeads: (localStorage.userinfo &&
-        JSON.parse(localStorage.userinfo)?.is_admin) ||
-      0,
+      }
     };
+  },
+  computed: {
+    isAdmin() {
+      return (localStorage.userinfo && JSON.parse(localStorage.userinfo)?.is_admin) || 0
+    },
+    isLeads() {
+      return (localStorage.userinfo && JSON.parse(localStorage.userinfo)?.is_leads) || 0
+    }
   },
   methods: {
     handleSizeChange(val) {
