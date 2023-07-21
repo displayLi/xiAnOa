@@ -249,7 +249,7 @@
                     >详情</el-button
                   >
                   <el-button
-                    v-if="(isAdmin == 1 && scope.row.status == 0) || (isLeads == 1 && scope.row.status < 2)"
+                    v-if="isLeads == 1 && scope.row.status == 0"
                     style="color: #df4b3c"
                     type="text"
                     size="small"
