@@ -256,7 +256,7 @@
                     @click="editRow(scope.row, 'push')"
                     >推送</el-button
                   >
-                  <template v-if="scope.row.action && isLeads">
+                  <template v-if="scope.row.action && isLeads == 1">
                     <el-button
                       type="text"
                       size="small"
