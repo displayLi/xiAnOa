@@ -66,8 +66,8 @@ export default {
       menuList:[
         {
           icon:'main-1',
-          path:'/projectManage',
           icon_hover:'main-9',
+          path:'/projectManage',
           name:'项目管理系统',
           en_name:'Project Management System'
         },
@@ -143,9 +143,9 @@ export default {
         this.$message.warning('暂未开通~')
       }else if (!this.token){
         this.$message.warning('请先登录~')
-        setTimeout(()=>{this.goRegister()},1000)
+        setTimeout(this.goRegister ,500)
       }else {
-        this.$router.push({path:path})
+        this.$router.push(path)
       }
     }
   },

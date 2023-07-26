@@ -226,7 +226,7 @@ export default {
           font-size: 1.125rem;
           font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular";
           color: #313848;
-          line-height: 120px;
+          // line-height: 120px;
         }
       }
     }
@@ -242,8 +242,8 @@ export default {
   .breadCrumb {
     width: 100%;
     background-color: #ffffff;
-    height: auto;
-    min-height: 3.75rem;
+    height: 60px;
+    // min-height: 60px;
     z-index: 99;
     opacity: 1;
     display: flex;
@@ -255,8 +255,9 @@ export default {
     padding-left: 1.875rem;
 
     .top {
-      margin-top: 0.9375rem;
-      margin-bottom: 1.25rem;
+      // margin-top: 0.9375rem;
+      // margin-bottom: 1.25rem;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: flex-start;

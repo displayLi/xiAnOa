@@ -98,11 +98,13 @@ export default {
   height: 70px;
 }
 .el-aside{
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
   //height: calc(100vh - 10px);// 设置左侧 aside 高度
 }
 .el-main {
   padding: 0;
-  height: calc(100vh - 70px);// 设置主体 main 高度
+  height: calc(100vh - 120px);// 设置主体 main 高度
+  overflow-y: auto;
 }
 </style>

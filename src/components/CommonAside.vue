@@ -1,35 +1,61 @@
 <template>
-  <el-menu :default-active="$route.name" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-           :collapse="isCollapse" background-color="#112466" text-color="#fff" active-text-color="#ffd04b">
+  <el-menu
+    :default-active="$route.name"
+    class="el-menu-vertical-demo"
+    @open="handleOpen"
+    @close="handleClose"
+    :collapse="isCollapse"
+    background-color="#112466"
+    text-color="#fff"
+    active-text-color="#ffd04b"
+  >
     <!-- 要放到导航栏里面 -->
     <div class="noCollapse" v-if="!isCollapse">
-      <img src="../assets/icons/logo1.png" alt="">
+      <img src="../assets/icons/logo1.png" alt="" />
       <h3 v-if="!isCollapse">THE ROCK 系统</h3>
     </div>
     <div class="Collapse" v-else>
-      <img src="../assets/icons/logo1.png" alt="">
+      <img src="../assets/icons/logo1.png" alt="" />
     </div>
     <p class="line-div"></p>
     <!-- 观察数据,我们发现name是唯一标识 -->
     <!-- 查看文档,index是唯一标识 -->
-    <el-menu-item @click="clickItem(item)" v-for="item in noChildren" :key="item.name" :index="item.name"
-                  :style="isCollapse?'width:73.5%':'width:92.8%'">
+    <el-menu-item
+      @click="clickItem(item)"
+      v-for="item in noChildren"
+      :key="item.name"
+      :index="item.name"
+      style="margin: 10px"
+    >
       <!-- 这里是字体图标,用模板字符串拼接,注意要动态绑定 -->
-      <img :src="require(`../assets/icons/${item.icon}`)" alt=""/>
+      <img :src="require(`../assets/icons/${item.icon}`)" alt="" />
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
-    <el-submenu v-for="item in hasChildren" :key="item.label" :index="item.label" style="color: #ffffff">
+    
+    <el-submenu
+      v-for="item in hasChildren"
+      :key="item.label"
+      :index="item.label"
+      style="color: #fff"
+    >
       <template slot="title">
-        <!--        <i :class="`el-icon-${item.icon}`"></i>-->
-        <img :src="require(`../assets/icons/${item.icon}`)" alt=""/>
+        <!-- <i :class="`el-icon-${item.icon}`"></i> -->
+        <img :src="require(`../assets/icons/${item.icon}`)" alt="" />
         <span slot="title">{{ item.label }}</span>
       </template>
-      <el-menu-item-group v-for="subItem in item.children" :key="subItem.name">
-        <el-menu-item @click="clickItem(subItem)" :index="subItem.name" style="color: #ffffff">{{
-            subItem.label
-          }}
-        </el-menu-item>
-      </el-menu-item-group>
+      
+      <!-- <el-menu-item-group v-for="subItem in item.children" :key="subItem.name">
+        为什么要用分组？我看设计稿也没有分组啊
+      </el-menu-item-group> -->
+
+      <el-menu-item
+        v-for="subItem in item.children" :key="subItem.name"
+        @click="clickItem(subItem)"
+        :index="subItem.name"
+        style="color: #ffffff"
+        >
+        <span slot="title">{{ subItem.label }}</span>
+      </el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
@@ -40,17 +66,17 @@
   min-height: 400px;
 }
 
-.el-menu .el-menu-item-group .el-menu-item .is-active {
+.el-menu .el-menu-item-group .el-menu-item.is-active {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1ECDBE !important;
+  background-color: #1ecdbe !important;
   color: #ffffff;
   border-radius: 10px;
   height: 48px;
 }
 
-.el-menu{
+.el-menu {
   height: 100vh;
 }
 .el-menu-vertical-demo .el-menu--collapse .el-menu {
@@ -69,13 +95,13 @@
     padding: 0px 17px;
   }
 
-  .el-menu-item .is-active {
-    width: 73.5% !important;
-    margin: 10px auto;
+  .el-menu-item.is-active {
+    // width: 73.5% !important;
+    // margin: 10px auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1ECDBE !important;
+    background-color: #1ecdbe !important;
     color: #ffffff;
     border-radius: 10px;
     height: 54px;
@@ -96,20 +122,20 @@
     min-width: 160px !important;
     border: none;
     height: auto;
-    padding: 5px 0;
+    padding: 10px;
     border-radius: 10px !important;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   }
 
   /deep/ .el-menu-item-group {
     .el-menu-item.is-active {
-      width: 73.5% !important;
+      // width: 73.5% !important;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       border-radius: 10px;
-      height: 48px;
+      // height: 48px;
     }
   }
   /deep/ .el-menu .el-menu-item-group .el-menu-item.is-active[data-v-a28ad4e6] {
@@ -123,13 +149,11 @@
   }
 }
 
-
 //.el-menu-item:hover{
 //  background-color: #1ECDBE!important;
 //  color: #ffffff !important;
 //}
 /*菜单下拉框样式结束*/
-
 
 .el-menu {
   width: 80px;
@@ -177,8 +201,8 @@
   }
 
   .el-menu-item {
-    width: 92.8%;
-    margin: 10px auto;
+    // width: 92.8%;
+    // margin: 10px auto;
     border-radius: 10px;
     height: 54px;
     line-height: 54px;
@@ -198,10 +222,20 @@
       height: 20px;
       margin-right: 10px;
     }
+    /deep/ .el-menu--inline{
+      padding: 0 10px;
+      box-sizing: border-box;
+      .el-menu-item{
+        width: 100%;
+        margin: 10px 0;
+        min-width: initial;
+      }
+    }
   }
+  
 
   /deep/ .el-submenu__title {
-    padding-left: 27px !important;
+    padding-left: 30px !important;
   }
 
   .el-menu-item-group {
@@ -209,7 +243,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #1ECDBE !important;
+      background-color: #1ecdbe !important;
       color: #ffffff;
       border-radius: 10px;
       height: 48px;
@@ -238,11 +272,11 @@
   .el-menu-item.is-active {
     display: flex;
     align-items: center;
-    background-color: #1ECDBE !important;
+    background-color: #1ecdbe !important;
     color: #ffffff;
     border-radius: 10px;
-    width: 92.8%;
-    margin: 10px auto;
+    // width: 92.8%;
+    // margin: 10px auto;
     height: 54px;
     line-height: 54px;
 
@@ -253,8 +287,13 @@
 }
 </style>
 
-<script>
+<style>
+  .el-menu--popup {
+    padding: 10px;
+  }
+</style>
 
+<script>
 export default {
   data() {
     return {
@@ -267,53 +306,53 @@ export default {
         //   url: 'main.vue'
         // },
         {
-          path: '/projectManage',
-          name: 'projectManage',
-          label: '项目管理系统',
-          icon: 'nav1.png',
-          url: 'projectManage.vue'
+          path: "/projectManage",
+          name: "projectManage",
+          label: "项目管理系统",
+          icon: "nav1.png",
+          url: "projectManage.vue",
         },
 
         {
-          label: '业务支持系统',
-          icon: 'nav2.png',
+          label: "业务支持系统",
+          icon: "nav2.png",
           children: [
             {
-              path: '/businesSsupport',
-              name: 'businesSsupport',
-              label: '客户档案',
-              url: 'index.vue'
+              path: "/businesSsupport",
+              name: "businesSsupport",
+              label: "客户档案",
+              url: "index.vue",
             },
-          ]
+          ],
         },
         {
-          path: '/peopleMgt',
-          name: 'peopleMgt',
-          icon: 'nav3.png',
-          url: 'peopleMgt.vue',
-          label: '人力资源管理'
+          path: "/peopleMgt",
+          name: "peopleMgt",
+          icon: "nav3.png",
+          url: "peopleMgt.vue",
+          label: "人力资源管理",
         },
         {
-          label: '合同管理',
-          icon: 'nav4.png',
+          label: "合同管理",
+          icon: "nav4.png",
           children: [
             {
-              path: '/contractManage',
-              name: 'contractManage',
-              label: '合同列表',
-              icon: 'setting',
-              url: 'index.vue'
+              path: "/contractManage",
+              name: "contractManage",
+              label: "合同列表",
+              icon: "setting",
+              url: "index.vue",
             },
             {
-              path: '/application',
-              name: 'application',
-              label: '合同申领',
-              icon: 'setting',
-              url: 'application.vue'
-            }
-          ]
+              path: "/application",
+              name: "application",
+              label: "合同申领",
+              icon: "setting",
+              url: "application.vue",
+            },
+          ],
         },
-      ]
+      ],
     };
   },
   methods: {
@@ -325,30 +364,33 @@ export default {
     },
     clickItem(item) {
       // 防止自己跳自己的报错
-      if (this.$route.path !== item.path && !(this.$route.path === '/HomeView' && (item.path === '/'))) {
-        this.$router.push(item.path)
+      if (
+        this.$route.path !== item.path &&
+        !(this.$route.path === "/HomeView" && item.path === "/")
+      ) {
+        this.$router.push(item.path);
       }
       // 面包屑
-      this.$store.commit('SelectMenu', item)
-    }
+      this.$store.commit("SelectMenu", item);
+    },
   },
   computed: {
     noChildren() {
       // 如果没有children则返回true,会被过滤器留下
-      console.log("this.MenuData", this.MenuData)
-      return this.MenuData.filter(item => !item.children)
+      console.log("this.MenuData", this.MenuData);
+      return this.MenuData.filter((item) => !item.children);
     },
     hasChildren() {
-      return this.MenuData.filter(item => item.children)
+      return this.MenuData.filter((item) => item.children);
     },
     // 要放到计算属性,自动计算
     isCollapse() {
-      return this.$store.state.tab.isCollapse
+      return this.$store.state.tab.isCollapse;
     },
     // 获取菜单
     // MenuData() {
     //     return JSON.parse(cookie.get('menu')) || this.$store.state.tab.menu
     // }
-  }
-}
+  },
+};
 </script>

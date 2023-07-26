@@ -73,7 +73,9 @@
           height: 140px;
           display: flex;
           text-align: center;
-          justify-content: center;
+          justify-content: flex-start;
+          padding-left: 35px;
+          box-sizing: border-box;
           align-items: center;
           border-radius: 10px;
           margin: 0 30px 30px 15px;
@@ -241,7 +243,9 @@
           height: 140px;
           display: flex;
           text-align: center;
-          justify-content: center;
+          justify-content: flex-start;
+          padding-left: 35px;
+          box-sizing: border-box;
           align-items: center;
           border-radius: 10px;
           margin: 0 30px 30px 15px;
