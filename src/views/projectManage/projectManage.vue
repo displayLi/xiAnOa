@@ -3,17 +3,17 @@
     <div class="con_top">
       <div class="con_top_box">
         <div class="con_search">
-          <div style="padding: 1rem">
+          <div>
             <el-input
-              placeholder="客户名称查询"
-              v-model="queryVo.customer_name"
-              class="input-with-select"
-              clearable
+                placeholder="客户名称查询"
+                v-model="queryVo.customer_name"
+                class="input-with-select"
+                clearable
             >
               <el-button
-                slot="append"
-                icon="el-icon-search"
-                @click="getProjectList"
+                  slot="append"
+                  icon="el-icon-search"
+                  @click="getProjectList"
               ></el-button>
             </el-input>
           </div>
@@ -22,21 +22,21 @@
 					</div> -->
         </div>
         <div class="top_name">
-          <div style="margin-right: 1rem">
+          <div style="margin-right: 1rem; display: flex; align-items: center;">
             <span class="labelImg1">
               <el-image
-                style="width: 100%; height: 100%"
-                :src="img1"
+                  style="width: 100%; height: 100%"
+                  :src="img1"
               ></el-image>
             </span>
             <span style="color: #18318c">所属部门：</span>
             <span>项目咨询部-A组</span>
           </div>
-          <div>
+          <div style="display: flex; align-items: center;">
             <span class="labelImg1 labelImg2">
               <el-image
-                style="width: 100%; height: 100%"
-                :src="img2"
+                  style="width: 100%; height: 100%"
+                  :src="img2"
               ></el-image>
             </span>
             <span style="color: #18318c">姓名：</span>
@@ -115,72 +115,72 @@
         <div class="selec_box">
           <div style="width: 95%">
             <el-select
-              class="select"
-              v-model="queryVo.consultant_id"
-              placeholder="项目咨询师"
-              clearable
+                class="select"
+                v-model="queryVo.consultant_id"
+                placeholder="项目咨询师"
+                clearable
             >
               <el-option
-                v-for="item in userList"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
+                  v-for="item in userList"
+                  :key="item.id"
+                  :label="item.nickname"
+                  :value="item.id"
               >
               </el-option>
             </el-select>
             <el-select
-              class="select"
-              v-model="queryVo.authorized_person"
-              placeholder="项目负责人"
-              clearable
+                class="select"
+                v-model="queryVo.authorized_person"
+                placeholder="项目负责人"
+                clearable
             >
               <el-option
-                v-for="item in leadsList"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
+                  v-for="item in leadsList"
+                  :key="item.id"
+                  :label="item.nickname"
+                  :value="item.id"
               >
               </el-option>
             </el-select>
             <el-select
-              class="select"
-              v-model="queryVo.status"
-              placeholder="项目状态"
-              clearable
+                class="select"
+                v-model="queryVo.status"
+                placeholder="项目状态"
+                clearable
             >
               <el-option
-                v-for="(item, index) in projectStatus"
-                :key="index"
-                :label="item.name"
-                :value="index"
+                  v-for="(item, index) in projectStatus"
+                  :key="index"
+                  :label="item.name"
+                  :value="index"
               >
               </el-option>
             </el-select>
             <el-date-picker
-              style="width: 30%; margin-right: 1rem"
-              v-model="queryVo.signing_time"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              value-format="yyyy-MM-dd HH:mm:ss"
+                style="width: 30%; margin-right: 1rem"
+                v-model="queryVo.signing_time"
+                type="datetimerange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
             >
             </el-date-picker>
             <el-button class="btnSearch" @click="getProjectList"
-              >点击筛选</el-button
+            >点击筛选</el-button
             >
           </div>
           <div>
             <el-button class="addColor" @click="addData()" v-if="isAdmin"
-              >新建</el-button
+            >新建</el-button
             >
           </div>
         </div>
         <div>
           <el-table
-            :data="tableData"
-            style="width: 100%"
-            :cell-style="
+              :data="tableData"
+              style="width: 100%"
+              :cell-style="
               ({ row, column, rowIndex, columnIndex }) => {
                 if ([null, undefined, ''].includes(row[column.property])) {
                   row[column.property] = '/';
@@ -189,149 +189,149 @@
             "
           >
             <el-table-column
-              prop="customer_name"
-              label="客户名称"
-              min-width="80"
+                prop="customer_name"
+                label="客户名称"
+                min-width="80"
             ></el-table-column>
             <el-table-column
-              prop="name"
-              label="项目名称"
-              min-width="100"
+                prop="name"
+                label="项目名称"
+                min-width="100"
             ></el-table-column>
             <el-table-column
-              prop="consultant_name"
-              label="项目咨询师"
-              min-width="100"
+                prop="consultant_name"
+                label="项目咨询师"
+                min-width="100"
             ></el-table-column>
             <el-table-column
-              prop="authorized_name"
-              label="项目负责人"
-              min-width="100"
+                prop="authorized_name"
+                label="项目负责人"
+                min-width="100"
             ></el-table-column>
             <el-table-column
-              prop="signing_time"
-              label="签约时间"
-              min-width="100"
+                prop="signing_time"
+                label="签约时间"
+                min-width="100"
             ></el-table-column>
             <el-table-column
-              prop="delivery_time"
-              label="接入时间"
-              min-width="100"
+                prop="delivery_time"
+                label="接入时间"
+                min-width="100"
             ></el-table-column>
             <el-table-column prop="status" label="执行状态" min-width="100">
               <template slot-scope="scope">
                 <span
-                  :style="{
+                    :style="{
                     color: projectStatus[scope.row.status || 0]?.color,
                   }"
-                  >{{ projectStatus[scope.row.status || 0]?.name }}</span
+                >{{ projectStatus[scope.row.status || 0]?.name }}</span
                 >
               </template>
             </el-table-column>
             <el-table-column
-              prop="address"
-              label="操作"
-              align="right"
-              min-width="180"
+                prop="address"
+                label="操作"
+                align="right"
+                min-width="180"
             >
               <template slot-scope="scope">
                 <div>
                   <!-- style="color: #abadb2" -->
                   <el-button
-                    :style="
+                      :style="
                       scope.row.status < 2
                         ? 'color: #abadb2; cursor:not-allowed;'
                         : 'color: #19318f'
                     "
-                    type="text"
-                    @click="scope.row.status >= 2 && handleClick(scope.row)"
-                    size="small"
-                    >详情</el-button
+                      type="text"
+                      @click="scope.row.status >= 2 && handleClick(scope.row)"
+                      size="small"
+                  >详情</el-button
                   >
                   <el-button
-                    v-if="isLeads == 1 && scope.row.status == 0"
-                    style="color: #df4b3c"
-                    type="text"
-                    size="small"
-                    @click="editRow(scope.row, 'push')"
-                    >推送</el-button
-                  >
-                  <template v-if="scope.row.action && isLeads == 1">
-                    <el-button
-                      type="text"
-                      size="small"
-                      style="color: #f2a944"
-                      @click="reCopy(scope.row)"
-                      >驳回</el-button
-                    >
-                    <el-button
+                      v-if=" !scope.row.action && isLeads == 1"
+                      style="color: #df4b3c"
                       type="text"
                       size="small"
                       @click="editRow(scope.row, 'push')"
-                      style="color: #df4b3c"
-                      >接收</el-button
+                  >推送</el-button
+                  >
+                  <template v-if="scope.row.action && isLeads == 1">
+                    <el-button
+                        type="text"
+                        size="small"
+                        style="color: #f2a944"
+                        @click="reCopy(scope.row)"
+                    >驳回</el-button
+                    >
+                    <el-button
+                        type="text"
+                        size="small"
+                        @click="editRow(scope.row, 'push')"
+                        style="color: #df4b3c"
+                    >接收</el-button
                     >
                   </template>
-                  
+
                   <el-button
-                    type="text"
-                    size="small"
-                    style="color: #df4b3c"
-                    @click="editRow(scope.row, 'rePush')"
-                    v-if="isAdmin == 1 && scope.row.authorized_person == null"
-                    >重新推送</el-button
+                      type="text"
+                      size="small"
+                      style="color: #df4b3c"
+                      @click="editRow(scope.row, 'rePush')"
+                      v-if="isAdmin == 1 && scope.row.authorized_person == null"
+                  >重新推送</el-button
                   >
                   <el-button
-                   v-if="isLeads == 1 && scope.row.check_status == 0"
-                    type="text"
-                    size="small"
-                    style="color: #df4b3c"
-                    @click="approved(scope.row)"
-                    >确认审核</el-button
+                      v-if="isLeads == 1 && scope.row.check_status == 0"
+                      type="text"
+                      size="small"
+                      style="color: #df4b3c"
+                      @click="approved(scope.row)"
+                  >确认审核</el-button
                   >
                 </div>
               </template>
             </el-table-column>
           </el-table>
           <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            style="text-align: right"
-            :current-page="pageInfo.page"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size.sync="pageInfo.limit"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="pageInfo.total"
+              style="margin-top: 10px; text-align: right"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="pageInfo.page"
+              :page-sizes="[10, 20, 30, 40]"
+              :page-size.sync="pageInfo.limit"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="pageInfo.total"
           >
           </el-pagination>
         </div>
 
         <el-dialog
-          title="项目建立"
-          :visible.sync="dialogFormVisible"
-          class="dialog"
-          @close="resetForm('ruleForm')"
-          :close-on-click-modal="false"
+            title="项目建立"
+            :visible.sync="dialogFormVisible"
+            class="dialog"
+            @close="resetForm('ruleForm')"
+            :close-on-click-modal="false"
         >
           <el-form
-            :model="ruleForm"
-            :rules="rules"
-            ref="ruleForm"
-            label-width="100px"
-            class="demo-ruleForm"
+              :model="ruleForm"
+              :rules="rules"
+              ref="ruleForm"
+              label-width="100px"
+              class="demo-ruleForm"
           >
             <div v-if="step == 1">
               <el-form-item
-                label="业务类型"
-                prop="business_type"
-                style="width: 45%"
+                  label="业务类型"
+                  prop="business_type"
+                  style="width: 45%"
               >
                 <el-select
-                  v-model="ruleForm.business_type"
-                  placeholder="请选择业务类型"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
-                  clearable
+                    v-model="ruleForm.business_type"
+                    placeholder="请选择业务类型"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
+                    clearable
                 >
                   <el-option label="自有业务" :value="0"></el-option>
                   <el-option label="外包业务" :value="1"></el-option>
@@ -340,89 +340,89 @@
 
               <el-form-item label="项目类型" prop="type" style="width: 45%">
                 <el-select
-                  v-model="ruleForm.type"
-                  placeholder="请选择项目类型"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
-                  clearable
+                    v-model="ruleForm.type"
+                    placeholder="请选择项目类型"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
+                    clearable
                 >
                   <el-option
-                    :label="item.name"
-                    :value="item.id"
-                    v-for="item in projectTypeList"
-                    :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
+                      v-for="item in projectTypeList"
+                      :key="item.id"
                   />
                 </el-select>
               </el-form-item>
 
               <el-form-item
-                label="客户名称"
-                prop="customer_name"
-                style="width: 45%"
+                  label="客户名称"
+                  prop="customer_name"
+                  style="width: 45%"
               >
                 <el-input
-                  v-model="ruleForm.customer_name"
-                  placeholder="请输入客户名称"
-                  clearable
+                    v-model="ruleForm.customer_name"
+                    placeholder="请输入客户名称"
+                    clearable
                 ></el-input>
               </el-form-item>
 
               <el-form-item label="项目名称" prop="name" style="width: 45%">
                 <el-input
-                  v-model="ruleForm.name"
-                  placeholder="请输入项目名称"
-                  clearable
+                    v-model="ruleForm.name"
+                    placeholder="请输入项目名称"
+                    clearable
                 ></el-input>
               </el-form-item>
 
               <el-form-item
-                label="项目授权人"
-                prop="authorized_person"
-                style="width: 45%"
+                  label="项目授权人"
+                  prop="authorized_person"
+                  style="width: 45%"
               >
                 <el-select
-                  v-model="ruleForm.authorized_person"
-                  placeholder="请选择项目授权人"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
-                  clearable
+                    v-model="ruleForm.authorized_person"
+                    placeholder="请选择项目授权人"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
+                    clearable
                 >
                   <el-option
-                    v-for="(item, index) in leadsList"
-                    :key="index"
-                    :label="item.nickname"
-                    :value="item.id"
-                    >{{ item.nickname }}</el-option
+                      v-for="(item, index) in leadsList"
+                      :key="index"
+                      :label="item.nickname"
+                      :value="item.id"
+                  >{{ item.nickname }}</el-option
                   >
                 </el-select>
               </el-form-item>
 
               <el-form-item
-                prop="signing_time"
-                label="签约时间"
-                style="width: 45%"
+                  prop="signing_time"
+                  label="签约时间"
+                  style="width: 45%"
               >
                 <el-date-picker
-                  type="date"
-                  placeholder="选择日期"
-                  v-model="ruleForm.signing_time"
-                  style="width: 100%"
-                  clearable
-                  value-format="yyyy-MM-dd"
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="ruleForm.signing_time"
+                    style="width: 100%"
+                    clearable
+                    value-format="yyyy-MM-dd"
                 ></el-date-picker>
               </el-form-item>
 
               <el-form-item
-                label="合同类型"
-                prop="contract_type"
-                style="width: 45%"
+                  label="合同类型"
+                  prop="contract_type"
+                  style="width: 45%"
               >
                 <el-select
-                  v-model="ruleForm.contract_type"
-                  placeholder="请选择合同类型"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
-                  clearable
+                    v-model="ruleForm.contract_type"
+                    placeholder="请选择合同类型"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
+                    clearable
                 >
                   <el-option label="技术合同" value="技术合同"></el-option>
                   <el-option label="委托合同" value="委托合同"></el-option>
@@ -430,172 +430,172 @@
               </el-form-item>
 
               <el-form-item
-                label="合同编号"
-                prop="contract_number"
-                style="width: 45%"
+                  label="合同编号"
+                  prop="contract_number"
+                  style="width: 45%"
               >
                 <el-input
-                  v-model="ruleForm.contract_number"
-                  placeholder="请输入合同编号"
+                    v-model="ruleForm.contract_number"
+                    placeholder="请输入合同编号"
                 ></el-input>
               </el-form-item>
 
               <el-form-item
-                label="项目咨询师"
-                prop="consultant_id"
-                style="width: 45%"
+                  label="项目咨询师"
+                  prop="consultant_id"
+                  style="width: 45%"
               >
                 <el-select
-                  v-model="ruleForm.consultant_id"
-                  placeholder="请选择项目咨询师"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
+                    v-model="ruleForm.consultant_id"
+                    placeholder="请选择项目咨询师"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
                 >
                   <el-option
-                    v-for="(item, index) in userList"
-                    :key="index"
-                    :label="item.nickname"
-                    :value="item.id"
+                      v-for="(item, index) in userList"
+                      :key="index"
+                      :label="item.nickname"
+                      :value="item.id"
                   ></el-option>
                 </el-select>
               </el-form-item>
 
               <el-form-item
-                prop="business_time"
-                label="委托时间"
-                style="width: 45%"
-                v-show="ruleForm.business_type == 1"
+                  prop="business_time"
+                  label="委托时间"
+                  style="width: 45%"
+                  v-show="ruleForm.business_type == 1"
               >
                 <el-date-picker
-                  type="date"
-                  placeholder="选择日期"
-                  v-model="ruleForm.business_time"
-                  style="width: 100%"
-                  value-format="yyyy-MM-dd"
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="ruleForm.business_time"
+                    style="width: 100%"
+                    value-format="yyyy-MM-dd"
                 ></el-date-picker>
               </el-form-item>
 
               <el-form-item
-                label="合作机构"
-                prop="partners"
-                style="width: 45%"
-                v-show="ruleForm.business_type == 1"
+                  label="合作机构"
+                  prop="partners"
+                  style="width: 45%"
+                  v-show="ruleForm.business_type == 1"
               >
                 <el-input
-                  v-model="ruleForm.partners"
-                  placeholder="请输入合作机构"
+                    v-model="ruleForm.partners"
+                    placeholder="请输入合作机构"
                 ></el-input>
               </el-form-item>
 
               <el-form-item
-                label="委托业务"
-                prop="business"
-                style="width: 45%"
-                v-show="ruleForm.business_type == 1"
+                  label="委托业务"
+                  prop="business"
+                  style="width: 45%"
+                  v-show="ruleForm.business_type == 1"
               >
                 <el-input
-                  v-model="ruleForm.business"
-                  placeholder="请输入委托业务"
+                    v-model="ruleForm.business"
+                    placeholder="请输入委托业务"
                 ></el-input>
               </el-form-item>
 
               <el-form-item
-                label="项目工程师"
-                prop="engineer"
-                style="width: 45%"
+                  label="项目工程师"
+                  prop="engineer"
+                  style="width: 45%"
               >
                 <el-select
-                  v-model="ruleForm.engineer"
-                  placeholder="请选择项目工程师"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
-                  clearable
+                    v-model="ruleForm.engineer"
+                    placeholder="请选择项目工程师"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
+                    clearable
                 >
                   <el-option
-                    v-for="(item, index) in userList"
-                    :key="index"
-                    :label="item.nickname"
-                    :value="item.id"
+                      v-for="(item, index) in userList"
+                      :key="index"
+                      :label="item.nickname"
+                      :value="item.id"
                   ></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item
-                label="资料专员"
-                prop="data_specialist"
-                style="width: 45%"
+                  label="资料专员"
+                  prop="data_specialist"
+                  style="width: 45%"
               >
                 <el-select
-                  v-model="ruleForm.data_specialist"
-                  placeholder="请选择资料专员"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
-                  clearable
+                    v-model="ruleForm.data_specialist"
+                    placeholder="请选择资料专员"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
+                    clearable
                 >
                   <el-option
-                    v-for="(item, index) in userList"
-                    :key="index"
-                    :label="item.nickname"
-                    :value="item.id"
+                      v-for="(item, index) in userList"
+                      :key="index"
+                      :label="item.nickname"
+                      :value="item.id"
                   ></el-option>
                 </el-select>
               </el-form-item>
 
               <el-form-item
-                label="外包对接人"
-                prop="outsource"
-                style="width: 45%"
-                v-show="ruleForm.business_type == 1"
+                  label="外包对接人"
+                  prop="outsource"
+                  style="width: 45%"
+                  v-show="ruleForm.business_type == 1"
               >
                 <el-input
-                  v-model="ruleForm.outsource"
-                  placeholder="请输入外包对接人"
+                    v-model="ruleForm.outsource"
+                    placeholder="请输入外包对接人"
                 ></el-input>
               </el-form-item>
 
               <el-form-item
-                label="对接人电话"
-                prop="outsource_phone"
-                style="width: 45%"
-                v-show="ruleForm.business_type == 1"
+                  label="对接人电话"
+                  prop="outsource_phone"
+                  style="width: 45%"
+                  v-show="ruleForm.business_type == 1"
               >
                 <el-input
-                  v-model="ruleForm.outsource_phone"
-                  placeholder="请输入对接人电话"
+                    v-model="ruleForm.outsource_phone"
+                    placeholder="请输入对接人电话"
                 ></el-input>
               </el-form-item>
 
               <el-form-item
-                prop="delivery_time"
-                label="交付时间"
-                style="width: 45%"
+                  prop="delivery_time"
+                  label="交付时间"
+                  style="width: 45%"
               >
                 <el-date-picker
-                  type="date"
-                  placeholder="选择日期"
-                  v-model="ruleForm.delivery_time"
-                  style="width: 100%"
-                  value-format="yyyy-MM-dd"
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="ruleForm.delivery_time"
+                    style="width: 100%"
+                    value-format="yyyy-MM-dd"
                 ></el-date-picker>
               </el-form-item>
 
               <el-form-item
-                prop="deadline"
-                label="项目截止时间"
-                style="width: 45%"
+                  prop="deadline"
+                  label="项目截止时间"
+                  style="width: 45%"
               >
                 <el-date-picker
-                  type="date"
-                  placeholder="选择日期"
-                  v-model="ruleForm.deadline"
-                  style="width: 100%"
-                  value-format="yyyy-MM-dd"
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="ruleForm.deadline"
+                    style="width: 100%"
+                    value-format="yyyy-MM-dd"
                 ></el-date-picker>
               </el-form-item>
 
               <el-form-item label="备注说明" prop="remark" style="width: 100%">
                 <el-input
-                  v-model="ruleForm.remark"
-                  placeholder="请输入备注"
+                    v-model="ruleForm.remark"
+                    placeholder="请输入备注"
                 ></el-input>
               </el-form-item>
             </div>
@@ -605,69 +605,69 @@
                 负责人
               </div>
               <el-form-item
-                :label="item.name"
-                style="width: 45%"
-                v-for="(item, index) in projectTypeList
+                  :label="item.name"
+                  style="width: 45%"
+                  v-for="(item, index) in projectTypeList
                   .filter((el) => el.id == ruleForm.type)
                   .at(0)?.options"
-                :key="index"
+                  :key="index"
               >
                 <el-select
-                  v-model="item.val"
-                  placeholder="请选择"
-                  style="width: 100%"
-                  :popper-append-to-body="false"
+                    v-model="item.val"
+                    placeholder="请选择"
+                    style="width: 100%"
+                    :popper-append-to-body="false"
                 >
                   <el-option
-                    :label="t.nickname"
-                    :value="t.id"
-                    v-for="(t, k) in personList"
-                    :key="k"
+                      :label="t.nickname"
+                      :value="t.id"
+                      v-for="(t, k) in personList"
+                      :key="k"
                   ></el-option>
                 </el-select>
               </el-form-item>
             </div>
 
             <div
-              style="text-align: right; width: 100%; margin-top: 1.25rem; justify-content: flex-end;"
-              v-if="isAdmin == 1 && !ruleForm.id"
+                style="text-align: right; width: 100%; margin-top: 1.25rem; justify-content: flex-end;"
+                v-if="isAdmin == 1 && !ruleForm.id"
             >
               <el-button @click="resetForm('ruleForm')">取消</el-button>
               <el-button
-                class="addPush"
-                type="primary"
-                @click="submitForm('ruleForm')"
-                >确认并推送</el-button
+                  class="addPush"
+                  type="primary"
+                  @click="submitForm('ruleForm')"
+              >确认并推送</el-button
               >
             </div>
 
             <div
-              style="text-align: right; width: 100%; margin-top: 1.25rem; justify-content: flex-end;"
-              v-else
+                style="text-align: right; width: 100%; margin-top: 1.25rem; justify-content: flex-end;"
+                v-else
             >
               <el-button @click="step = 1" v-if="step == 2">上一步</el-button>
               <el-button @click="resetForm('ruleForm')" v-if="step == 1"
-                >取消</el-button
+              >取消</el-button
               >
               <el-button
-                class="addPush"
-                type="primary"
-                @click="nextStep"
-                v-if="ruleForm.business_type == 0 && step == 1"
-                >下一步</el-button
+                  class="addPush"
+                  type="primary"
+                  @click="nextStep"
+                  v-if="ruleForm.business_type == 0 && step == 1"
+              >下一步</el-button
               >
               <el-button
-                class="addPush"
-                type="primary"
-                @click="submitForm('ruleForm')"
-                v-if="
+                  class="addPush"
+                  type="primary"
+                  @click="submitForm('ruleForm')"
+                  v-if="
                   ruleForm.business_type == 1 ||
                   step == 2 ||
                   ruleForm.business_type == undefined
                 "
-                >确认并推送</el-button
+              >确认并推送</el-button
               >
-          </div>
+            </div>
           </el-form>
         </el-dialog>
       </div>
@@ -807,12 +807,12 @@ export default {
         row.options && row.options.forEach(el => {
           curr && curr.options && curr.options.forEach(item => {
             if(el.name == item.name) {
-                item.val = el.nickname
+              item.val = el.nickname
             }
           })
         })
       }
-     
+
       this.ruleForm = cloneDeep(row);
     },
     //新建提交保存按钮
@@ -826,11 +826,11 @@ export default {
           } else {
 
             if (
-              this.ruleForm.business_type == 0 &&
-              this.ruleForm.id
+                this.ruleForm.business_type == 0 &&
+                this.ruleForm.id
             ) {
               let [curr] = this.projectTypeList.filter(
-                (el) => el.id == this.ruleForm.type
+                  (el) => el.id == this.ruleForm.type
               );
               curr.options.forEach((el) => {
                 if (!el.val) {
@@ -896,6 +896,11 @@ export default {
         this.tableData = data.list || [];
         this.pageInfo.total = data.total || 0;
       }
+      if (code == 0) {
+        this.tableData =  [];
+        this.pageInfo.total = 0;
+        this.$message.warning(res.msg)
+      }
     },
     async getProjectType() {
       let { code, data } = await getProjectType();
@@ -919,11 +924,11 @@ export default {
       let { code, data } = await getProjectTypeDetail();
       if (code == 1) {
         data &&
-          Array.isArray(data) &&
-          data.forEach((el) => {
-            if (typeof el.options == "string")
-              el.options = JSON.parse(el.options);
-          });
+        Array.isArray(data) &&
+        data.forEach((el) => {
+          if (typeof el.options == "string")
+            el.options = JSON.parse(el.options);
+        });
         this.projectTypeList = data;
       }
     },
@@ -942,16 +947,16 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(async () => {
-          let { code, data } = await approved({
-            project_id: row.id,
-          });
-          if (code == 1) {
-            this.$message.success("审核成功");
-            this.getProjectList();
-          }
-        })
-        .catch(() => {});
+          .then(async () => {
+            let { code, data } = await approved({
+              project_id: row.id,
+            });
+            if (code == 1) {
+              this.$message.success("审核成功");
+              this.getProjectList();
+            }
+          })
+          .catch(() => {});
     },
     reCopy(row) {
       this.$confirm("确认驳回吗?", "提示", {
@@ -959,16 +964,16 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(async () => {
-          let { code, data } = await rejectProject({
-            project_id: row.id,
-          });
-          if (code == 1) {
-            this.$message.success("驳回成功");
-            this.getProjectList();
-          }
-        })
-        .catch(() => {});
+          .then(async () => {
+            let { code, data } = await rejectProject({
+              project_id: row.id,
+            });
+            if (code == 1) {
+              this.$message.success("驳回成功");
+              this.getProjectList();
+            }
+          })
+          .catch(() => {});
     },
   },
   mounted() {
@@ -983,9 +988,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  background-color: #F3F4F9;
+  padding: 30px;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+}
 .con_top {
   background-color: #fff;
-  padding-bottom: 1.875rem;
+  // padding-bottom: 1.875rem;
+  padding: 30px;
   border-radius: 0.625rem;
   .con_top_box {
     display: flex;
@@ -1005,24 +1017,33 @@ export default {
       flex-direction: row;
       align-items: center;
       justify-content: flex-end;
-      padding-right: 1.875rem;
+      // padding-right: 1.875rem;
       .labelImg1 {
         width: 1.375rem;
         height: 1.125rem;
-        display: inline-block;
+        display: block;
+        // display: inline-block;
         vertical-align: middle;
         margin-right: 6px;
+
       }
       .labelImg2 {
         width: 1.125rem;
       }
+      /deep/ .el-image {
+        img {
+          object-fit: contain !important;
+        }
+      }
+
     }
   }
   .con_color {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0 1rem;
+    // padding: 0 1rem;
+    margin-top: 30px;
     .color {
       width: 31%;
       height: 7.5rem;
@@ -1063,9 +1084,10 @@ export default {
   background-color: #fff;
   margin-top: 1.25rem;
   border-radius: 0.625rem;
-  padding: 0 1rem 1rem;
+  // padding: 0 1rem 1rem;
+  padding: 30px;
   .selec_box {
-    padding-top: 1rem;
+    // padding-top: 1rem;
     display: flex;
     flex-direction: row;
     .select {
@@ -1107,9 +1129,10 @@ export default {
   }
   & /deep/ .el-input__inner {
     background-color: #f4f5f5;
-    font-size: 1.125rem;
-    height: 3.375rem;
-    line-height: 3.375rem;
+    font-size: 16px;
+    height: 45px;
+    line-height: 45px;
+    border: 0;
   }
   & /deep/ .el-select-dropdown__item {
     font-size: 1.125rem !important;
@@ -1118,6 +1141,22 @@ export default {
   & /deep/ .el-button--primary:hover {
     background-color: #18318c;
     color: #fff;
+  }
+}
+
+/deep/ .el-table__header {
+  margin-top: 20px;
+  tr {
+    th{
+      background-color: #D0D5E8 !important;
+      color: #313848;
+      &:first-of-type {
+        border-top-left-radius: 10px;
+      }
+      &:nth-last-of-type(2) {
+        border-top-right-radius: 10px;
+      }
+    }
   }
 }
 </style>

@@ -3,51 +3,51 @@
     <div class="team-type">
       <div class="team-box">
         <div class="team-info">
+          <img src="../../assets/icons/icon12.png" alt="">
+          <div class="num-info">
+            <p class="number">{{contractNumber.to_drafted}}</p>
+            <p class="info-title">待拟定合同</p>
+          </div>
+        </div>
+        <div class="team-info">
           <img src="../../assets/icons/icon13.png" alt="">
           <div class="num-info">
-            <p class="number">12</p>
-            <p class="info-title">待拟定合同</p>
+            <p class="number">{{contractNumber.to_signed}}</p>
+            <p class="info-title">待签约合同</p>
           </div>
         </div>
         <div class="team-info">
           <img src="../../assets/icons/icon14.png" alt="">
           <div class="num-info">
-            <p class="number">14</p>
-            <p class="info-title">待签约合同</p>
+            <p class="number">{{contractNumber.to_pay}}</p>
+            <p class="info-title">待付款合同</p>
           </div>
         </div>
         <div class="team-info">
           <img src="../../assets/icons/icon15.png" alt="">
           <div class="num-info">
-            <p class="number">13</p>
-            <p class="info-title">待付款合同</p>
+            <p class="number">{{contractNumber.unsettled}}</p>
+            <p class="info-title">未结清合同</p>
           </div>
         </div>
         <div class="team-info">
           <img src="../../assets/icons/icon16.png" alt="">
           <div class="num-info">
-            <p class="number">10</p>
-            <p class="info-title">未结清合同</p>
+            <p class="number">{{contractNumber.closed_account}}</p>
+            <p class="info-title">已结清合同</p>
           </div>
         </div>
         <div class="team-info">
           <img src="../../assets/icons/icon17.png" alt="">
           <div class="num-info">
-            <p class="number">20</p>
-            <p class="info-title">已结清合同</p>
+            <p class="number">{{contractNumber.invoiced_out}}</p>
+            <p class="info-title">已开票合同</p>
           </div>
         </div>
         <div class="team-info">
           <img src="../../assets/icons/icon18.png" alt="">
           <div class="num-info">
-            <p class="number">5620</p>
-            <p class="info-title">已开票合同</p>
-          </div>
-        </div>
-        <div class="team-info">
-          <img src="../../assets/icons/icon12.png" alt="">
-          <div class="num-info">
-            <p class="number">32</p>
+            <p class="number">{{contractNumber.filed}}</p>
             <p class="info-title">已归档合同</p>
           </div>
         </div>
@@ -56,33 +56,33 @@
     <div class="table-information">
       <div class="table-header">
         <div class="table-left">
-          <el-select
+          <el-input
+              style="width: 19%;margin-right: 30px;"
+              placeholder="客户名称查询"
+              suffix-icon="el-icon-search"
               v-model="custormValue"
-              multiple
-              filterable
-              reserve-keyword
-              placeholder="客户名称查询">
+              clearable>
+          </el-input>
+          <el-input
+              style="width: 19%;margin-right: 30px;"
+              placeholder="委托项目"
+              v-model="projectName"
+              clearable>
+          </el-input>
+          <el-select v-model="consultant"
+             filterable
+             clearable
+             remote
+             reserve-keyword
+             placeholder="项目咨询师"
+             :remote-method="remoteMethod"
+             :loading="loading"
+          >
             <el-option
-                v-for="item in custormOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-          <el-select v-model="areaValue" clearable placeholder="委托项目">
-            <el-option
-                v-for="item in areaOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-          <el-select v-model="industryValue" clearable placeholder="项目咨询师">
-            <el-option
-                v-for="item in industryOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in consultantOptions"
+                :key="item.id"
+                :label="item.nickname"
+                :value="item.id">
             </el-option>
           </el-select>
           <el-select v-model="statusValue" clearable placeholder="合同状态">
@@ -96,20 +96,20 @@
           <el-select v-model="sourceValue" clearable placeholder="客户来源">
             <el-option
                 v-for="item in sourceOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
             </el-option>
           </el-select>
           <div class="filter" @click="getList()">点击筛选</div>
         </div>
-        <div class="new">新建</div>
+        <div class="new" @click="newContract()">新建</div>
       </div>
       <div class="table-detail">
         <el-table
             :data="tableData"
             :cell-style="{textarea:'center'}"
-            :header-cell-style="{ background:'rgba(24, 49, 140, 0.2)',textarea:'center'}"
+            :header-cell-style="{ background:'rgba(24, 49, 140, 0.1)',textarea:'center'}"
             style="width: 100%">
           <el-table-column label="id" prop="id" v-if="false">
           </el-table-column>
@@ -118,7 +118,7 @@
               label="客户名称">
           </el-table-column>
           <el-table-column
-              prop="commission"
+              prop="project"
               label="委托项目">
           </el-table-column>
           <el-table-column
@@ -130,7 +130,7 @@
               label="项目咨询师">
           </el-table-column>
           <el-table-column
-              prop="signing"
+              prop="main_body"
               label="签约主体">
           </el-table-column>
           <el-table-column
@@ -138,21 +138,26 @@
               label="项目状态">
             <template slot-scope="scope">
               <div
-                  :style="{color:(scope.row.status=='待拟定'?'#F4AB46':scope.row.status=='已结清'||scope.row.status=='已开票'||scope.row.status=='已归档'?'#469F48':'#DF4B3C')}">
-                {{ scope.row.status }}
+                  :style="{color:(scope.row.status=='0'||scope.row.status=='1'?'#F4AB46':scope.row.status=='4'||scope.row.status=='5'||scope.row.status=='6'?'#469F48':'#DF4B3C')}">
+                {{ scope.row.status==0?'待拟定':scope.row.status==1?'待签约':scope.row.status ==2?'待付款':scope.row.status==3?'未结清':scope.row.status==4?'已结清':scope.row.status==5?'已开票':'已归档' }}
               </div>
             </template>
           </el-table-column>
           <el-table-column
-              prop="date"
+              prop="sign_time"
               label="签约日期">
           </el-table-column>
           <el-table-column
               prop="source"
               label="客户来源">
+            <template slot-scope="scope">
+              <div>
+                 {{ scope.row.source==0?'转介绍':'公司介绍' }}
+              </div>
+            </template>
           </el-table-column>
           <el-table-column
-              prop="payType"
+              prop="pay_method"
               label="付款方式">
           </el-table-column>
           <el-table-column
@@ -160,16 +165,17 @@
               label="操作"
               width="150">
             <template slot-scope="scope">
-              <el-dropdown>
-                <span class="el-dropdown-link" style="font-size: 14px;color: #18318C;" >
-                  已付款
+              <div @click="updateStatus(scope.row.id,scope.row.status)" style="font-size: 14px;color: #18318C;display: inline-block; cursor: pointer;" v-if="scope.row.status!=2">{{ scope.row.status==0?'已拟定':scope.row.status==1?'已签约':scope.row.status==3?'已结清':scope.row.status==4?'已开票':scope.row.status==5?'归档':''}}</div>
+              <el-dropdown  v-if="scope.row.status==2">
+                <span class="el-dropdown-link" style="font-size: 14px;color: #18318C;">
+                  {{ scope.row.status ==2?'已付款':''}}
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>已结清</el-dropdown-item>
-                  <el-dropdown-item>未结清</el-dropdown-item>
+                  <el-dropdown-item @click.native="updateStatus(scope.row.id,scope.row.status)">已结清</el-dropdown-item>
+                  <el-dropdown-item @click.native="updateStatus(scope.row.id,scope.row.status)">未结清</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button style="font-size: 14px;color: #18318C;margin-left: 20px" type="text" size="small">编辑</el-button>
+              <el-button style="font-size: 14px;color: #18318C;margin-left: 20px" type="text" size="small" @click="edit(scope.row.id)">编辑</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -215,84 +221,33 @@ export default {
           title: "外拓组"
         }
       ],
-      custormOptions: [
-        {
-          value: '1',
-          label: '张宝华'
-        }, {
-          value: '2',
-          label: '李天顺'
-        }, {
-          value: '3',
-          label: '万福多'
-        }, {
-          value: '4',
-          label: '林慢慢'
-        }, {
-          value: '5',
-          label: '邓清清'
-        }],
+      consultantOptions: [],
       custormValue: '',
-      areaOptions: [
-        {
-          value: 1,
-          label: '黄金糕'
-        }, {
-          value: 2,
-          label: '双皮奶'
-        }, {
-          value: 3,
-          label: '蚵仔煎'
-        }, {
-          value: 4,
-          label: '龙须面'
-        }, {
-          value: 5,
-          label: '北京烤鸭'
-        }
-      ],
-      areaValue: "",
-      industryOptions: [
-        {
-          value: 1,
-          label: '黄金糕'
-        }, {
-          value: 2,
-          label: '双皮奶'
-        }, {
-          value: 3,
-          label: '蚵仔煎'
-        }, {
-          value: 4,
-          label: '龙须面'
-        }, {
-          value: 5,
-          label: '北京烤鸭'
-        }
-      ],
-      industryValue: "",
       statusOptions: [
         {
-          id: 0,
-          name: '待拟定'
+          value: 0,
+          label: '待拟定'
         }, {
-          id: 1,
-          name: '待签约'
+          value: 1,
+          label: '待签约'
+        },
+        {
+          value: 2,
+          label: '待付款'
         }, {
-          id: 2,
-          name: '待付款'
+          value: 3,
+          label: '未结清'
+        },
+        {
+          value: 4,
+          label: '已结清'
         }, {
-          id: 3,
-          name: '未结清'
-        }, {
-          id: 4,
-          name: '已结清'
-        }, {
-          id: 5,
-          name: '已开票'
-        }, {
-          id: 6,
-          name: '已归档'
+          value: 5,
+          label: '已开票'
+        },
+        {
+          value: 6,
+          label: '已归档'
         }
       ],
       statusValue: "",
@@ -308,7 +263,11 @@ export default {
       ],
       sourceValue: "",
       tableData: [],
-      total:0
+      total:0,
+      projectName:"",
+      consultant:"",
+      loading:false,
+      contractNumber:{},
     };
   }
   ,
@@ -333,17 +292,50 @@ export default {
         customer_name:this.custormValue,
         status:this.statusValue,
         source:this.sourceValue,
+        project:this.projectName,
+        consultant:this.consultant
       }).then(res => {
         if (res.code === 1) {
           this.tableData = res.data.list
           this.total = res.data.total
         }
         if (res.code === 0) {
+          this.tableData=[]
           this.$message.info(res.msg)
         }
       }).catch((error) => {
         console.log(error, "请求失败");
       });
+    },
+    // 获取项目咨询师列表
+    getUserList(name) {
+      this.$axios.get("index/userList",{keywords:name}).then((res) => {
+        if (res.code === 1) {
+          this.consultantOptions = res.data;
+        }
+        if (res.code === 0) {
+          this.tableData=[]
+          this.$message.warning(res.msg);
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
+    remoteMethod(query) {
+      if (query !== '') {
+        this.loading = true;
+        console.log("222", query)
+        this.getUserList(query)
+        setTimeout(() => {
+          this.loading = false;
+
+          // this.options = this.options.filter(item => {
+          //   return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+          // });
+        }, 200);
+      } else {
+        this.options = [];
+      }
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -352,7 +344,39 @@ export default {
       console.log(`当前页: ${val}`);
       this.currentPage = val;
       this.getList()
-    }
+    },
+    newContract(){
+      this.$router.push('/application')
+    },
+    edit(id){
+      this.$router.push({path:'/application',query:{id:id}})
+    },
+    updateStatus(id,status){
+      this.$axios.put('contract/creareContract',{
+        id:id,
+        status:parseInt(status+1)
+      }).then(res => {
+        if (res.code === 1) {
+          this.$message.success(res.msg)
+          this.getList();
+        }
+        if (res.code === 0) {
+          this.$message.info(res.msg)
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
+    // 获取合同数量
+    getContractNumber(){
+      this.$axios.get('contract/getContractNumber').then(res => {
+        if (res.code === 1) {
+          this.contractNumber = res.data
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
   }
   ,
 //生命周期 - 创建之前",数据模型未加载,方法未加载,html模板未加载
@@ -363,6 +387,7 @@ export default {
 //生命周期 - 创建完成（可以访问当前this实例）",数据模型已加载，方法已加载,html模板已加载,html模板未渲染
   created() {
     this.getList();//合同列表
+    this.getContractNumber();//合同数量
   }
   ,
 //生命周期 - 挂载之前",html模板未渲染
@@ -406,7 +431,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "./contractManageScss/index.scss";
 
 </style>

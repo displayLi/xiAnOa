@@ -23,12 +23,6 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use((response) => {
     //只返回config内的data的数据，其他的不展示
     const res = response.data
-
-    if(res.code != 1) {
-        Message.error(res.msg)
-        return {}
-    }
-
     return res
 }, (error) => {
     //如果请求出错会有弹框提示
@@ -38,8 +32,6 @@ service.interceptors.response.use((response) => {
     })
     return Promise.reject(error)
 })
-
-
 /* eslint-disable */
 export const $post = async (path, data = {}) => await service.post(path, data);
 
@@ -48,7 +40,5 @@ export const $get = async (path, params) => await service.get(path, {params});
 
 
 export const $put = async (path, params) => await service.put(path, params);
-
-
 
 export default service

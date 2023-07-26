@@ -11,10 +11,15 @@
             </p>
           </div>
           <div class="r-header">
-            <p class="status">试用期</p>
-            <p class="time">
-              入职<span>0</span><span>1</span><span>9</span>天
-            </p>
+            <p class="status">{{ personalInfo.mployee_status }}</p>
+            <div class="time" v-if="entry_day.length>0">
+              入职
+              <span  v-for="(item,index) in entry_day" :key="index">{{ item }}</span>天
+            </div>
+            <div class="time" v-if="entry_day.length<=0">
+              入职
+              <span>0</span><span>0</span><span>0</span>天
+            </div>
           </div>
         </div>
         <table class="table table-condensed table-bordered" cellspacing="0px">
@@ -22,72 +27,72 @@
           <template>
             <tr>
               <td class="input">
-                <span>民  族：</span>
-                {{personalInfo.nation}}
+                <span>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</span>
+                {{ personalInfo.nation }}
               </td>
               <td class="border">
-                出生年月：{{personalInfo.birthday}}
+                出生年月：{{ personalInfo.birthday }}
               </td>
               <td class="input">
-                籍贯：{{personalInfo.native_place}}
+                籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯：{{ personalInfo.native_place }}
               </td>
             </tr>
             <tr>
               <td class="border">
-                健康状况：{{personalInfo.health_status}}
+                健 康 状 况：{{ personalInfo.health_status }}
               </td>
               <td class="border">
-                婚姻状况：{{personalInfo.marital_status}}
+                婚姻状况：{{ personalInfo.marital_status }}
               </td>
               <td class="border">
-                政治面貌：{{personalInfo.political_outlook}}
+                政治面貌：{{ personalInfo.political_outlook }}
               </td>
             </tr>
             <tr>
               <td class="border">
-                所属组别：{{personalInfo.group_name}}
+                所 属 组 别：{{ personalInfo.group_name }}
               </td>
               <td class="border">
-                组内身份：{{personalInfo.is_leads}}
+                组内身份：{{ personalInfo.is_leads }}
               </td>
               <td class="desc" style="border:none"></td>
             </tr>
             <tr>
               <td class="input" :colspan="2">
-                现居住地：{{personalInfo.address}}
+                现 居 住 地：{{ personalInfo.address }}
               </td>
               <td class="input">
-                开户行：{{personalInfo.bank}}
+                开&nbsp;&nbsp;&nbsp;户&nbsp;&nbsp;&nbsp;行：{{ personalInfo.bank }}
               </td>
             </tr>
             <tr>
               <td class="input" :colspan="2">
-                身份证地址：{{personalInfo.id_card_address}}
+                身份证地址：{{ personalInfo.id_card_address }}
               </td>
               <td class="input">
-                银行卡：{{personalInfo.bank_card}}
+                银&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;卡：{{ personalInfo.bank_card }}
               </td>
             </tr>
             <tr>
               <td class="border">
-                最高学历：{{personalInfo.education}}
+                最 高 学 历：{{ personalInfo.education }}
               </td>
               <td class="border">
-                毕业院校：{{personalInfo.school}}
+                毕 业 院 校：{{ personalInfo.school }}
               </td>
               <td class="border">
-                所学专业：{{personalInfo.speciality}}
+                所 学 专 业：{{ personalInfo.speciality }}
               </td>
             </tr>
             <tr>
               <td class="input">
-                紧急联系人：{{personalInfo.emergency_contact}}
+                紧急联系人：{{ personalInfo.emergency_contact }}
               </td>
               <td class="input">
-                联系人关系：{{personalInfo.relationship}}
+                联系人关系：{{ personalInfo.relationship }}
               </td>
               <td class="input">
-                联系人电话：{{personalInfo.contact_phone}}
+                联系人电话：{{ personalInfo.contact_phone }}
               </td>
             </tr>
           </template>
@@ -159,14 +164,14 @@
       <p class="bar"></p>
       <div class="header-info">
         <p class="avatar">
-          <img :src="personalInfo.avatar" alt="">
+          <img :src="'http://oa.s.sn.cn'+personalInfo.avatar" alt="">
         </p>
         <p class="name">
-          <span>{{personalInfo.nickname}}</span>
+          <span>{{ personalInfo.nickname }}</span>
           <img v-if="personalInfo.gender === 0" src="../../assets/icons/boy.png" alt="">
-          <img v-else src="../../assets/icons/boy.png" alt="">
+          <img v-if="personalInfo.gender === 1" src="../../assets/icons/girl.png" alt="">
         </p>
-        <p class="team">{{personalInfo.group_name}}-{{personalInfo.post_name}}</p>
+        <p class="team">{{ personalInfo.department_name }}-{{ personalInfo.post_name }}</p>
       </div>
       <div class="btn-box">
         <div class="transfers">调岗调薪</div>
@@ -175,15 +180,15 @@
       <p class="lines"></p>
       <div class="connect-info">
         <p class="label-info">手机号</p>
-        <p class="phone-num">{{personalInfo.mobile}}</p>
+        <p class="phone-num">{{ personalInfo.mobile }}</p>
       </div>
       <div class="connect-info">
         <p class="label-info">电子邮箱</p>
-        <p class="phone-num">{{personalInfo.email}}</p>
+        <p class="phone-num">{{ personalInfo.email }}</p>
       </div>
       <div class="connect-info">
         <p class="label-info">证件号码</p>
-        <p class="phone-num">{{personalInfo.id_card}}</p>
+        <p class="phone-num">{{ personalInfo.id_card }}</p>
       </div>
       <div class="percent">
         <p class="file-percent">资料完整度</p>
@@ -218,7 +223,7 @@ export default {
         political_outlook: "",
         address: "",
         bank: "",
-        group_name:"",
+        group_name: "",
         bank_card: "",
         education: "",
         school: "",
@@ -235,7 +240,7 @@ export default {
         is_leads: "",
         group_id: "",
         entry_time: "",
-        user_id:""
+        user_id: ""
       },
       entry_infor: {
         radio0: false,
@@ -252,6 +257,7 @@ export default {
         radio11: false,
       },
       information: [],
+      entry_day:[]
     };
   },
   //监听属性 类似于data概念",
@@ -271,11 +277,18 @@ export default {
           this.personalInfo = res.data
           this.information = res.data.information.split(',')
           this.information.forEach(item => {
-            if(item){
+            if (item) {
               this.entry_infor["radio" + item] = true
             }
           })
-          console.log("entry=----->", this.entry_infor)
+          let date = this.share_data_time(this.personalInfo.entry_time).toString()
+          console.log("date",this.personalInfo.entry_time)
+          if(date){
+            for(let i of date){
+              this.entry_day.push(i)
+              console.log("this.entry_day",this.entry_day)
+            }
+          }
         }
         if (res.code === 0) {
           this.$message.info(res.msg)
@@ -284,6 +297,22 @@ export default {
         console.log(error, "请求失败");
       });
     },
+    share_data_time(data) {
+      if(!data||data==='0000-00-00'){
+        return
+      }
+      //毕业时间
+      let BirthDay = new Date(data);
+      //获取当前时间
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime()); //总豪秒数
+      let e_daysold = timeold / (24 * 60 * 60 * 1000);
+      let daysold = Math.floor(e_daysold);                 //相差天数
+      console.log(daysold)
+      //将所获取的时间拼接到一起，再把值显示到页面
+      return daysold
+    }
+
   },
   //生命周期 - 创建之前",数据模型未加载,方法未加载,html模板未加载
   beforeCreate() {
@@ -327,6 +356,47 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>::v-deep .el-checkbox__inner {
+  display: inline-block;
+  position: relative;
+  border: 1px solid #DCDFE6;
+  border-radius: 2px;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  background-color: #FFF;
+  z-index: 1;
+  transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+}
+::v-deep .el-checkbox__inner::after {
+  box-sizing: content-box;
+  content: "";
+  border: 1px solid #FFF;
+  border-left: 0;
+  border-top: 0;
+  height: 9px;
+  left: 4px;
+  position: absolute;
+  top: 1px;
+  transform: rotate(45deg) scaleY(0);
+  width: 6px;
+  transition: transform .15s ease-in .05s;
+  transform-origin: center;
+}
+::v-deep .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: #18318C;
+  border-color: #18318C;
+}
+::v-deep .el-checkbox__label {
+  display: inline-block;
+  padding-left: 10px;
+  //line-height: 19px;
+  font-size: 18px;
+}
+::v-deep .el-checkbox__input.is-checked+.el-checkbox__label {
+  color: #18318C !important;
+
+}
+
 @import "./peopleMgtCss/baseInfo.scss";
 </style>

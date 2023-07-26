@@ -115,7 +115,7 @@
 						<el-image :src='img1' style="width: 100%;height: 100%;"></el-image>
 					</div>
 					<div class="last_right">
-						<div>负责人：{{ projectDetail.authorized_name || '/' }}</div>
+						<div >负责人：{{ projectDetail.authorized_name || '/' }}</div>
 						<div style="color: #18318C; font-size: 14px">截止时间：{{ projectDetail.deadline || '/' }}</div>
 					</div>
 				</div>
@@ -242,10 +242,17 @@
 </script>
 
 <style lang="scss" scoped>
+
+.container {
+  background-color: #F3F4F9;
+  padding: 30px;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+}
 	.con_top_box{
 		background-color: #FFF;
 		border-radius: 0.625rem;
-		padding: 1rem;
+		padding: 30px;
 	}
 	.labelImg {
 		width:1.5rem;
@@ -333,11 +340,13 @@
 			padding: 6px 14px;
 			background-color: #1ECDBE;
 			color: #FFF;
-			font-size: 18px;
+			font-size: 14px;
+			line-height: 14px;
 			border-radius: 0.3125rem;
 			margin-left: 1rem;
 		}
 		.con_left{
+			border-radius: 0.625rem;
 			width:68%;
 			padding: 20px;
 			background-color: #FFF;
@@ -376,6 +385,7 @@
 			}
 		}
 		.con_right{
+			border-radius: 0.625rem;
 			width: 25%;
 			background-color: #FFF;	
 			padding: 0 1rem;
@@ -457,7 +467,7 @@
 			}
 			.last_con{
 				margin: 30px auto;
-				width: 320px;
+				// width: 320px;
 				height: 60px;
 				background: rgba(54, 87, 207, 0.05);
 				border-radius: 10px;
@@ -467,8 +477,11 @@
 				align-items: center;
 				font-size: 1.125rem;
 				.last_left{
-					width: 3.75rem;
-					height: 3.75rem;
+					width: 45px;
+					height: 45px;
+					border-radius: 50%;
+					border: 7px solid #DDE2F1;
+					overflow: hidden;
 				}
 				.last_right{
 					margin-left: 20px;

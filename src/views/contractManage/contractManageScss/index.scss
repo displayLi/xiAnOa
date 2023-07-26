@@ -64,15 +64,15 @@
         display: flex;
         justify-content: flex-start;
 
-        .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
-          border-color: #18318C;
+       /deep/ .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+          border-color: #18318C !important;
         }
 
-        .el-select .el-input__inner:focus {
-          border-color: #18318C;
+        /deep/ .el-select .el-input__inner:focus {
+          border-color: #18318C !important;
         }
 
-        .el-select:first-child .el-input .el-select__caret {
+        /deep/ .el-select:first-child .el-input .el-select__caret {
           color: #C0C4CC;
           font-size: 14px;
           transition: transform .3s;
@@ -80,7 +80,7 @@
           cursor: pointer;
         }
 
-        .el-select:first-child .el-input .el-icon-::before {
+        /deep/ .el-select:first-child .el-input .el-icon-::before {
           content: "\e778";
           position: absolute;
           width: 100%;
@@ -90,10 +90,10 @@
           left: 50%;
           transform: translate(-50%, -50%);
         }
-        .el-select{
+        /deep/ .el-select{
           margin-right: 1.875rem;
         }
-        .el-select:not(:first-child) {
+       /deep/ .el-select:not(:first-child) {
           width: 10.6%;
         }
 
@@ -109,6 +109,7 @@
           background: #18318C;
           border-radius: 5px;
           font-size: 0.875rem;
+          cursor: pointer;
           font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
           color: #FFFFFF;
           line-height: 2.5rem;
@@ -120,6 +121,7 @@
         height: 2.5rem;
         background: #F4AB46;
         text-align: center;
+        cursor: pointer;
         border-radius: 3px;
         font-size: 0.875rem;
         font-family: "Source Han Sans CN-Regular, Source Han Sans CN";

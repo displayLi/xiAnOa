@@ -92,12 +92,9 @@
                   ></i></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="checkPass">
-                  <el-input :type="confirmNewSecretFlag ? 'text' : 'password'" v-model="setPassruleForm.checkPass"
-                            placeholder="请输入密码"><i
-                      slot="suffix"
-                      :class=" confirmNewSecretFlag === false? 'iconfont icon-eys': 'el-icon-view'"
-                      @click="changeIconState()"
-                  ></i></el-input>
+                  <el-input :type="confirmNewSecretFlag ? 'text' : 'password'" v-model="setPassruleForm.checkPass" placeholder="请输入密码">
+                          <i slot="suffix" :class=" confirmNewSecretFlag === false? 'iconfont icon-eys': 'el-icon-view'" @click="changeIconState()"></i>
+                  </el-input>
                 </el-form-item>
               </el-form>
               <div class="remeber-pass">
@@ -168,7 +165,7 @@ export default {
       },
       rules: {
         phone: [
-          {required: true, message: "请输入正确的手机号！", trigger: "blur"},
+          {required: true, message: "请输入手机号！", trigger: "blur"},
           {
             pattern:
                 /^(0|86|17951)?(13[0-9]|15[012356789]|17[3678]|18[0-9]|14[57])[0-9]{8}$/,
@@ -186,7 +183,7 @@ export default {
       },
       captchaRules: {
         phone: [
-          {required: true, message: "请输入正确的手机号！", trigger: "blur"},
+          {required: true, message: "请输入手机号！", trigger: "blur"},
           {
             pattern:
                 /^(0|86|17951)?(13[0-9]|15[012356789]|17[3678]|18[0-9]|14[57])[0-9]{8}$/,
@@ -286,12 +283,13 @@ export default {
                 message: "获取成功",
                 type: "success",
               });
-            }
-            // code为0需要设置密码
-            if (res.code === 0) {
               localStorage.setItem("isSetPass", res.code)
               this.$message.warning(res.msg);
               this.setPass = !this.setPass
+            }
+            // code为0需要设置密码
+            if (res.code === 0) {
+              this.$router.push('/main')
             }
           }).catch((error) => {
             console.log(error, "请求失败");
@@ -339,9 +337,6 @@ export default {
       });
     },
     setPasswords(formdata) {
-      // if(){
-      //
-      // }
       this.$axios.post("user/resetpwd", {
         type: "mobile",
         mobile: this.mobile,
@@ -407,6 +402,12 @@ export default {
 </script>
 
 <style lang="scss">
+.el-input__suffix {
+  height: 100%;
+  right: 18px;
+  transition: all .3s;
+  pointer-events: none;
+}
 @import "register";
 
 </style>

@@ -2,7 +2,7 @@
   <div class="index-container">
     <div class="team-type">
       <!-- 分组tab -->
-      <div class="tab-box">
+      <div class="tab-box" v-if="is_leads==1">
         <div class="nav">
           <div class='titleBox' v-for="(item,index) in teamList" :key="index" @click='titleClick(item.id)'>
             <div :class="currentIndex === item.id ? 'fontColorBox' : ''">{{ item.title }}</div>
@@ -16,7 +16,19 @@
               placeholder="选择日期">
           </el-date-picker>
         </div>
-
+      </div>
+      <div class="tab-box" v-if="is_leads==0">
+        <div class="personal-info">
+          <p><span>所属部门：</span>项目咨询部—A组</p>
+          <p><span>姓名：</span>张悟心</p>
+        </div>
+        <div class="picker">
+          <el-date-picker
+              v-model="valueMonth"
+              type="month"
+              placeholder="建档日期">
+          </el-date-picker>
+        </div>
       </div>
       <div class="team-box">
         <div class="team-info">
@@ -35,7 +47,7 @@
           <div class="l-info">
             <img src="../../assets/icons/icon2.png" alt="">
             <div class="num-info">
-              <p class="info-title">客户总数</p>
+              <p class="info-title">渠道客户</p>
               <p class="number">5620</p>
             </div>
           </div>
@@ -47,7 +59,7 @@
           <div class="l-info">
             <img src="../../assets/icons/icon3.png" alt="">
             <div class="num-info">
-              <p class="info-title">客户总数</p>
+              <p class="info-title">终端客户</p>
               <p class="number">5620</p>
             </div>
           </div>
@@ -59,27 +71,20 @@
     </div>
     <div class="table-information">
       <div class="table-header">
-        <el-select
-            v-model="customName"
-            multiple
-            filterable
-            reserve-keyword
-            placeholder="客户名称查询">
-          <el-option
-              v-for="item in custormOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
-        <el-select v-model="area" clearable placeholder="所在辖区">
-          <el-option
-              v-for="item in areaOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
+        <el-input
+            style="width: 14%;margin-left: -20px"
+            placeholder="客户名称"
+            suffix-icon="el-icon-search"
+            v-model="nickname"
+            clearable>
+        </el-input>
+        <el-cascader
+            size="large"
+            :options="options"
+            v-model="selectedOptions"
+            placeholder="所在辖区"
+            @change="handleChange">
+        </el-cascader>
         <el-select v-model="industryValue" clearable placeholder="所属行业">
           <el-option
               v-for="item in industryOptions"
@@ -109,7 +114,7 @@
               v-for="item in sourceOptions"
               :key="item.id"
               :label="item.name"
-              :value="item.name">
+              :value="item.id">
           </el-option>
         </el-select>
         <div class="filter" @click="getTableList">点击筛选</div>
@@ -120,12 +125,12 @@
             :data="tableData"
             :cell-style="{textarea:'center'}"
             :default-sort = "{prop: 'scale', order: 'descending'}"
-            :header-cell-style="{ background:'rgba(24, 49, 140, 0.2)',textarea:'center'}"
+            :header-cell-style="{ background:'rgba(24, 49, 140, 0.1)',textarea:'center'}"
             style="width: 100%">
           <el-table-column label="id" prop="id" v-if="false"></el-table-column>
           <el-table-column
               prop="name"
-              label="姓名">
+              label="客户名称">
           </el-table-column>
           <el-table-column
               prop="nickname"
@@ -134,6 +139,10 @@
           <el-table-column
               prop="area"
               label="所在辖区">
+          </el-table-column>
+          <el-table-column
+              prop="industry"
+              label="所属行业">
           </el-table-column>
           <el-table-column
               prop="communicate_result"
@@ -154,13 +163,27 @@
           <el-table-column
               prop="source"
               label="客户来源">
+            <template slot-scope="scope">
+              <div>
+                {{ scope.row.source==0?'公司推介':'个人推介' }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column
+              prop="level"
+              label="客户分级">
+            <template slot-scope="scope">
+              <div :class="scope.row.level=='0'?'levelStyleA':scope.row.level=='1'?'levelStyleB':'levelStyleC'">
+                {{ scope.row.level_name }}
+              </div>
+            </template>
           </el-table-column>
           <el-table-column
               fixed="right"
               label="操作"
               width="100">
             <template slot-scope="scope">
-              <el-button type="text" size="small" @click="edit(scope.row.id)">编辑</el-button>
+              <el-button style="color: #18318C" type="text" size="small" @click="edit(scope.row.id)">编辑</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -185,6 +208,7 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import {color} from "mockjs/src/mock/random/color";
+import {CodeToText, regionData} from 'element-china-area-data'
 
 export default {
   //import引入的组件需要注入到对象中才能使用",
@@ -192,9 +216,12 @@ export default {
   data() {
     //这里存放数据",
     return {
+      options: regionData,
+      selectedOptions: [],
       currentIndex: 1,
       currentPage: 1,
       total:0,
+      valueMonth:"",
       teamList: [
         {
           id: 1,
@@ -207,43 +234,7 @@ export default {
           title: "外拓组"
         }
       ],
-      custormOptions: [
-        {
-          value: '1',
-          label: '张宝华'
-        }, {
-          value: '2',
-          label: '李天顺'
-        }, {
-          value: '3',
-          label: '万福多'
-        }, {
-          value: '4',
-          label: '林慢慢'
-        }, {
-          value: '5',
-          label: '邓清清'
-        }],
-      custormValue: '',
-      areaOptions: [
-        {
-          value: 1,
-          label: '黄金糕'
-        }, {
-          value: 2,
-          label: '双皮奶'
-        }, {
-          value: 3,
-          label: '蚵仔煎'
-        }, {
-          value: 4,
-          label: '龙须面'
-        }, {
-          value: 5,
-          label: '北京烤鸭'
-        }
-      ],
-      areaValue: "",
+      nickname:"",
       industryOptions: [
         {id: 0, name: "技术和互联网行业"},
         {id: 1, name: "媒体和娱乐行业"},
@@ -279,8 +270,8 @@ export default {
       ],
       scaleValue: "",
       sourceOptions: [
-        {id: 0, name: "转介绍"},
-        {id: 1, name: "公司介绍"},
+        {id: 0, name: "公司推介"},
+        {id: 1, name: "个人推介"},
       ],
       sourceValue: "",
       tableData: [],
@@ -288,7 +279,8 @@ export default {
       area: "",
       source:"",
       scale:"",
-      create_at:""
+      create_at:"",
+      is_leads:0,
     };
   }
   ,
@@ -305,9 +297,14 @@ export default {
     titleClick: function (index) {
       this.currentIndex = index;
     },
+    handleChange (value) {
+      if(value[2]!==""){
+        this.area = CodeToText[value[2]]
+      }
+    },
     //
     newProfile(){
-      this.$router.push('/detail')
+      this.$router.push('/businesSsupport/detail')
     },
     edit(id){
       this.$router.push({path: '/businesSsupport/detail', query: {id: id}})
@@ -316,7 +313,7 @@ export default {
       this.$axios.get("profile/list", {
         page: this.currentPage,
         limit: 10,
-        name: this.customName,
+        name: this.nickname,
         area: this.area,
         industry: this.industryValue,
         source:this.source,
@@ -328,6 +325,7 @@ export default {
           this.total = res.data.total
         }
         if (res.code === 0) {
+          this.tableData =[]
           this.$message.warning(res.msg);
         }
       }).catch((error) => {
@@ -352,6 +350,8 @@ export default {
 //生命周期 - 创建完成（可以访问当前this实例）",数据模型已加载，方法已加载,html模板已加载,html模板未渲染
   created() {
     this.getTableList();
+    this.is_leads = JSON.parse(localStorage.getItem('userinfo')).is_leads
+    console.log("is---------->",this.is_leads)
   }
   ,
 //生命周期 - 挂载之前",html模板未渲染
@@ -395,7 +395,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "./bussinessCss/index.scss";
 
 </style>

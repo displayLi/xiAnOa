@@ -6,39 +6,11 @@ export default {
         tabList: [
             {
                 path: '/',
-                name: 'main',
-                label: '首页',
+                name: 'projectManage',
+                label: '项目管理系统',
                 icon: 's-home',
-                url: 'main.vue'
+                url: 'projectManage.vue'
             },
-            {
-                label: '业务支持系统',
-                icon: 'location',
-                children: [
-                    {
-                        path: '/businesSsupport',
-                        name: 'businesSsupport',
-                        label: '客户数据',
-                        icon: 'setting',
-                        url: 'index.vue'
-                    },
-                    {
-                        path: '/businesSsupport',
-                        name: 'statistics',
-                        label: '业务统计',
-                        icon: 'setting',
-                        url: 'statistics.vue'
-                    }
-                ]
-            },
-            {
-                path: '/peopleMgt',
-                name: 'peopleMgt',
-                icon: 'edit',
-                url: 'peopleMgt.vue',
-                label: '人力资源管理'
-
-            }
         ],//面包屑的数据:点了哪个路由,首页是一定有的
         menu: [],//不同用户的菜单
     },

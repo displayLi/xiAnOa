@@ -1,110 +1,9 @@
 .index-container {
   width: 100%;
-  height: 100%;
+  //height: 100%;
   background: rgba(24, 49, 140, 0.05);
   overflow: auto;
-  .tab-box{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .picker{
-      margin: 1.25rem 1.875rem 0 0 ;
-    }
-  }
-  .nav {
-    /* 顶部tab盒子样式 */
-    width: 100%;
-    margin: 1.25rem 0 0 1.875rem;
-    height: 3.375rem;
-    background: #FFFFFF;
-    vertical-align: bottom;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
 
-  }
-  .titleBox {
-    /* 未选中文字的样式 */
-    font-size: 1.125rem;
-    font-family: "SourceHanSansCN-Medium-, SourceHanSansCN-Medium";
-    color: #666666;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .fontColorBox,
-  .fontColorBox1 {
-    /* 文字默认颜色 */
-    font-size: 18px;
-    color: #18318C;
-  }
-  .titleBox:nth-child(2){
-    margin: 0 3.75rem 0 3.75rem;
-  }
-  .lineBox,
-  .notLineBox {
-    /* 选中及未选中底线共同样式 */
-    width: 54px;
-    height: 2px;
-    margin-top: 0.625rem;
-  }
-
-  .lineBox {
-    /* 选中底线样式 */
-    background: #18318C;
-    margin-top: 0.625rem;
-    border-radius: 4px;
-  }
-
-  .notLineBox {
-    /* 未选中底线样式 */
-    //background: transparent;
-  }
-  .team-box{
-    display: flex;
-    justify-content: flex-start;
-    .team-info{
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin: 1.25rem 0 0 1.875rem;
-      .l-info{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        &>img{
-          display: inline-block;
-          width: 3.125rem;
-          height: 3.125rem;
-        }
-        .num-info{
-          margin-left: 0.625rem;
-          .info-title{
-            font-size: 1rem;
-            font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
-            color: #ABADB2;
-          }
-          .number{
-            font-size: 1.5rem;
-            font-family: "Roboto-Medium, Roboto";
-            font-weight: 500;
-            color: #313848;
-          }
-        }
-      }
-      .r-info{
-        margin-left: 2.4375rem;
-        &>img{
-          display: inline-block;
-          width: 3.125rem;
-          height: 3.125rem;
-        }
-      }
-    }
-    .team-info:nth-child(2){
-      margin: 0 11.25rem 0 11.25rem;
-    }
-  }
 
   .team-type {
     width: 96.3%;
@@ -112,6 +11,124 @@
     margin: 1.875rem auto 1.25rem;
     background: #FFFFFF;
     border-radius: 0.625rem;
+    .tab-box{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .personal-info{
+        display: flex;
+        margin: 30px 0 30px 30px;
+        justify-content: flex-start;
+        &>p{
+          font-size: 18px;
+          color: #666666;
+          span{
+            color: #18318C;
+          }
+        }
+        p:nth-child(2){
+          margin-left: 30px;
+        }
+      }
+      .picker{
+        margin: 1.25rem 1.875rem 0 0 ;
+      }
+      .nav {
+        /* 顶部tab盒子样式 */
+        width: 100%;
+        margin: 1.25rem 0 0 1.875rem;
+        height: 3.375rem;
+        background: #FFFFFF;
+        vertical-align: bottom;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+      }
+      .titleBox {
+        /* 未选中文字的样式 */
+        font-size: 1.125rem;
+        font-family: "SourceHanSansCN-Medium-, SourceHanSansCN-Medium";
+        color: #666666;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .fontColorBox,
+      .fontColorBox1 {
+        /* 文字默认颜色 */
+        font-size: 18px;
+        color: #18318C;
+      }
+      .titleBox:nth-child(2){
+        margin: 0 3.75rem 0 3.75rem;
+      }
+      .lineBox,
+      .notLineBox {
+        /* 选中及未选中底线共同样式 */
+        width: 54px;
+        height: 2px;
+        margin-top: 0.625rem;
+      }
+      .lineBox {
+        /* 选中底线样式 */
+        background: #18318C;
+        margin-top: 0.625rem;
+        border-radius: 4px;
+      }
+
+      .notLineBox {
+        /* 未选中底线样式 */
+        //background: transparent;
+      }
+    }
+
+    .team-box{
+      display: flex;
+      justify-content: flex-start;
+      //padding-bottom: 30px;
+      .team-info{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0 0 0 1.875rem;
+        .l-info{
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          &>img{
+            display: inline-block;
+            width: 3.125rem;
+            height: 3.125rem;
+          }
+          .num-info{
+            margin-left: 0.625rem;
+            .info-title{
+              font-size: 1rem;
+              font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+              color: #ABADB2;
+            }
+            .number{
+              font-size: 1.5rem;
+              font-family: "Roboto-Medium, Roboto";
+              font-weight: 500;
+              color: #313848;
+            }
+          }
+        }
+        .r-info{
+          margin-left: 2.4375rem;
+          &>img{
+            display: inline-block;
+            width: 3.125rem;
+            height: 3.125rem;
+          }
+        }
+      }
+      .team-info:nth-child(2){
+        margin: 0 11.25rem 0 11.25rem;
+      }
+    }
   }
   .table-information {
     width: 96.3%;
@@ -128,15 +145,17 @@
       justify-content: space-around;
       margin: 1.875rem auto 1.25rem;
 
-      .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+      /deep/ .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+        border-color: #18318C;
+      }
+      /deep/ .el-input .el-input__inner:focus {
+        border-color: #18318C;
+      }
+      /deep/ .el-select .el-input__inner:focus {
         border-color: #18318C;
       }
 
-      .el-select .el-input__inner:focus {
-        border-color: #18318C;
-      }
-
-      .el-select:first-child .el-input .el-select__caret {
+      /deep/ .el-select:first-child .el-input .el-select__caret {
         color: #C0C4CC;
         font-size: 14px;
         transition: transform .3s;
@@ -144,7 +163,7 @@
         cursor: pointer;
       }
 
-      .el-select:first-child .el-input .el-icon-::before {
+      /deep/ .el-select:first-child .el-input .el-icon-::before {
         content: "\e778";
         position: absolute;
         width: 100%;
@@ -155,11 +174,11 @@
         transform: translate(-50%, -50%);
       }
 
-      .el-select:not(:first-child) {
+      /deep/ .el-select:not(:first-child) {
         width: 10.6%;
       }
 
-      .el-icon-arrow-up:before {
+      /deep/ .el-icon-arrow-up:before {
         content: "\e78f";
       }
 
@@ -193,11 +212,11 @@
       width: 96.2%;
       margin: auto;
 
-      .el-table {
+      /deep/ .el-table {
         border-radius: 10px 10px 0 0;
       }
 
-      .el-table th.el-table__cell > .cell {
+      /deep/ .el-table th.el-table__cell > .cell {
         display: inline-block;
         box-sizing: border-box;
         position: relative;
@@ -208,7 +227,7 @@
         width: 100%;
       }
 
-      .el-table .cell {
+      /deep/ .el-table .cell {
         box-sizing: border-box;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -219,7 +238,33 @@
         padding-right: 10px;
         text-align: center;
       }
-
+      .levelStyleA{
+        width: 2.375rem;
+        height: 1.25rem;
+        margin: auto;
+        background: rgba(223, 75, 60, 0.1);
+        border-radius: 5px;
+        font-size: 0.875rem;
+        color: #DF4B3C;
+      }
+      .levelStyleB{
+        width: 2.375rem;
+        height: 1.25rem;
+        margin: auto;
+        background: rgba(244, 171, 70, 0.1);
+        border-radius: 5px;
+        font-size: 0.875rem;
+        color: #F4AB46;
+      }
+      .levelStyleC{
+        width: 2.375rem;
+        height: 1.25rem;
+        margin: auto;
+        background: rgba(30, 205, 190, 0.1);
+        border-radius: 5px;
+        font-size: 0.875rem;
+        color: #1ECDBE;
+      }
       tagblue1 {
         font-size: 0.875rem;
         font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light";
@@ -232,7 +277,7 @@
         color: #469F48;
       }
 
-      .el-table__header-wrapper {
+      /deep/ .el-table__header-wrapper {
         thead {
           th {
             div {
@@ -246,13 +291,12 @@
       .pagination {
         width: 100%;
         margin: 1.25rem auto;
-        text-align: center;
+        text-align: right;
 
-        .el-pagination.is-background .el-pager li:not(.disabled).active {
+        /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
           background-color: #F4AB46;
           color: #FFF;
         }
-
       }
     }
   }

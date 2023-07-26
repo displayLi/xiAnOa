@@ -6,7 +6,9 @@
 
   .base-info {
     width: 96.3%;
-    height: 27.125rem;
+    height: auto;
+    padding-bottom: 30px;
+    box-sizing: border-box;
     margin: 1.875rem auto 1.25rem;
     background: #FFFFFF;
     border-radius: 10px;
@@ -105,29 +107,38 @@
       border-right: 1px solid rgba(49, 56, 72, 0.05);
     }
 
-    .check {
-      .el-radio-group {
-        margin-left: 10px;
+    /deep/ .check {
+      /deep/.el-radio-button__inner, .el-radio-group {
+        margin-left: 10px !important;
 
-        .el-radio__inner {
-          border-radius: 2px;
+        /deep/ .el-radio__inner {
+          border-radius: 2px  !important;
+          width: 18px  !important;
+          height: 18px !important;
+        }
+        /deep/ .el-radio__inner {
+          border: 1px solid #DCDFE6;
+          /* border-radius: 100%; */
           width: 18px;
           height: 18px;
+          background-color: #FFF;
+          cursor: pointer;
+          box-sizing: border-box;
         }
 
-        .el-radio__input.is-checked .el-radio__inner {
-          border-color: #18318C;
-          background: #18318C;
+        /deep/.el-radio__input.is-checked .el-radio__inner {
+          border-color: #18318C !important;
+          background: #18318C !important;
         }
 
-        .el-radio__input.is-checked + .el-radio__label {
-          color: #18318C;
+        /deep/  .el-radio__input.is-checked + .el-radio__label {
+          color: #18318C !important;
         }
 
-        .el-radio__input.is-checked .el-radio__inner::after {
+        /deep/  .el-radio__input.is-checked .el-radio__inner::after {
           content: "";
-          width: 10px;
-          height: 5px;
+          width: 10px !important;
+          height: 5px !important;
           border: 1px solid white;
           border-top: transparent;
           border-right: transparent;
@@ -135,8 +146,8 @@
           font-weight: 500;
           display: block;
           position: absolute;
-          top: 3px;
-          left: 2px;
+          top: 3px !important;
+          left: 2px !important;
           vertical-align: middle;
           transform: rotate(-45deg);
           border-radius: 0px;
@@ -147,25 +158,25 @@
 
     }
     .input{
-      //display: flex;
-      //align-items: center;
-      //justify-content: flex-start;
-      &>span{
-        //display: inline-block;
+      /deep/ .el-input{
+        width: 70%;
       }
-      .el-input{
-        width: 71%;
+      /deep/ .el-select{
+        width: 70%;
       }
-      .el-input__inner{
+      /deep/ .el-input__inner{
         border: none;
+        font-size: 18px;
+        background: transparent !important;
       }
-      .el-textarea__inner,.el-input__inner {
+      /deep/ .el-textarea__inner,.el-input__inner {
         background: transparent !important;
       }
     }
     .border {
-      .el-input__inner {
+      /deep/ .el-input__inner {
         border: none;
+        font-size: 18px;
         box-shadow: none;
         background: transparent !important;
       }
@@ -174,18 +185,24 @@
     }
   }
 
-  .base-info:nth-child(2) {
-    height: 19.125rem;
-  }
-
-  .base-info:nth-child(3) {
-    height: 15.125rem;
-  }
+  //.base-info:nth-child(2) {
+  //  height: 19.125rem;
+  //}
+  //
+  //.base-info:nth-child(3) {
+  //  height: 15.125rem;
+  //}
 
   .base-info:nth-child(4) {
-    height: 20.5rem;
+    //height: 20.5rem;
     .el-input{
-      width: 40%;
+      width: 50%;
+      //margin-left: 20px;
+      font-size: 18px;
+    }
+    .el-date-editor.el-input, .el-date-editor.el-input__inner {
+      //width: 220px;
+      margin-left: 20px;
     }
     .table-header {
       justify-content: flex-start;
@@ -193,26 +210,27 @@
       .el-select {
         margin-left: 20px;
       }
-
     }
   }
 
   .base-info:nth-child(5) {
-    height: 20.5rem;
+    //height: 20.5rem;
     .el-input{
       width: 65%;
     }
-    .el-select{
+   /deep/ .el-select{
       width: 64%;
     }
-    .el-select .el-input{
+    /deep/  .el-select .el-input{
       width: 100%;
     }
   }
 
   .base-info:nth-child(6) {
-    height: 20.5rem;
-
+    //height: 20.5rem;
+    #ccc:not(:first-child){
+      margin-top: 60px;
+    }
     .table-header {
       .r-header {
 
@@ -220,5 +238,6 @@
     }
 
   }
+
 }
 

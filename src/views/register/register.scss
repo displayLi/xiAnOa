@@ -1,6 +1,6 @@
 .register-container{
   width: 100%;
-  height: auto;
+  height: 100vh;
   .register-content{
     width: 100%;
     height:100%;
@@ -22,7 +22,6 @@
         }
         &>.title{
           font-size:3.75rem;
-          font-family: "SourceHanSansCN-Bold-, SourceHanSansCN-Bold";
           color: #FFFFFF;
           line-height: 1.5rem;
           margin-top: 1.875rem;
@@ -31,7 +30,6 @@
           width: 52.3%;
           height: 6.875rem;
           font-size: 1.5rem;
-          font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular";
           font-weight: normal;
           margin-top: 3.75rem;
           color: #FFFFFF;
@@ -41,7 +39,7 @@
           width: 52.3%;
           height: 68px;
           font-size: 24px;
-          font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular",serif;
+          //font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular",Serif;
           font-weight: normal;
           margin-top: 120px;
           color: #FFFFFF;
@@ -57,7 +55,7 @@
             top: -9%;
             left: 3%;
             font-size: 2.875rem;
-            font-family: "Arial-BoldMT-, Arial-BoldMT";
+            //font-family: "Arial-BoldMT-, Arial-BoldMT",Serif;
             font-weight: normal;
             color: #FFFFFF;
             line-height: 1.125rem;
@@ -85,9 +83,8 @@
         .system-name{
           .bold-name{
             height: 65px;
-            font-size: 3.375rem;
-            font-family: "SourceHanSansCN-Bold-, SourceHanSansCN-Bold";
-            font-weight: normal;
+            font-size:calc(100vw * 50 / 1920);
+            font-weight: 600;
             color: #313848;
             line-height: 5.9375rem;
           }
@@ -111,7 +108,6 @@
               display: flex;
               align-items: center;
               cursor: pointer;
-              font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
               font-weight: 500;
               color:  #313848;
               line-height: 1.5rem;
@@ -154,14 +150,14 @@
                 .el-input-group__append .el-button, .el-input-group__append .el-input, .el-input-group__prepend .el-button, .el-input-group__prepend .el-input, .el-input__inner {
                   font-size: 1.125rem;
                 }
+
                 .el-input__inner {
                   -webkit-appearance: none;
-                  background-color: rgba(49, 56, 62, 0);
-                  background-image: none;
+                  background:unset;
                   border-radius: 4px;
                   border: none;
                   box-sizing: border-box;
-                  color: #999999;
+                  color: #313848;
                   font-size: 1.125rem;
                   caret-color: #18318C;
                   display: inline-block;
@@ -229,7 +225,6 @@
               margin: 8.375rem 0 0;
               border-radius: 0.625rem;
               font-size: 1.5rem;
-              font-family: "SourceHanSansCN-Medium-, SourceHanSansCN-Medium";
               color: #FFFFFF;
             }
             .register{
@@ -237,7 +232,6 @@
               margin: 1.25rem auto;
               text-align: center;
               font-size: 1.125rem;
-              font-family: "Source Han Sans CN-Normal, Source Han Sans CN";
               &>span{
                 display: inline-block;
                 color: #999999;
@@ -263,7 +257,6 @@
                   display: inline-block;
                   cursor: pointer;
                   font-size: 1.125rem;
-                  font-family: "SourceHanSansCN-Regular-, SourceHanSansCN-Regular",serif;
                   font-weight: normal;
                   color: #18318C;
                 }
@@ -282,12 +275,11 @@
                 }
                 .el-input__inner {
                   -webkit-appearance: none;
-                  background-color: rgba(49, 56, 62, 0);
-                  background-image: none;
+                  background:unset;
                   border-radius: 4px;
                   border: none;
                   box-sizing: border-box;
-                  color: #999999;
+                  color: #313848;
                   caret-color: #18318C;
                   display: inline-block;
                   height: 40px;
@@ -311,7 +303,7 @@
               .el-form-item:nth-child(2){
                 .el-color-picker__icon, .el-input, .el-textarea {
                   display: inline-block;
-                  width: 72%;
+                  width: 68%;
                 }
               }
             }
@@ -326,7 +318,6 @@
               margin: 8.375rem 0 0;
               border-radius: 0.625rem;
               font-size: 1.5rem;
-              font-family: "SourceHanSansCN-Medium-, SourceHanSansCN-Medium";
               color: #FFFFFF;
             }
           }
@@ -345,7 +336,6 @@
               display: flex;
               align-items: center;
               cursor: pointer;
-              font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
               font-weight: 500;
               color:  #313848;
               line-height: 1.5rem;
@@ -390,12 +380,12 @@
                 }
                 .el-input__inner {
                   -webkit-appearance: none;
-                  background-color: rgba(49, 56, 62, 0);
-                  background-image: none;
+                  background:unset;
+                  //background-image: none;
                   border-radius: 4px;
                   border: none;
                   box-sizing: border-box;
-                  color: #999999;
+                  color: #313848;
                   font-size: 1.125rem;
                   caret-color: #18318C;
                   display: inline-block;
@@ -510,6 +500,10 @@
             &>img{
               width: 2.5rem;
               height: 2.5rem;
+            }
+            &>img:nth-child(2){
+              margin-left: 20px;
+              margin-right: 20px;
             }
           }
           .copyright{

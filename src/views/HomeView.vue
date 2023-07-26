@@ -3,11 +3,11 @@
     <div class="container">
       <el-container>
         <!-- width自适应,不然header与aside有间隔 -->
-        <el-aside width="auto" style="background: #18318C">
+        <el-aside width="auto" style="background: #112466">
           <common-aside></common-aside>
         </el-aside>
         <el-container>
-          <el-header style="height: auto;min-height: 8.75rem">
+          <el-header style="height: auto;">
             <common-header/>
           </el-header>
           <el-main style="padding: 0">
@@ -90,8 +90,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container{
+  height: 100vh;
+}
 .el-header{
   padding:0;
-
+  height: 70px;
+}
+.el-aside{
+  min-height: 100vh;
+  //height: calc(100vh - 10px);// 设置左侧 aside 高度
+}
+.el-main {
+  padding: 0;
+  height: calc(100vh - 70px);// 设置主体 main 高度
 }
 </style>

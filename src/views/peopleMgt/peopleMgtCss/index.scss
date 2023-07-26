@@ -3,7 +3,29 @@
   height: 100%;
   background: rgba(24, 49, 140, 0.05);
   overflow: auto;
-
+  .tab-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .personal-info{
+      display: flex;
+      margin: 30px 0 30px 30px;
+      justify-content: flex-start;
+      &>p{
+        font-size: 18px;
+        color: #666666;
+        span{
+          color: #18318C;
+        }
+      }
+      p:nth-child(2){
+        margin-left: 30px;
+      }
+    }
+    .picker{
+      margin: 1.25rem 1.875rem 0 0 ;
+    }
+  }
   .team-type {
     width: 96.3%;
     height: 10rem;
@@ -21,13 +43,15 @@
       align-items: center;
 
       .l-information {
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-left: 1.875rem;
+        margin-left: 4%;
         .left-title {
-          font-size: 1.5rem;
+          //width: 6rem;
+          font-size:calc(100vw * 24 / 1920);
           font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
           font-weight: 500;
           color: #313848;
@@ -54,7 +78,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-left:3.375rem ;
+        margin-left: 8.2%;
         .boy-info {
           display: flex;
           justify-content: flex-start;
@@ -66,7 +90,10 @@
           }
           .el-progress{
             width: 24.375rem;
-          }
+          }.el-progress-bar{
+             width: 88%;
+           }
+
           .prog-title{
             margin-left: 0.625rem;
             font-size: 1.125rem;
@@ -92,7 +119,9 @@
           }
           .el-progress{
             width: 24.375rem;
-          }
+          }.el-progress-bar{
+             width: 88%;
+           }
         }
       }
     }
@@ -190,6 +219,7 @@
 
         .search {
           width: 33%;
+          height: 40px;
           display: flex;
           align-items: center;
           border-radius: 5px;
@@ -202,25 +232,25 @@
             margin-left: 0.6875rem;
           }
 
-          .el-input__inner {
+          /deep/ .el-input__inner {
             border: none;
           }
         }
 
-        .el-select {
+        /deep/ .el-select {
           width: 20.3%;
           margin-left: 1.875rem;
         }
 
-        .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+        /deep/ .el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
           border-color: #18318C;
         }
 
-        .el-select .el-input__inner:focus {
+        /deep/ .el-select .el-input__inner:focus {
           border-color: #18318C;
         }
 
-        .el-select:first-child .el-input .el-select__caret {
+        /deep/ .el-select:first-child .el-input .el-select__caret {
           color: #C0C4CC;
           font-size: 14px;
           transition: transform .3s;
@@ -228,7 +258,7 @@
           cursor: pointer;
         }
 
-        .el-select:first-child .el-input .el-icon-::before {
+        /deep/ .el-select:first-child .el-input .el-icon-::before {
           content: "\e778";
           position: absolute;
           width: 100%;
@@ -240,7 +270,7 @@
         }
 
 
-        .el-icon-arrow-up:before {
+        /deep/  .el-icon-arrow-up:before {
           content: "\e78f";
         }
 
@@ -299,28 +329,28 @@
       width: 96.2%;
       margin: auto;
 
-      .el-table {
+      /deep/ .el-table {
         border-radius: 10px 10px 0 0;
       }
 
-      .el-checkbox__inner {
+      /deep/  .el-checkbox__inner {
         width: 1.125rem;
         height: 1.125rem;
       }
 
-      .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+      /deep/ .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
         background-color: #18318C;
         border-color: #18318C;
       }
 
-      .el-checkbox__inner::after {
+      /deep/ .el-checkbox__inner::after {
         height: 10px;
         left: 5px;
         top: 0px;
         width: 6px;
       }
 
-      .el-table th.el-table__cell > .cell {
+      /deep/ .el-table th.el-table__cell > .cell {
         display: inline-block;
         box-sizing: border-box;
         position: relative;
@@ -331,7 +361,7 @@
         width: 100%;
       }
 
-      .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+      /deep/ .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
         content: '';
         position: absolute;
         display: block;
@@ -343,7 +373,7 @@
         top: 7px;
       }
 
-      .el-table .cell {
+      /deep/ .el-table .cell {
         box-sizing: border-box;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -367,7 +397,7 @@
         color: #469F48;
       }
 
-      .el-table__header-wrapper {
+      /deep/  .el-table__header-wrapper {
         thead {
           th {
             div {
@@ -381,9 +411,9 @@
       .pagination {
         width: 100%;
         margin: 1.25rem auto;
-        text-align: center;
+        text-align: right;
 
-        .el-pagination.is-background .el-pager li:not(.disabled).active {
+       /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
           background-color: #F4AB46;
           color: #FFF;
         }

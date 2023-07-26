@@ -38,7 +38,13 @@
             </td>
             <td class="input">
               注册辖区：
-              <el-input v-model="tableInfo.area" placeholder="请输入注册辖区"></el-input>
+              <el-cascader
+                  size="large"
+                  :options="options"
+                  v-model="tableInfo.region"
+                  placeholder="所在辖区"
+                  @change="handleChange">
+              </el-cascader>
             </td>
           </tr>
           <tr>
@@ -106,23 +112,13 @@
             </td>
           </tr>
           <tr>
-            <td class="check" :colspan="2">
-              <img style="display: inline-block;width: 1.125rem;height: 1.125rem;vertical-align:middle;"
-                   src="../../assets/icons/tip.png" alt="">
-              <span
-                  style="vertical-align: middle;margin-left: 10px">企业注册、纳税、统计开户所在地均在同一辖区且经营风险</span>
-              <el-radio-group v-model="tableInfo.operating_risk">
-                <el-radio label="0">异常</el-radio>
-                <el-radio label="1">无异常</el-radio>
-              </el-radio-group>
-            </td>
             <td class="input" style="border:none">
               <span>主营产品/服务：</span>
-              <el-input v-model="tableInfo.main_products" placeholder="请输入纳税人资质"></el-input>
+              <el-input style="width: 61%"  v-model="tableInfo.main_products" placeholder="请输入主营产品/服务"></el-input>
             </td>
             <td class="border">
               客户来源：
-              <el-select v-model="tableInfo.source" clearable placeholder="请选择沟通方式">
+              <el-select v-model="tableInfo.source" clearable placeholder="请选择客户来源">
                 <el-option
                     v-for="item in sourceOptions"
                     :key="item.id"
@@ -130,6 +126,40 @@
                     :value="item.id">
                 </el-option>
               </el-select>
+            </td>
+            <td class="border">
+              客户归属：
+              <el-select v-model="tableInfo.ownership" clearable placeholder="请选择客户归属">
+                <el-option
+                    v-for="item in ascriptionOptions"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
+                </el-option>
+              </el-select>
+            </td>
+            <td class="border">
+              客户分级：
+              <el-select v-model="tableInfo.level" clearable placeholder="请选择客户分级">
+                <el-option
+                    v-for="item in gradeOptions"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
+                </el-option>
+              </el-select>
+            </td>
+          </tr>
+          <tr>
+            <td class="check" :colspan="4">
+              <img style="display: inline-block;width: 1.125rem;height: 1.125rem;vertical-align:middle;"
+                   src="../../assets/icons/tip.png" alt="">
+              <span
+                  style="vertical-align: middle;margin-left: 10px">企业注册、纳税、统计开户所在地均在同一辖区且经营风险</span>
+              <el-radio-group v-model="tableInfo.operating_risk">
+                <el-radio :label="0">异常</el-radio>
+                <el-radio :label="1">无异常</el-radio>
+              </el-radio-group>
             </td>
           </tr>
         </template>
@@ -152,7 +182,7 @@
           <tr>
             <td>专利（数量）</td>
             <td class="input">
-              <span>发明专利：</span>
+              <span>发 明 专 利：</span>
               <el-input v-model="intellectual.invention_patent" placeholder="请输入发明专利"></el-input>
             </td>
             <td class="input">
@@ -185,10 +215,10 @@
             <td class="check" :colspan="2" style="border:none">
               <span style="vertical-align: middle;">研发团队</span>
               <el-radio-group v-model="intellectual.rd_team">
-                <el-radio label="0">自主研发</el-radio>
-                <el-radio label="1">委托研发</el-radio>
-                <el-radio label="2">联合研发</el-radio>
-                <el-radio label="3">无研发</el-radio>
+                <el-radio :label="0">自主研发</el-radio>
+                <el-radio :label="1">委托研发</el-radio>
+                <el-radio :label="2">联合研发</el-radio>
+                <el-radio :label="3">无研发</el-radio>
               </el-radio-group>
             </td>
           </tr>
@@ -211,61 +241,61 @@
         <template>
           <tr>
             <td class="check" style="font-weight: normal">
-              <span style="vertical-align: middle;">科技型中小企业</span>
+              <span style="vertical-align: middle;margin-right: 3px">科技型中小企业</span>
               <el-radio-group v-model="honors.smes">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
             <td class="check" style="font-weight: normal">
-              <span style="vertical-align: middle;">创新型中小企业</span>
+              <span style="vertical-align: middle;">创 新 型 中小企业</span>
               <el-radio-group v-model="honors.innovative">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
             <td class="check" style="font-weight: normal">
               <span style="vertical-align: middle;">瞪羚企业</span>
               <el-radio-group v-model="honors.gazelle">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
             <td class="check" style="font-weight: normal">
               <span style="vertical-align: middle;">企业技术中心</span>
               <el-radio-group v-model="honors.technology_center">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
           </tr>
           <tr>
             <td class="check" style="font-weight: normal">
-              <span style="vertical-align: middle;">高新技术企业</span>
+              <span style="vertical-align: middle;">高 新 技 术 企业</span>
               <el-radio-group v-model="honors.hightech_enterprise">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
             <td class="check" style="font-weight: normal">
               <span style="vertical-align: middle;">专精特新中小企业</span>
               <el-radio-group v-model="honors.mastery">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
             <td class="check" style="font-weight: normal">
               <span style="vertical-align: middle;">规上企业</span>
               <el-radio-group v-model="honors.on_gauge">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
             <td class="check" style="font-weight: normal">
               <span style="vertical-align: middle;">新型研发机构</span>
               <el-radio-group v-model="honors.new_type">
-                <el-radio label="0">是</el-radio>
-                <el-radio label="1">否</el-radio>
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
               </el-radio-group>
             </td>
           </tr>
@@ -279,12 +309,11 @@
           <img src="../../assets/icons/icon9.png" alt="">
           <span>财务数据</span>
           <el-date-picker
-              style="width: 57%;margin-left: 20px"
               v-model="finance.year"
-              type="date"
-              format="yyyy 年 MM 月 dd 日"
-              value-format="yyyy-MM-dd"
-              placeholder="选择日期">
+              format="yyyy 年"
+              value-format="yyyy"
+              type="year"
+              placeholder="选择年">
           </el-date-picker>
         </p>
         <div class="r-header">
@@ -301,11 +330,11 @@
             </td>
             <td class="input">
               <span>固定资产原值（万元）：</span>
-              <el-input v-model="finance.immobilisations" placeholder="请输入"></el-input>
+              <el-input style="width: 44%" v-model="finance.immobilisations" placeholder="请输入"></el-input>
             </td>
             <td class="input">
               <span>净资产（万元）：</span>
-              <el-input v-model="finance.debt_ratio" placeholder="请输入"></el-input>
+              <el-input v-model="finance.net_assets" placeholder="请输入"></el-input>
             </td>
             <td class="input">
               <span>负债率（%）：</span>
@@ -332,11 +361,11 @@
           </tr>
           <tr>
             <td class="input">
-              <span>所得税（万元）：</span>
+              <span>所 得 税 （万元）：</span>
               <el-input v-model="finance.income_tax" placeholder="请输入"></el-input>
             </td>
             <td class="input">
-              <span>增值税（万元）：</span>
+              <span>增    值    税   （万元）：</span>
               <el-input v-model="finance.vat" placeholder="请输入"></el-input>
             </td>
             <td class="input">
@@ -386,14 +415,14 @@
             </td>
             <td class="check">
               <el-radio-group v-model="item.declaration">
-                <el-radio label="0">已申报</el-radio>
-                <el-radio label="1">已立项</el-radio>
+                <el-radio :label="0">已申报</el-radio>
+                <el-radio :label="1">已立项</el-radio>
               </el-radio-group>
             </td>
             <td class="check">
               <el-radio-group v-model="item.status">
-                <el-radio label="0">已验收</el-radio>
-                <el-radio label="1">未验收</el-radio>
+                <el-radio :label="0">已验收</el-radio>
+                <el-radio :label="1">未验收</el-radio>
               </el-radio-group>
             </td>
           </tr>
@@ -401,30 +430,29 @@
         </tbody>
       </table>
     </div>
-    <div class="base-info">
+    <div class="base-info" style="overflow: auto;padding-bottom: 30px">
       <div class="table-header">
         <p class="l-header">
           <img src="../../assets/icons/icon5.png" alt="">
           <span>拜访记录</span>
         </p>
         <div class="r-header">
-          <p>
-            拜访日期：2023-05-06
-          </p>
-          <div class="add" @click="createVisitLog()">添加</div>
+          <div class="save" @click="createVisitLog()">保存</div>
+          <div class="add" @click="createNewVisitLog()">添加</div>
         </div>
       </div>
-      <table class="table table-condensed table-bordered" cellspacing="0px">
+      <table class="table table-condensed table-bordered" id="ccc" cellspacing="0px" style=""
+             v-for="(item,index) in visitLog" :key="index">
         <tbody>
         <template>
           <tr>
             <td class="input">
               <span>甲方对接人：</span>
-              <el-input v-model="visitLog.name" placeholder="请输入甲方对接人"></el-input>
+              <el-input style="width: 68%;" v-model="item.name" placeholder="请输入甲方对接人"></el-input>
             </td>
             <td class="border">
               性别：
-              <el-select v-model="visitLog.gender" clearable placeholder="请选择性别">
+              <el-select v-model="item.gender" clearable placeholder="请选择性别">
                 <el-option
                     v-for="item in sexOptions"
                     :key="item.id"
@@ -435,25 +463,27 @@
             </td>
             <td class="input">
               <span>职务：</span>
-              <el-input v-model="visitLog.duties" placeholder="请输入"></el-input>
+              <el-input v-model="item.duties" placeholder="请输入"></el-input>
             </td>
             <td class="input">
               <span>联系方式：</span>
-              <el-input v-model="visitLog.mobile" placeholder="请输入联系方式"></el-input>
+              <el-input v-model="item.mobile" placeholder="请输入联系方式"></el-input>
             </td>
           </tr>
           <tr>
             <td class="border">
               拜访日期：
               <el-date-picker
-                  v-model="visitLog.visit_time"
+                  v-model="item.visit_time"
                   type="date"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd"
                   placeholder="选择日期">
               </el-date-picker>
             </td>
             <td class="border">
               沟通方式：
-              <el-select v-model="visitLog.communicate_type" clearable placeholder="请选择沟通方式">
+              <el-select v-model="item.communicate_type" clearable placeholder="请选择沟通方式">
                 <el-option
                     v-for="item in typeOptions"
                     :key="item.id"
@@ -464,7 +494,7 @@
             </td>
             <td class="border">
               沟通意向：
-              <el-select v-model="visitLog.communicate_intention" clearable placeholder="请选择沟通意向">
+              <el-select v-model="item.communicate_intention" clearable placeholder="请选择沟通意向">
 
                 <el-option
                     v-for="item in intentionOptions"
@@ -476,7 +506,7 @@
             </td>
             <td class="border">
               沟通结果：
-              <el-select v-model="visitLog.communicate_result" clearable placeholder="请选择沟通结果">
+              <el-select v-model="item.communicate_result" clearable placeholder="请选择沟通结果">
                 <el-option
                     v-for="item in resultOptions"
                     :key="item.id"
@@ -489,7 +519,7 @@
           <tr>
             <td class="input" :colspan="4">
               <span>备注说明：</span>
-              <el-input v-model="visitLog.remark" placeholder="请输入备注说明"></el-input>
+              <el-input v-model="item.remark" placeholder="请输入备注说明"></el-input>
             </td>
           </tr>
         </template>
@@ -500,6 +530,7 @@
 </template>
 
 <script>
+import { regionData,CodeToText} from 'element-china-area-data'
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
@@ -512,7 +543,8 @@ export default {
         name: "",
         establish_time: "",
         fund: "",
-        area: "",
+        area: "",//区
+        region:"",//省市区
         enterprise_code: "",
         workers_number: "",
         insured_number: "",
@@ -525,8 +557,10 @@ export default {
         phone: "",
         taxpayer_qualification: "",
         main_products: "",
-        operating_risk: "0",
-        source: ""
+        operating_risk: "",
+        source: "",
+        ownership:"",
+        level:""
       },
       // 知识产权
       intellectual: {
@@ -602,22 +636,33 @@ export default {
         {id: 10, name: "农业和农产品行业"}
       ],
       sourceOptions: [
-        {id: 0, name: "转介绍"},
-        {id: 1, name: "公司介绍"},
+        {id: 0, name: "公司推介"},
+        {id: 1, name: "个人推介"},
+      ],
+      ascriptionOptions:[
+        {id: 0, name: "渠道客户"},
+        {id: 1, name: "终端客户"},
+      ],
+      gradeOptions:[
+        {id: 0, name: "A级"},
+        {id: 1, name: "B级"},
+        {id: 2, name: "C级"},
       ],
       // 拜访记录
-      visitLog: {
-        name: "",
-        gender: "",
-        profile_id: "",
-        duties: "",
-        mobile: "",
-        visit_time: "",
-        communicate_type: "",
-        communicate_intention: "",
-        communicate_result: "",
-        remark: ""
-      },
+      visitLog: [
+        {
+          name: "",
+          gender: "",
+          profile_id: "",
+          duties: "",
+          mobile: "",
+          visit_time: "",
+          communicate_type: "",
+          communicate_intention: "",
+          communicate_result: "",
+          remark: ""
+        }
+      ],
       typeOptions: [
         {id: 0, name: "电话"},
         {id: 1, name: "面谈"}
@@ -631,34 +676,6 @@ export default {
         {id: 1, name: "已签约"}
       ],
       teamRadio: "1",
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }],
-      yearOptions: [
-        {
-          yearValue: 1,
-          label: "2023年度"
-        },
-        {
-          yearValue: 2,
-          label: "2021年度"
-        }
-      ],
-      yearValue: "",
       styleOptions: [
         {
           styleValue: 1,
@@ -671,15 +688,18 @@ export default {
       ],
       sexOptions: [
         {
-          value: 0,
-          label: '男'
+          id: 0,
+          name: '男'
         }, {
-          value: 1,
-          label: '女'
+          id: 1,
+          name: '女'
         }
       ],
       styleValue: "",
-      profile_id: ""
+      profile_id: "",
+      loading: false,
+      options:regionData,
+      selectedOptions:[],
     };
   },
   //监听属性 类似于data概念",
@@ -688,24 +708,51 @@ export default {
   watch: {},
   //方法集合",
   methods: {
+    // 选择辖区触发
+    handleChange (value) {
+      if(value[2]!==""){
+        this.tableInfo.area = CodeToText[value[2]]
+      }
+    },
     //   创建客户档案
     createProfile() {
-      this.$axios.post("profile/create", this.tableInfo
-      ).then((res) => {
-        if (res.code === 1) {
-          this.$message.success(res.msg)
-          this.profile_id = res.data.info
-        }
-        if (res.code === 0) {
-          this.$message.warning(res.msg);
-        }
-      }).catch((error) => {
-        console.log(error, "请求失败");
-      });
+      if (this.loading) {
+        this.$message.warning('请不要重复提交！');
+        return
+      }
+      if (this.$route.query.id) {
+        this.tableInfo.profile_id = this.$route.query.id
+        this.$axios.put("profile/update", this.tableInfo
+        ).then((res) => {
+          if (res.code === 1) {
+            this.$message.success(res.msg)
+          }
+          if (res.code === 0) {
+            this.$message.warning(res.msg);
+          }
+        }).catch((error) => {
+          console.log(error, "请求失败");
+        });
+      } else {
+        this.$axios.post("profile/create", this.tableInfo
+        ).then((res) => {
+          if (res.code === 1) {
+            this.$message.success(res.msg)
+            this.profile_id = res.data.info
+          }
+          if (res.code === 0) {
+            this.$message.warning(res.msg);
+          }
+        }).catch((error) => {
+          console.log(error, "请求失败");
+        }).finally(() => {
+          this.loading = true;
+        });
+      }
     },
     // 知识产权
     createIntellectual() {
-      console.log("this.$route.query.id",this.$route.query.id)
+      console.log("this.$route.query.id", this.$route.query.id)
       // 先判断是否存在profile_id
       if (!this.profile_id && !this.$route.query.id) {
         this.$message.warning('请先填写企业基本信息！')
@@ -730,16 +777,14 @@ export default {
     },
     // 新建荣誉资质
     createHonors() {
-      console.log("this.$route.query.id",this.$route.query.id)
+      console.log("this.$route.query.id", this.$route.query.id)
       if (!this.profile_id && !this.$route.query.id) {
         this.$message.warning('请先填写企业基本信息！')
         return
       } else if (this.profile_id) {
-        console.log("profile_id",'222222222')
-        this.intellectual.profile_id = this.profile_id
+        this.honors.profile_id = this.profile_id
       } else if (this.$route.query.id) {
-        console.log("profile_id")
-        this.intellectual.profile_id = this.$route.query.id
+        this.honors.profile_id = this.$route.query.id
       }
       this.$axios.post("honor/createHonor", this.honors
       ).then((res) => {
@@ -759,10 +804,9 @@ export default {
         this.$message.warning('请先填写企业基本信息！')
         return
       } else if (this.profile_id) {
-
-        this.intellectual.profile_id = this.profile_id
+        this.finance.profile_id = this.profile_id
       } else if (this.$route.query.id) {
-        this.intellectual.profile_id = this.$route.query.id
+        this.finance.profile_id = this.$route.query.id
       }
       this.$axios.post("profile/createFinance", this.finance
       ).then((res) => {
@@ -806,17 +850,37 @@ export default {
       });
     },
     // 新增拜访记录
+    createNewVisitLog() {
+      this.visitLog.push({
+        name: "",
+        gender: "",
+        profile_id: "",
+        duties: "",
+        mobile: "",
+        visit_time: "",
+        communicate_type: "",
+        communicate_intention: "",
+        communicate_result: "",
+        remark: ""
+      })
+    },
     createVisitLog() {
+      let dataVisit = {}
       if (!this.profile_id && !this.$route.query.id) {
         this.$message.warning('请先填写企业基本信息！')
         return
       } else if (this.profile_id) {
-
-        this.intellectual.profile_id = this.profile_id
+        dataVisit = {
+          profile_id: this.profile_id,
+          visitLog: this.visitLog
+        }
       } else if (this.$route.query.id) {
-        this.intellectual.profile_id = this.$route.query.id
+        dataVisit = {
+          profile_id: this.$route.query.id,
+          visitLog: this.visitLog
+        }
       }
-      this.$axios.post("profile/createVisitLog", this.visitLog
+      this.$axios.post("profile/createVisitLog", dataVisit
       ).then((res) => {
         if (res.code === 1) {
           this.$message.success(res.msg)
@@ -838,29 +902,94 @@ export default {
           this.tableInfo = res.data
         }
         if (res.code === 0) {
-          this.$message.warning(res.msg);
+          // this.$message.warning(res.msg);
         }
       }).catch((error) => {
         console.log(error, "请求失败");
       });
     },
-    // 修改档案
-    modifyProfile() {
-      this.tableInfo.profile_id = this.profile_id
-      this.$axios.put("profile/update", this.tableInfo
+    // 获取财务数据详情
+    getFinancy() {
+      this.$axios.get("profile/getFinancrDetail", {
+            profile_id: this.$route.query.id,
+            year: this.finance.year
+          }
       ).then((res) => {
         if (res.code === 1) {
-          // this.profile_id = res.data.info
+          this.finance = res.data
         }
         if (res.code === 0) {
-          this.$message.warning(res.msg);
+          // this.$message.warning(res.msg);
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
+    // 获取知识产权详情
+    getIntellectual() {
+      this.$axios.get("intellectual/getIntellectualDetail", {
+            profile_id: this.$route.query.id
+          }
+      ).then((res) => {
+        if (res.code === 1) {
+          this.intellectual = res.data
+        }
+        if (res.code === 0) {
+          // this.$message.warning(res.msg);
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
+    // 获取荣誉详情
+    getHonors() {
+      this.$axios.get("honor/getHonor", {
+            profile_id: this.$route.query.id
+          }
+      ).then((res) => {
+        if (res.code === 1) {
+          this.honors = res.data
+        }
+        if (res.code === 0) {
+          // this.$message.warning(res.msg);
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
+    // 获取已实施项目详情
+    getImplemented() {
+      this.$axios.get("profile/getLog", {
+            profile_id: this.$route.query.id
+          }
+      ).then((res) => {
+        if (res.code === 1) {
+          this.implemented = res.data
+        }
+        if (res.code === 0) {
+          // this.$message.warning(res.msg);
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
+    // 获取拜访记录详情
+    getVisit() {
+      this.$axios.get("profile/getVisitLog", {
+            profile_id: this.$route.query.id
+          }
+      ).then((res) => {
+        if (res.code === 1) {
+          this.visitLog = res.data
+        }
+        if (res.code === 0) {
+          // this.$message.warning(res.msg);
         }
       }).catch((error) => {
         console.log(error, "请求失败");
       });
     },
     addRow() {
-      console.log("jjj")
       this.implemented.push({
         profile_id: "",
         name: "",
@@ -876,9 +1005,18 @@ export default {
 
   //生命周期 - 创建完成（可以访问当前this实例）",数据模型已加载，方法已加载,html模板已加载,html模板未渲染
   created() {
-    if(this.$route.query.id){
-      this.getProfile()
+    if (this.$route.query.id) {
+      this.getProfile();
+      this.getFinancy();
+      this.getIntellectual();
+      this.getHonors();
+      this.getImplemented();
+      this.getVisit();
     }
+    let date = new Date();
+    let year = date.getFullYear()+"";
+
+    this.finance.year=year
   },
   //生命周期 - 挂载之前",html模板未渲染
   beforeMount() {
@@ -914,6 +1052,52 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+/deep/ .el-radio-button__inner, .el-radio-group {
+  margin-left: 10px !important;
+}
+/deep/ .el-radio__inner {
+  border-radius: 2px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/deep/ .el-radio__inner {
+  border: 1px solid #DCDFE6;
+  /* border-radius: 100%; */
+  width: 18px;
+  height: 18px;
+  background-color: #FFF;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/deep/ .el-radio__input.is-checked .el-radio__inner {
+  border-color: #18318C !important;
+  background: #18318C !important;
+}
+
+/deep/ .el-radio__input.is-checked + .el-radio__label {
+  color: #18318C !important;
+}
+
+/deep/ .el-radio__input.is-checked .el-radio__inner::after {
+  content: "";
+  width: 10px !important;
+  height: 5px !important;
+  border: 1px solid white;
+  border-top: transparent;
+  border-right: transparent;
+  text-align: center;
+  font-weight: 500;
+  display: block;
+  position: absolute;
+  top: 3px !important;
+  left: 3px !important;
+  vertical-align: middle;
+  transform: rotate(-45deg);
+  border-radius: 0px;
+  background: none;
+}
 @import "./bussinessCss/detail.scss";
 </style>

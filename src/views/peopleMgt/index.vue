@@ -15,14 +15,14 @@
             <img src="../../assets/icons/boy.png" alt="">
             <div class="progress-info">
               <p class="prog-title">男生_{{employeesNum.male}}人</p>
-              <el-progress :percentage="(employeesNum.male/employeesNum.total).toFixed(1)*100"></el-progress>
+              <el-progress :percentage="employeesNum.male/employeesNum.total?(employeesNum.male/employeesNum.total).toFixed(1)*100:0"></el-progress>
             </div>
           </div>
           <div class="girl-info">
             <img src="../../assets/icons/girl.png" alt="">
             <div class="progress-info">
               <p class="prog-title">女生_{{employeesNum.female}}人</p>
-              <el-progress color="#F77D7D" :percentage="(employeesNum.female/employeesNum.total).toFixed(1)*100"></el-progress>
+              <el-progress color="#F77D7D" :percentage="employeesNum.female/employeesNum.total?(employeesNum.female/employeesNum.total).toFixed(1)*100:0"></el-progress>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="line"></div>
         <div class="statics-item">
           <div class="statics-num">
-            <span style="color: #1ECDBE">{{employeesNum.Internship_period}}</span>人
+            <span style="color: #1ECDBE">{{employeesNum.regular}}</span>人
           </div>
           <div class="statics-title">
             <p class="divide1"></p>
@@ -50,7 +50,7 @@
         <div class="line"></div>
         <div class="statics-item">
           <div class="statics-num">
-            <span style="color: #F4AB46">{{employeesNum.regular}}</span>人
+            <span style="color: #F4AB46">{{employeesNum.dangtuan}}</span>人
           </div>
           <div class="statics-title">
             <p class="divide2"></p>
@@ -60,7 +60,7 @@
         <div class="line"></div>
         <div class="statics-item">
           <div class="statics-num">
-            <span style="color: #F77D7D">{{employeesNum.depart}}</span>人
+            <span style="color: #F77D7D">{{employeesNum.other}}</span>人
           </div>
           <div class="statics-title">
             <p class="divide3"></p>
@@ -80,12 +80,12 @@
                 clearable>
             </el-input>
           </div>
-          <el-select v-model="departmentValue" clearable placeholder="所在部门">
+          <el-select  v-model="departmentValue" clearable placeholder="所在部门">
             <el-option
                 v-for="item in departmentOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
             </el-option>
           </el-select>
           <el-select v-model="statusValue" clearable placeholder="员工状态">
@@ -110,7 +110,7 @@
             tooltip-effect="dark"
             style="width: 100%"
             :cell-style="{textarea:'center'}"
-            :header-cell-style="{ background:'rgba(24, 49, 140, 0.2)',textarea:'center'}"
+            :header-cell-style="{ background:'rgba(24, 49, 140, 0.1)',textarea:'center'}"
             @selection-change="handleSelectionChange">
           <el-table-column
               type="selection"
@@ -140,7 +140,7 @@
           </el-table-column>
           <el-table-column
               prop="department_name"
-              label="市场部门">
+              label="所属部门">
           </el-table-column>
           <el-table-column
               prop="post_name"
@@ -165,8 +165,8 @@
               label="操作"
               width="100">
             <template slot-scope="scope">
-              <el-button type="text" size="small" @click="editEmployee(scope.row.id)">编辑</el-button>
-              <el-button type="text" size="small" @click="goEmployeeDetail(scope.row.id)">详情</el-button>
+              <el-button style="color: #18318C"  type="text" size="small" @click="editEmployee(scope.row.id)">编辑</el-button>
+              <el-button style="color: #18318C"  type="text" size="small" @click="goEmployeeDetail(scope.row.id)">详情</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -204,37 +204,29 @@ export default {
       total: 0,
       multipleSelection: [],
       departmentOptions: [
-        {
-          value: 1,
-          label: '市场部门'
-        }, {
-          value: 2,
-          label: '项目部门'
-        }, {
-          value: 3,
-          label: '综合部'
-        }
+
       ],
       departmentValue: "",
       nickname: "",
       statusOptions: [
         {
-          value: 1,
+          value: 0,
           label: '试用期'
         }, {
-          value: 2,
+          value: 1,
           label: '实习期'
         }, {
-          value: 3,
+          value: 2,
           label: '正式员工'
         }, {
-          value: 4,
+          value: 3,
           label: '已离职'
         }
       ],
       statusValue: "",
       tableData: [],
       employeesNum: {},
+
     };
   }
   ,
@@ -274,6 +266,7 @@ export default {
           this.total = res.data.total
         }
         if (res.code === 0) {
+          this.tableData=[]
           this.$message.warning(res.msg);
         }
       }).catch((error) => {
@@ -318,7 +311,7 @@ export default {
     },
     // 查看员工详情
     goEmployeeDetail(id) {
-      this.$router.push({path: '/baseInfo', query: {id: id}})
+      this.$router.push({path: '/HRmanage', query: {id: id}})
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -327,7 +320,21 @@ export default {
       console.log(`当前页: ${val}`);
       this.currentPage = val
       this.getTableList()
-    }
+    },
+    // 获取部门
+    getDepartmentList() {
+      this.$axios.get('index/getDepartmentList').then(res => {
+        if (res.code === 1) {
+          this.departmentOptions = res.data
+        }
+        if (res.code === 0) {
+          this.$message.info(res.msg)
+        }
+      }).catch((error) => {
+        console.log(error, "请求失败");
+      });
+    },
+
   }
   ,
 //生命周期 - 创建之前",数据模型未加载,方法未加载,html模板未加载
@@ -337,7 +344,9 @@ export default {
 
 //生命周期 - 创建完成（可以访问当前this实例）",数据模型已加载，方法已加载,html模板已加载,html模板未渲染
   created() {
-    this.getEmployees()
+    this.getEmployees();
+    this.getDepartmentList();
+
   }
   ,
 //生命周期 - 挂载之前",html模板未渲染
@@ -381,7 +390,18 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+/deep/ .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: #18318C !important;
+  border-color: #18318C !important;
+}
+/deep/ .el-checkbox__inner::after {
+  height: 10px;
+  left: 5px;
+  top: 0px;
+  width: 6px;
+}
+
 @import "./peopleMgtCss/index.scss";
 
 </style>

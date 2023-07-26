@@ -1,7 +1,7 @@
 <!--添加员工-->
 <template>
   <div class="addEmployees-container">
-    <div class="table-box">
+    <div class="table-boxA">
       <div class="base-info">
         <div class="table-header">
           <div class="l-header">
@@ -12,16 +12,16 @@
           </div>
           <div class="save" @click="saveInformation">保存</div>
         </div>
-        <table class="table table-condensed table-bordered" border cellspacing="0px">
+        <table class="table table-screenA"  cellspacing="0px">
           <tbody>
           <template>
             <tr>
               <td class="input">
-                <span>姓名：</span>
+                <span>姓&nbsp;名：</span>
                 <el-input v-model="personalInfo.nickname" placeholder="请输入姓名"></el-input>
               </td>
               <td class="border">
-                性别：
+                性&nbsp;别：
                 <el-select v-model="personalInfo.gender" clearable placeholder="请选择性别">
                   <el-option
                       v-for="item in genderOptions"
@@ -32,11 +32,11 @@
                 </el-select>
               </td>
               <td class="input">
-                <span>民  族：</span>
+                <span>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</span>
                 <el-input v-model="personalInfo.nation" placeholder="请输入民族"></el-input>
               </td>
               <td class="border">
-                出生年月：
+                出 生 年 月：
                 <el-date-picker
                     v-model="personalInfo.birthday"
                     type="date"
@@ -48,25 +48,25 @@
             </tr>
             <tr>
               <td class="input">
-                <span>手机号：</span>
+                <span>手&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;号：</span>
                 <el-input style="width: 67%" v-model="personalInfo.mobile" placeholder="请输入手机号"></el-input>
               </td>
               <td class="input">
-                <span>电子邮箱：</span>
+                <span>电 子 邮 箱：</span>
                 <el-input style="width: 67%" v-model="personalInfo.email" placeholder="请输入电子邮箱"></el-input>
               </td>
               <td class="input">
-                <span>证件号码：</span>
+                <span>证 件 号 码：</span>
                 <el-input style="width: 67%" v-model="personalInfo.id_card" placeholder="请输入证件号码"></el-input>
               </td>
               <td class="input">
-                <span>籍贯：</span>
+                <span>籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯：</span>
                 <el-input style="width: 67%" v-model="personalInfo.native_place" placeholder="请输入籍贯"></el-input>
               </td>
             </tr>
             <tr>
               <td class="border">
-                部门：
+                部&nbsp;门：
                 <el-select v-model="personalInfo.department" clearable placeholder="请选择部门">
                   <el-option
                       v-for="item in departmentOptions"
@@ -77,7 +77,7 @@
                 </el-select>
               </td>
               <td class="border">
-                岗位：
+                岗&nbsp;位：
                 <el-select v-model="personalInfo.post" clearable placeholder="请选择岗位">
                   <el-option
                       v-for="item in postOptions"
@@ -145,7 +145,7 @@
                 </el-select>
               </td>
               <td class="border">
-                入职时间：
+                入 职 时 间：
                 <el-date-picker
                     v-model="personalInfo.entry_time"
                     type="date"
@@ -180,17 +180,17 @@
                 </el-select>
               </td>
               <td class="input">
-                <span>开户行：</span>
+                <span>开&nbsp;&nbsp;&nbsp;户&nbsp;&nbsp;&nbsp;行：</span>
                 <el-input v-model="personalInfo.bank" placeholder="请输入开户行"></el-input>
               </td>
               <td class="input">
-                <span>银行卡：</span>
+                <span>银&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;卡：</span>
                 <el-input v-model="personalInfo.bank_card" placeholder="请输入开户卡号"></el-input>
               </td>
             </tr>
             <tr>
               <td class="input" :colspan="2">
-                现居住地：
+                现 居 住 地：
                 <el-input v-model="personalInfo.address" placeholder="请输入现居地"></el-input>
               </td>
               <td class="input" :colspan="2">
@@ -211,9 +211,626 @@
                 </el-select>
               </td>
               <td class="input">
+                毕 业 院 校：
+                <el-input v-model="personalInfo.school" placeholder="请输入毕业院校"></el-input>
+              </td>
+              <td class="input">
+                所 学 专 业：
+                <el-input v-model="personalInfo.speciality" placeholder="请输入所学专业"></el-input>
+              </td>
+              <td class="input">
+                <span>紧急联系人：</span>
+                <el-input v-model="personalInfo.emergency_contact" placeholder="请输入紧急联系人"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="input">
+                <span>联系人关系：</span>
+                <el-input v-model="personalInfo.relationship" placeholder="请输入联系人关系"></el-input>
+              </td>
+              <td class="input">
+                <span>联系人电话：</span>
+                <el-input v-model="personalInfo.contact_phone" placeholder="请输入联系人电话"></el-input>
+              </td>
+            </tr>
+          </template>
+          </tbody>
+        </table>
+      </div>
+      <div class="base-info">
+        <div class="table-header">
+          <div class="l-header">
+            <p>
+              <img src="../../assets/icons/icon10.png" alt="">
+              <span>入职资料</span>
+            </p>
+            <span>(归档资料)</span>
+          </div>
+        </div>
+        <table class="table table-condensed table-bordered" cellspacing="0px">
+          <tbody>
+          <template>
+            <tr>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio0">身份证复印件</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio1">学历证明</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio2">劳动合同</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio3">保密协议</el-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td class="check" style="font-weight: normal">
+                  <el-checkbox v-model="entry_infor.radio4">制度确认</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio5">岗位说明书</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio6">银行卡信息</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio7">入职简历</el-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio8">转正申请</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio9">转岗手续</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio10">平台使用承诺</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio11">离职审批</el-checkbox>
+              </td>
+            </tr>
+          </template>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div class="table-boxB">
+      <div class="base-info">
+        <div class="table-header">
+          <div class="l-header">
+            <p style="display: flex;align-items: center">
+              <img src="../../assets/icons/icon11.png" alt="">
+              <span>个人信息</span>
+            </p>
+          </div>
+          <div class="save" @click="saveInformation">保存</div>
+        </div>
+        <table class="table table-screenB" border cellspacing="0px">
+          <tbody>
+          <template>
+            <tr>
+              <td class="input">
+                <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+                <el-input v-model="personalInfo.nickname" placeholder="请输入姓名"></el-input>
+              </td>
+              <td class="border">
+                性&nbsp;别：
+                <el-select v-model="personalInfo.gender" clearable placeholder="请选择性别">
+                  <el-option
+                      v-for="item in genderOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="input">
+                <span>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</span>
+                <el-input v-model="personalInfo.nation" placeholder="请输入民族"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                出 生 年 月：
+                <el-date-picker
+                    v-model="personalInfo.birthday"
+                    type="date"
+                    placeholder="选择日期"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </td>
+              <td class="input">
+                <span>手&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;号：</span>
+                <el-input style="width: 67%" v-model="personalInfo.mobile" placeholder="请输入手机号"></el-input>
+              </td>
+              <td class="input">
+                <span>电 子 邮 箱：</span>
+                <el-input style="width: 67%" v-model="personalInfo.email" placeholder="请输入电子邮箱"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="input">
+                <span>证 件 号 码：</span>
+                <el-input style="width: 67%" v-model="personalInfo.id_card" placeholder="请输入证件号码"></el-input>
+              </td>
+              <td class="input">
+                <span>籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯：</span>
+                <el-input style="width: 67%" v-model="personalInfo.native_place" placeholder="请输入籍贯"></el-input>
+              </td>
+              <td class="border">
+                部&nbsp;门：
+                <el-select v-model="personalInfo.department" clearable placeholder="请选择部门">
+                  <el-option
+                      v-for="item in departmentOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+
+            </tr>
+            <tr>
+              <td class="border">
+                岗&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：
+                <el-select v-model="personalInfo.post" clearable placeholder="请选择岗位">
+                  <el-option
+                      v-for="item in postOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                员工状态：
+                <el-select v-model="personalInfo.mployee_status" clearable placeholder="请选择员工状态">
+                  <el-option
+                      v-for="item in statusOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                入职状态：
+                <el-select v-model="personalInfo.entry_status" clearable placeholder="请选择入职状态">
+                  <el-option
+                      v-for="item in onboardingOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                健康状况：
+                <el-select v-model="personalInfo.health_status" clearable placeholder="请选择健康状况">
+                  <el-option
+                      v-for="item in healthOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                婚姻状况：
+                <el-select v-model="personalInfo.marital_status" clearable placeholder="请选择婚姻状况">
+                  <el-option
+                      v-for="item in marryOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                政治面貌：
+                <el-select v-model="personalInfo.political_outlook" clearable placeholder="请选择政治面貌">
+                  <el-option
+                      v-for="item in politicsOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.name">
+                  </el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                入 职 时 间：
+                <el-date-picker
+                    v-model="personalInfo.entry_time"
+                    type="date"
+                    placeholder="选择日期"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </td>
+              <td class="border">
+                所属组别：
+                <el-select v-model="personalInfo.group_id" clearable
+                           placeholder="请选择所属组别">
+                  <el-option
+                      v-for="item in groupOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                组内身份：
+                <el-select v-model="personalInfo.is_leads" clearable placeholder="请选择组内身份">
+                  <el-option
+                      v-for="item in leadsOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+
+            </tr>
+            <tr>
+              <td class="input">
+                <span>开&nbsp;&nbsp;&nbsp;户&nbsp;&nbsp;&nbsp;行：</span>
+                <el-input v-model="personalInfo.bank" placeholder="请输入开户行"></el-input>
+              </td>
+              <td class="input" :colspan="2">
+                <span>身份证地址：</span>
+                <el-input v-model="personalInfo.id_card_address" placeholder="请输入身份证地址"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="input">
+                <span>银&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;卡：</span>
+                <el-input v-model="personalInfo.bank_card" placeholder="请输入开户卡号"></el-input>
+              </td>
+              <td class="input" :colspan="2">
+                现 居 住 地：
+                <el-input v-model="personalInfo.address" placeholder="请输入现居地"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                最 高 学 历：
+                <el-select v-model="personalInfo.education" clearable placeholder="请选择最高学历">
+                  <el-option
+                      v-for="item in degreeOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.name">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="input">
+                毕 业 院 校：
+                <el-input v-model="personalInfo.school" placeholder="请输入毕业院校"></el-input>
+              </td>
+              <td class="input">
+                所 学 专 业：
+                <el-input v-model="personalInfo.speciality" placeholder="请输入所学专业"></el-input>
+              </td>
+
+            </tr>
+            <tr>
+              <td class="input">
+                <span>紧急联系人：</span>
+                <el-input v-model="personalInfo.emergency_contact" placeholder="请输入紧急联系人"></el-input>
+              </td>
+              <td class="input">
+                <span>联系人关系：</span>
+                <el-input v-model="personalInfo.relationship" placeholder="请输入联系人关系"></el-input>
+              </td>
+              <td class="input">
+                <span>联系人电话：</span>
+                <el-input v-model="personalInfo.contact_phone" placeholder="请输入联系人电话"></el-input>
+              </td>
+            </tr>
+          </template>
+          </tbody>
+        </table>
+      </div>
+      <div class="base-info">
+        <div class="table-header">
+          <div class="l-header">
+            <p>
+              <img src="../../assets/icons/icon10.png" alt="">
+              <span>入职资料</span>
+            </p>
+            <span>(归档资料)</span>
+          </div>
+        </div>
+        <table class="table table-condensed table-bordered" cellspacing="0px">
+          <tbody>
+          <template>
+            <tr>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio0">身份证复印件</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio1">学历证明</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio2">劳动合同</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio3">保密协议</el-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio4">制度确认</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio5">岗位说明书</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio6">银行卡信息</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio7">入职简历</el-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio8">转正申请</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio9">转岗手续</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio10">平台使用承诺</el-checkbox>
+              </td>
+              <td class="check" style="font-weight: normal">
+                <el-checkbox v-model="entry_infor.radio11">离职审批</el-checkbox>
+              </td>
+            </tr>
+          </template>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div class="table-boxC">
+      <div class="base-info">
+        <div class="table-header">
+          <div class="l-header">
+            <p style="display: flex;align-items: center">
+              <img src="../../assets/icons/icon11.png" alt="">
+              <span>个人信息</span>
+            </p>
+          </div>
+          <div class="save" @click="saveInformation">保存</div>
+        </div>
+        <table class="table table-screenB" border cellspacing="0px">
+          <tbody>
+          <template>
+            <tr>
+              <td class="input">
+                <span>姓名：</span>
+                <el-input v-model="personalInfo.nickname" placeholder="请输入姓名"></el-input>
+              </td>
+              <td class="border">
+                性别：
+                <el-select v-model="personalInfo.gender" clearable placeholder="请选择性别">
+                  <el-option
+                      v-for="item in genderOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+
+            </tr>
+            <tr>
+              <td class="input">
+                <span>民  族：</span>
+                <el-input v-model="personalInfo.nation" placeholder="请输入民族"></el-input>
+              </td>
+              <td class="border">
+                出生年月：
+                <el-date-picker
+                    v-model="personalInfo.birthday"
+                    type="date"
+                    placeholder="选择日期"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </td>
+
+            </tr>
+            <tr>
+              <td class="input">
+                <span>手机号：</span>
+                <el-input style="width: 67%" v-model="personalInfo.mobile" placeholder="请输入手机号"></el-input>
+              </td>
+              <td class="input">
+                <span>电 子 邮 箱：</span>
+                <el-input style="width: 67%" v-model="personalInfo.email" placeholder="请输入电子邮箱"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="input">
+                <span>证 件 号 码：</span>
+                <el-input style="width: 67%" v-model="personalInfo.id_card" placeholder="请输入证件号码"></el-input>
+              </td>
+              <td class="input">
+                <span>籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯：</span>
+                <el-input style="width: 67%" v-model="personalInfo.native_place" placeholder="请输入籍贯"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                部门：
+                <el-select v-model="personalInfo.department" clearable placeholder="请选择部门">
+                  <el-option
+                      v-for="item in departmentOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                岗位：
+                <el-select v-model="personalInfo.post" clearable placeholder="请选择岗位">
+                  <el-option
+                      v-for="item in postOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                员工状态：
+                <el-select v-model="personalInfo.mployee_status" clearable placeholder="请选择员工状态">
+                  <el-option
+                      v-for="item in statusOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                入职状态：
+                <el-select v-model="personalInfo.entry_status" clearable placeholder="请选择入职状态">
+                  <el-option
+                      v-for="item in onboardingOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                健康状况：
+                <el-select v-model="personalInfo.health_status" clearable placeholder="请选择健康状况">
+                  <el-option
+                      v-for="item in healthOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                婚姻状况：
+                <el-select v-model="personalInfo.marital_status" clearable placeholder="请选择婚姻状况">
+                  <el-option
+                      v-for="item in marryOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                政治面貌：
+                <el-select v-model="personalInfo.political_outlook" clearable placeholder="请选择政治面貌">
+                  <el-option
+                      v-for="item in politicsOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.name">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                入职时间：
+                <el-date-picker
+                    v-model="personalInfo.entry_time"
+                    type="date"
+                    placeholder="选择日期"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                所属组别：
+                <el-select v-model="personalInfo.group_id" clearable
+                           placeholder="请选择所属组别">
+                  <el-option
+                      v-for="item in groupOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="border">
+                组内身份：
+                <el-select v-model="personalInfo.is_leads" clearable placeholder="请选择组内身份">
+                  <el-option
+                      v-for="item in leadsOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="input">
+                <span>开户行：</span>
+                <el-input v-model="personalInfo.bank" placeholder="请输入开户行"></el-input>
+              </td>
+              <td class="input">
+                <span>银行卡：</span>
+                <el-input v-model="personalInfo.bank_card" placeholder="请输入开户卡号"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="input" :colspan="2">
+                <span>身份证地址：</span>
+                <el-input v-model="personalInfo.id_card_address" placeholder="请输入身份证地址"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="input" :colspan="2">
+                现居住地：
+                <el-input v-model="personalInfo.address" placeholder="请输入现居地"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="border">
+                最高学历：
+                <el-select v-model="personalInfo.education" clearable placeholder="请选择最高学历">
+                  <el-option
+                      v-for="item in degreeOptions"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.name">
+                  </el-option>
+                </el-select>
+              </td>
+              <td class="input">
                 毕业院校：
                 <el-input v-model="personalInfo.school" placeholder="请输入毕业院校"></el-input>
               </td>
+            </tr>
+            <tr>
               <td class="input">
                 所学专业：
                 <el-input v-model="personalInfo.speciality" placeholder="请输入所学专业"></el-input>
@@ -266,7 +883,7 @@
             </tr>
             <tr>
               <td class="check" style="font-weight: normal">
-                  <el-checkbox v-model="entry_infor.radio4">制度确认</el-checkbox>
+                <el-checkbox v-model="entry_infor.radio4">制度确认</el-checkbox>
               </td>
               <td class="check" style="font-weight: normal">
                 <el-checkbox v-model="entry_infor.radio5">岗位说明书</el-checkbox>
@@ -458,8 +1075,6 @@ export default {
       if (this.entry_infor) {
         for (let key in this.entry_infor) {
           //for循环let key是对象里面的键，再通过,[]的形式this.objNum[item]去获取对象的value值
-          console.log('key', key);
-          console.log('value', this.entry_infor[key]);
           if (this.entry_infor[key]) {
             let last = key.charAt(key.length - 1)
             this.information.push(last)
@@ -471,10 +1086,10 @@ export default {
         this.$axios.post('index/createUser', this.personalInfo).then(res => {
           if (res.code === 1) {
             this.$message.success(res.msg)
+            setTimeout(() => {
+              this.$router.push('/peopleMgt')
+            }, 1000)
           }
-          setTimeout(() => {
-            this.$router.push('/peopleMgt')
-          }, 1000)
           if (res.code === 0) {
             this.$message.info(res.msg)
           }
@@ -513,7 +1128,6 @@ export default {
             if(item){
               this.entry_infor["radio" + item] = true
             }
-
           })
         }
         if (res.code === 0) {
@@ -570,6 +1184,47 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+::v-deep .el-checkbox__inner {
+  display: inline-block;
+  position: relative;
+  border: 1px solid #DCDFE6;
+  border-radius: 2px;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  background-color: #FFF;
+  z-index: 1;
+  transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+}
+::v-deep .el-checkbox__inner::after {
+  box-sizing: content-box;
+  content: "";
+  border: 1px solid #FFF;
+  border-left: 0;
+  border-top: 0;
+  height: 9px;
+  left: 4px;
+  position: absolute;
+  top: 1px;
+  transform: rotate(45deg) scaleY(0);
+  width: 6px;
+  transition: transform .15s ease-in .05s;
+  transform-origin: center;
+}
+::v-deep .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: #18318C;
+  border-color: #18318C;
+}
+::v-deep .el-checkbox__label {
+  display: inline-block;
+  padding-left: 10px;
+  //line-height: 19px;
+  font-size: 18px;
+}
+::v-deep .el-checkbox__input.is-checked+.el-checkbox__label {
+  color: #18318C !important;
+
+}
 @import "peopleMgtCss/addEmployees.scss";
 </style>

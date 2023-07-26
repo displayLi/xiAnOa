@@ -7,6 +7,10 @@ import "@/assets/iconfont/iconfont.css";
 //把axios实例化后引入main.js文件。挂载在axios原型链上全局使用。
 import http from "./api/api";
 import store from './store/index'
+// 引入echarts
+import * as echarts from 'echarts';
+Vue.prototype.$echarts = echarts
+
 
 
 Vue.config.productionTip = false;
