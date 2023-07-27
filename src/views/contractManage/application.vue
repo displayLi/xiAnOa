@@ -12,7 +12,7 @@
         <tbody>
         <template>
           <tr>
-            <td class="input" style="width: 25%; position: relative;">
+            <td class="input" style="width: 26%; position: relative;">
               <span>公司名称：</span>
               <el-select v-model="tableInfo.id" @change="contractDetail(tableInfo.id)"
                   filterable
