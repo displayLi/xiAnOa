@@ -120,7 +120,7 @@
               <el-input v-model="contractInfo.name" placeholder="请输入对接人姓名"></el-input>
             </td>
             <td class="border">
-              性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+              <span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
               <el-select v-model="contractInfo.gender" clearable placeholder="请选择性别">
                 <el-option
                     v-for="item in sexOptions"
@@ -163,7 +163,7 @@
               <el-input v-model="contractInfo.main_body" placeholder="请输入签约主体"></el-input>
             </td>
             <td class="border">
-              合同类型：
+              <span>合同类型：</span>
               <el-select v-model="contractInfo.type" clearable placeholder="">
                 <el-option
                     v-for="item in contrType"
@@ -190,7 +190,7 @@
           </tr>
           <tr>
             <td class="border">
-              付 款 方 式：
+              <span>付 款 方 式：</span>
               <el-select v-model="contractInfo.pay_method" clearable placeholder="">
                 <el-option
                     v-for="item in payType"
@@ -205,7 +205,7 @@
               <el-input v-model="contractInfo.pay_amount" placeholder="请输入支付额度"></el-input>
             </td>
             <td class="border">
-              开票类型：
+              <span>开票类型：</span>
               <el-select v-model="contractInfo.billing_type" clearable placeholder="">
                 <el-option
                     v-for="item in ticketType"
@@ -342,8 +342,8 @@
           </tr>
           <tr>
             <td class="border">
-              付款方式：
-              <el-select v-model="contractInfo.pay_method" clearable placeholder="请选择付款方式">
+              <span>付款方式：</span>
+              <el-select v-model="contractInfo.pay_method" clearable placeholder="请选择付款方式" style="width: 58%">
                 <el-option
                     v-for="item in payType"
                     :key="item.id"
