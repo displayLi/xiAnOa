@@ -157,6 +157,7 @@
           //align-items: center;
           //justify-content: flex-start;
           & > span {
+            width: 120px !important;
             display: inline-block;
           }
 
@@ -343,16 +344,23 @@
           }
 
         }
-
+        .border {
+          & > span {
+            width: 108px !important;
+            display: inline-block;
+          }
+        }
         .input {
           //display: flex;
           //align-items: center;
           //justify-content: flex-start;
           & > span {
+            width: 108px !important;
             display: inline-block;
           }
 
-          /deep/  .el-input {
+          /deep/  .el-input,
+          /deep/ .el-date-editor {
             width: 65%;
           }
 

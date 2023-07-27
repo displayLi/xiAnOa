@@ -244,9 +244,9 @@
 <style lang="scss" scoped>
 
 .container {
-  background-color: #F3F4F9;
+  background: rgba(24, 49, 140, 0.05);
   padding: 30px;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 120px);
   overflow-y: auto;
 }
 	.con_top_box{

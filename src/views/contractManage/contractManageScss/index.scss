@@ -205,4 +205,15 @@
   }
 }
 
+/deep/ .el-table__header-wrapper {
+  thead {
+    th {
+      div {
+        color: #313848;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
 

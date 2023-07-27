@@ -180,6 +180,7 @@
           <el-table
               :data="tableData"
               style="width: 100%"
+              :header-cell-style="{ background:'rgba(24, 49, 140, 0.1)',textarea:'center'}"
               :cell-style="
               ({ row, column, rowIndex, columnIndex }) => {
                 if ([null, undefined, ''].includes(row[column.property])) {
@@ -191,6 +192,7 @@
             <el-table-column
                 prop="customer_name"
                 label="客户名称"
+                align="center"
                 min-width="80"
             ></el-table-column>
             <el-table-column
@@ -231,7 +233,7 @@
             <el-table-column
                 prop="address"
                 label="操作"
-                align="right"
+                align="center"
                 min-width="180"
             >
               <template slot-scope="scope">
@@ -324,7 +326,7 @@
               <el-form-item
                   label="业务类型"
                   prop="business_type"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-select
                     v-model="ruleForm.business_type"
@@ -338,7 +340,7 @@
                 </el-select>
               </el-form-item>
 
-              <el-form-item label="项目类型" prop="type" style="width: 45%">
+              <el-form-item label="项目类型" prop="type" style="width: 48%">
                 <el-select
                     v-model="ruleForm.type"
                     placeholder="请选择项目类型"
@@ -358,7 +360,7 @@
               <el-form-item
                   label="客户名称"
                   prop="customer_name"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-input
                     v-model="ruleForm.customer_name"
@@ -367,7 +369,7 @@
                 ></el-input>
               </el-form-item>
 
-              <el-form-item label="项目名称" prop="name" style="width: 45%">
+              <el-form-item label="项目名称" prop="name" style="width: 48%">
                 <el-input
                     v-model="ruleForm.name"
                     placeholder="请输入项目名称"
@@ -378,7 +380,7 @@
               <el-form-item
                   label="项目授权人"
                   prop="authorized_person"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-select
                     v-model="ruleForm.authorized_person"
@@ -400,7 +402,7 @@
               <el-form-item
                   prop="signing_time"
                   label="签约时间"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-date-picker
                     type="date"
@@ -415,7 +417,7 @@
               <el-form-item
                   label="合同类型"
                   prop="contract_type"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-select
                     v-model="ruleForm.contract_type"
@@ -432,7 +434,7 @@
               <el-form-item
                   label="合同编号"
                   prop="contract_number"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-input
                     v-model="ruleForm.contract_number"
@@ -443,7 +445,7 @@
               <el-form-item
                   label="项目咨询师"
                   prop="consultant_id"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-select
                     v-model="ruleForm.consultant_id"
@@ -463,7 +465,7 @@
               <el-form-item
                   prop="business_time"
                   label="委托时间"
-                  style="width: 45%"
+                  style="width: 48%"
                   v-show="ruleForm.business_type == 1"
               >
                 <el-date-picker
@@ -478,7 +480,7 @@
               <el-form-item
                   label="合作机构"
                   prop="partners"
-                  style="width: 45%"
+                  style="width: 48%"
                   v-show="ruleForm.business_type == 1"
               >
                 <el-input
@@ -490,7 +492,7 @@
               <el-form-item
                   label="委托业务"
                   prop="business"
-                  style="width: 45%"
+                  style="width: 48%"
                   v-show="ruleForm.business_type == 1"
               >
                 <el-input
@@ -502,7 +504,7 @@
               <el-form-item
                   label="项目工程师"
                   prop="engineer"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-select
                     v-model="ruleForm.engineer"
@@ -522,7 +524,7 @@
               <el-form-item
                   label="资料专员"
                   prop="data_specialist"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-select
                     v-model="ruleForm.data_specialist"
@@ -543,7 +545,7 @@
               <el-form-item
                   label="外包对接人"
                   prop="outsource"
-                  style="width: 45%"
+                  style="width: 48%"
                   v-show="ruleForm.business_type == 1"
               >
                 <el-input
@@ -555,7 +557,7 @@
               <el-form-item
                   label="对接人电话"
                   prop="outsource_phone"
-                  style="width: 45%"
+                  style="width: 48%"
                   v-show="ruleForm.business_type == 1"
               >
                 <el-input
@@ -567,7 +569,7 @@
               <el-form-item
                   prop="delivery_time"
                   label="交付时间"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-date-picker
                     type="date"
@@ -581,7 +583,7 @@
               <el-form-item
                   prop="deadline"
                   label="项目截止时间"
-                  style="width: 45%"
+                  style="width: 48%"
               >
                 <el-date-picker
                     type="date"
@@ -594,6 +596,7 @@
 
               <el-form-item label="备注说明" prop="remark" style="width: 100%">
                 <el-input
+                  type="textarea"
                     v-model="ruleForm.remark"
                     placeholder="请输入备注"
                 ></el-input>
@@ -606,7 +609,7 @@
               </div>
               <el-form-item
                   :label="item.name"
-                  style="width: 45%"
+                  style="width: 48%"
                   v-for="(item, index) in projectTypeList
                   .filter((el) => el.id == ruleForm.type)
                   .at(0)?.options"
@@ -989,10 +992,10 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  background-color: #F3F4F9;
+  background: rgba(24, 49, 140, 0.05);
   padding: 30px;
-  height: calc(100vh - 200px);
-  overflow-y: auto;
+  // height: calc(100vh - 150px);
+  // overflow-y: auto;
 }
 .con_top {
   background-color: #fff;
@@ -1105,6 +1108,9 @@ export default {
   }
 }
 .dialog {
+  /deep/ .el-dialog__body {
+    padding: 30px;
+  }
   & /deep/ .el-form > div {
     display: flex;
     flex-direction: row;
@@ -1127,12 +1133,19 @@ export default {
   & /deep/ .el-form-item__content {
     margin-left: 0 !important;
   }
-  & /deep/ .el-input__inner {
+  & /deep/ .el-input__inner,
+  /deep/ .el-textarea__inner {
     background-color: #f4f5f5;
     font-size: 16px;
     height: 45px;
     line-height: 45px;
     border: 0;
+  }
+  /deep/ .el-textarea__inner{
+    line-height: 20px;
+    height: 66px;
+    padding: 10px 15px;
+    font-family: SimHei;
   }
   & /deep/ .el-select-dropdown__item {
     font-size: 1.125rem !important;
@@ -1144,19 +1157,21 @@ export default {
   }
 }
 
-/deep/ .el-table__header {
+
+/deep/ .el-table {
   margin-top: 20px;
-  tr {
-    th{
-      background-color: #D0D5E8 !important;
-      color: #313848;
-      &:first-of-type {
-        border-top-left-radius: 10px;
-      }
-      &:nth-last-of-type(2) {
-        border-top-right-radius: 10px;
-      }
-    }
-  }
+  border-radius: 10px 10px 0 0;
 }
+
+/deep/ .el-table__header-wrapper {
+        thead {
+          th {
+            div {
+              color: #313848;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
 </style>

@@ -36,9 +36,10 @@
               <span>注册资金：</span>
               <el-input v-model="tableInfo.fund" placeholder="请输入内容"></el-input>
             </td>
-            <td class="input">
+            <td class="input tt">
               注册辖区：
               <el-cascader
+                  style="font-size: 14px;"
                   size="large"
                   :options="options"
                   v-model="tableInfo.region"
@@ -1100,4 +1101,15 @@ export default {
   background: none;
 }
 @import "./bussinessCss/detail.scss";
+
+.tt {
+  /deep/ .el-cascader {
+    .el-input {
+      width: 100% !important;
+    }
+    // .el-input__inner {
+    //  font-size: 16px !important;
+    // }
+  }
+}
 </style>

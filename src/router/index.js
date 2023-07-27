@@ -39,7 +39,7 @@ const routes = [
                 path: '/businesSsupport',
                 name: 'businesSsupport',
                 meta: {
-                    title: "业务支持系统 / 客户档案",
+                    title: "客户档案",
                 },
                 component: () => import("../views/businesSsupport/index.vue"),
             },
@@ -52,7 +52,7 @@ const routes = [
                 path: '/businesSsupport/detail',
                 name: 'detail',
                 meta: {
-                    title: "业务支持系统 / 客户档案",
+                    title: "新建客户档案",
                 },
                 component: () => import("../views/businesSsupport/detail.vue"),
             },
@@ -109,6 +109,9 @@ const routes = [
             {
                 path: '/detailPro',
                 name: 'detailPro',
+                meta: {
+                    title: "项目详情",
+                },
                 hidden: false,
                 component: () => import("../views/projectManage/detailPro.vue"),
             },

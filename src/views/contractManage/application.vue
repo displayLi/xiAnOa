@@ -12,16 +12,16 @@
         <tbody>
         <template>
           <tr>
-            <td class="input" style="width: 25%;">
+            <td class="input" style="width: 25%; position: relative;">
               <span>公司名称：</span>
               <el-select v-model="tableInfo.id" @change="contractDetail(tableInfo.id)"
-                         filterable
-                         remote
-                         reserve-keyword
-                         placeholder="请输入关键词"
-                         :remote-method="remoteMethod"
-                         :loading="loading"
-                         >
+                  filterable
+                  remote
+                  reserve-keyword
+                  placeholder="请输入关键词"
+                  :remote-method="remoteMethod"
+                  :loading="loading"
+                  >
                 <el-option
                     v-for="item in options"
                     :key="item.id"
@@ -29,6 +29,7 @@
                     :value="item.id">
                 </el-option>
               </el-select>
+              <img src="../../assets/icons/icon-search.png" alt="" style="position: absolute; top: 50%;transform: translateY(-50%);right: 15px;">
             </td>
             <td class="border" style="width: 25%;">
               成立时间：{{ tableInfo.establish_time }}
@@ -82,9 +83,9 @@
           <tr>
             <td class="check" :colspan="2">
               <img style="display: inline-block;width: 1.125rem;height: 1.125rem;vertical-align:middle;"
-                   src="../../assets/icons/tip.png" alt="">
-              <span
-                  style="vertical-align: middle;margin-left: 10px">企业注册、纳税、统计开户所在地均在同一辖区且经营风险</span>
+                    src="../../assets/icons/tip.png" alt="">
+                <span
+                    style="vertical-align: middle;margin-left: 10px; font-size: 14px;">企业注册、纳税、统计开户所在地均在同一辖区且经营风险</span>
               <el-radio-group v-model="tableInfo.operating_risk">
                 <el-radio :label="0">异常</el-radio>
                 <el-radio :label="1">无异常</el-radio>

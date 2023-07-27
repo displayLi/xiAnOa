@@ -113,6 +113,7 @@
               line-height: 1.5rem;
               &>p{
                 display: inline-block;
+                font-family: SimHei;
               }
               .fontColor{
                 color: #18318C;
@@ -259,6 +260,7 @@
                   font-size: 1.125rem;
                   font-weight: normal;
                   color: #18318C;
+                  font-family: SimHei;
                 }
                 .el-form-item__label {
                   text-align: right;
@@ -485,7 +487,8 @@
             }
             .copyright{
               font-size: 0.75rem;
-              font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light",serif;
+              // font-family: "SourceHanSansCN-Light-, SourceHanSansCN-Light",serif;
+              font-family: SimHei;
               font-weight: normal;
               color: #ABADB2;
               line-height: 24px;

@@ -41,7 +41,8 @@
     <div class="line"></div>
     <div class="breadCrumb">
       <div class="top">
-        <img v-if="$route.name!='projectManage'" @click="backHistory" src="../assets/icons/left.png" alt="">
+        <!-- v-if="$route.name!='projectManage'" -->
+        <img @click="backHistory" src="../assets/icons/left.png" alt="">
         <!-- 面包屑 -->
         <el-breadcrumb separator="">
           <el-breadcrumb-item>{{$route.meta.title}}</el-breadcrumb-item>

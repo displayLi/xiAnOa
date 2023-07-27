@@ -71,7 +71,7 @@
   align-items: center;
   justify-content: center;
   background-color: #1ecdbe !important;
-  color: #ffffff;
+  color: #ffffff !important;
   border-radius: 10px;
   height: 48px;
 }
@@ -102,7 +102,7 @@
     align-items: center;
     justify-content: center;
     background-color: #1ecdbe !important;
-    color: #ffffff;
+    color: #ffffff !important;
     border-radius: 10px;
     height: 54px;
     line-height: 54px;
@@ -133,7 +133,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
+      color: #ffffff !important;
       border-radius: 10px;
       // height: 48px;
     }
@@ -143,7 +143,7 @@
     align-items: center;
     justify-content: center;
     background: none !important;
-    color: #ffffff;
+    color: #ffffff !important;
     border-radius: 10px;
     height: 48px;
   }
@@ -244,7 +244,7 @@
       align-items: center;
       justify-content: center;
       background-color: #1ecdbe !important;
-      color: #ffffff;
+      color: #ffffff !important;
       border-radius: 10px;
       height: 48px;
 
@@ -273,7 +273,7 @@
     display: flex;
     align-items: center;
     background-color: #1ecdbe !important;
-    color: #ffffff;
+    color: #ffffff !important;
     border-radius: 10px;
     // width: 92.8%;
     // margin: 10px auto;
@@ -289,7 +289,7 @@
 
 <style>
   .el-menu--popup {
-    padding: 10px;
+    padding: 10px !important;
   }
 </style>
 

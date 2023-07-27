@@ -108,13 +108,14 @@
       <div class="table-detail">
         <el-table
             :data="tableData"
-            :cell-style="{textarea:'center'}"
+            cell-style="{textarea:'center'}"
             :header-cell-style="{ background:'rgba(24, 49, 140, 0.1)',textarea:'center'}"
             style="width: 100%">
           <el-table-column label="id" prop="id" v-if="false">
           </el-table-column>
           <el-table-column
               prop="name"
+              align="center"
               label="客户名称">
           </el-table-column>
           <el-table-column
@@ -163,6 +164,7 @@
           <el-table-column
               fixed="right"
               label="操作"
+              align="center"
               width="150">
             <template slot-scope="scope">
               <div @click="updateStatus(scope.row.id,scope.row.status)" style="font-size: 14px;color: #18318C;display: inline-block; cursor: pointer;" v-if="scope.row.status!=2">{{ scope.row.status==0?'已拟定':scope.row.status==1?'已签约':scope.row.status==3?'已结清':scope.row.status==4?'已开票':scope.row.status==5?'归档':''}}</div>

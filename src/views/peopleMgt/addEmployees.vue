@@ -21,7 +21,7 @@
                 <el-input v-model="personalInfo.nickname" placeholder="请输入姓名"></el-input>
               </td>
               <td class="border">
-                性&nbsp;别：
+                <span>性&nbsp;别：</span>
                 <el-select v-model="personalInfo.gender" clearable placeholder="请选择性别">
                   <el-option
                       v-for="item in genderOptions"
@@ -36,7 +36,7 @@
                 <el-input v-model="personalInfo.nation" placeholder="请输入民族"></el-input>
               </td>
               <td class="border">
-                出 生 年 月：
+                <span>出 生 年 月：</span>
                 <el-date-picker
                     v-model="personalInfo.birthday"
                     type="date"
@@ -66,7 +66,7 @@
             </tr>
             <tr>
               <td class="border">
-                部&nbsp;门：
+                <span>部&nbsp;门：</span>
                 <el-select v-model="personalInfo.department" clearable placeholder="请选择部门">
                   <el-option
                       v-for="item in departmentOptions"
@@ -77,7 +77,7 @@
                 </el-select>
               </td>
               <td class="border">
-                岗&nbsp;位：
+                <span>岗&nbsp;位：</span>
                 <el-select v-model="personalInfo.post" clearable placeholder="请选择岗位">
                   <el-option
                       v-for="item in postOptions"
@@ -88,7 +88,7 @@
                 </el-select>
               </td>
               <td class="border">
-                员工状态：
+                <span>员工状态：</span>
                 <el-select v-model="personalInfo.mployee_status" clearable placeholder="请选择员工状态">
                   <el-option
                       v-for="item in statusOptions"
@@ -99,7 +99,7 @@
                 </el-select>
               </td>
               <td class="border">
-                入职状态：
+                <span>入职状态：</span>
                 <el-select v-model="personalInfo.entry_status" clearable placeholder="请选择入职状态">
                   <el-option
                       v-for="item in onboardingOptions"
@@ -112,7 +112,7 @@
             </tr>
             <tr>
               <td class="border">
-                健康状况：
+                <span>健康状况：</span>
                 <el-select v-model="personalInfo.health_status" clearable placeholder="请选择健康状况">
                   <el-option
                       v-for="item in healthOptions"
@@ -123,7 +123,7 @@
                 </el-select>
               </td>
               <td class="border">
-                婚姻状况：
+                <span>婚姻状况：</span>
                 <el-select v-model="personalInfo.marital_status" clearable placeholder="请选择婚姻状况">
                   <el-option
                       v-for="item in marryOptions"
@@ -134,7 +134,7 @@
                 </el-select>
               </td>
               <td class="border">
-                政治面貌：
+                <span>政治面貌：</span>
                 <el-select v-model="personalInfo.political_outlook" clearable placeholder="请选择政治面貌">
                   <el-option
                       v-for="item in politicsOptions"
@@ -145,7 +145,7 @@
                 </el-select>
               </td>
               <td class="border">
-                入 职 时 间：
+                <span>入 职 时 间：</span>
                 <el-date-picker
                     v-model="personalInfo.entry_time"
                     type="date"
@@ -157,7 +157,7 @@
             </tr>
             <tr>
               <td class="border">
-                所属组别：
+                <span>所属组别：</span>
                 <el-select v-model="personalInfo.group_id" clearable
                            placeholder="请选择所属组别">
                   <el-option
@@ -169,7 +169,7 @@
                 </el-select>
               </td>
               <td class="border">
-                组内身份：
+                <span>组内身份：</span>
                 <el-select v-model="personalInfo.is_leads" clearable placeholder="请选择组内身份">
                   <el-option
                       v-for="item in leadsOptions"
@@ -190,7 +190,7 @@
             </tr>
             <tr>
               <td class="input" :colspan="2">
-                现 居 住 地：
+                <span>现 居 住 地：</span>
                 <el-input v-model="personalInfo.address" placeholder="请输入现居地"></el-input>
               </td>
               <td class="input" :colspan="2">
@@ -200,7 +200,7 @@
             </tr>
             <tr>
               <td class="border">
-                最高学历：
+                <span>最高学历：</span>
                 <el-select v-model="personalInfo.education" clearable placeholder="请选择最高学历">
                   <el-option
                       v-for="item in degreeOptions"
@@ -211,11 +211,11 @@
                 </el-select>
               </td>
               <td class="input">
-                毕 业 院 校：
+                <span>毕 业 院 校：</span>
                 <el-input v-model="personalInfo.school" placeholder="请输入毕业院校"></el-input>
               </td>
               <td class="input">
-                所 学 专 业：
+                <span>所 学 专 业：</span>
                 <el-input v-model="personalInfo.speciality" placeholder="请输入所学专业"></el-input>
               </td>
               <td class="input">
@@ -318,7 +318,7 @@
                 <el-input v-model="personalInfo.nickname" placeholder="请输入姓名"></el-input>
               </td>
               <td class="border">
-                性&nbsp;别：
+                <span>性&nbsp;别：</span>
                 <el-select v-model="personalInfo.gender" clearable placeholder="请选择性别">
                   <el-option
                       v-for="item in genderOptions"
@@ -335,7 +335,7 @@
             </tr>
             <tr>
               <td class="border">
-                出 生 年 月：
+                <span>出 生 年 月：</span>
                 <el-date-picker
                     v-model="personalInfo.birthday"
                     type="date"
@@ -363,7 +363,7 @@
                 <el-input style="width: 67%" v-model="personalInfo.native_place" placeholder="请输入籍贯"></el-input>
               </td>
               <td class="border">
-                部&nbsp;门：
+                <span>部&nbsp;门：</span>
                 <el-select v-model="personalInfo.department" clearable placeholder="请选择部门">
                   <el-option
                       v-for="item in departmentOptions"
@@ -377,7 +377,7 @@
             </tr>
             <tr>
               <td class="border">
-                岗&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：
+               <span>岗&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</span>
                 <el-select v-model="personalInfo.post" clearable placeholder="请选择岗位">
                   <el-option
                       v-for="item in postOptions"
@@ -388,7 +388,7 @@
                 </el-select>
               </td>
               <td class="border">
-                员工状态：
+                <span>员工状态：</span>
                 <el-select v-model="personalInfo.mployee_status" clearable placeholder="请选择员工状态">
                   <el-option
                       v-for="item in statusOptions"
@@ -399,7 +399,7 @@
                 </el-select>
               </td>
               <td class="border">
-                入职状态：
+                <span>入职状态：</span>
                 <el-select v-model="personalInfo.entry_status" clearable placeholder="请选择入职状态">
                   <el-option
                       v-for="item in onboardingOptions"
@@ -412,7 +412,7 @@
             </tr>
             <tr>
               <td class="border">
-                健康状况：
+                <span>健康状况：</span>
                 <el-select v-model="personalInfo.health_status" clearable placeholder="请选择健康状况">
                   <el-option
                       v-for="item in healthOptions"
@@ -423,7 +423,7 @@
                 </el-select>
               </td>
               <td class="border">
-                婚姻状况：
+                <span>婚姻状况：</span>
                 <el-select v-model="personalInfo.marital_status" clearable placeholder="请选择婚姻状况">
                   <el-option
                       v-for="item in marryOptions"
@@ -434,7 +434,7 @@
                 </el-select>
               </td>
               <td class="border">
-                政治面貌：
+                <span>政治面貌：</span>
                 <el-select v-model="personalInfo.political_outlook" clearable placeholder="请选择政治面貌">
                   <el-option
                       v-for="item in politicsOptions"
@@ -447,7 +447,7 @@
             </tr>
             <tr>
               <td class="border">
-                入 职 时 间：
+               <span> 入 职 时 间：</span>
                 <el-date-picker
                     v-model="personalInfo.entry_time"
                     type="date"
@@ -457,7 +457,7 @@
                 </el-date-picker>
               </td>
               <td class="border">
-                所属组别：
+               <span> 所属组别：</span>
                 <el-select v-model="personalInfo.group_id" clearable
                            placeholder="请选择所属组别">
                   <el-option
@@ -469,7 +469,7 @@
                 </el-select>
               </td>
               <td class="border">
-                组内身份：
+                <span>组内身份：</span>
                 <el-select v-model="personalInfo.is_leads" clearable placeholder="请选择组内身份">
                   <el-option
                       v-for="item in leadsOptions"
@@ -497,13 +497,13 @@
                 <el-input v-model="personalInfo.bank_card" placeholder="请输入开户卡号"></el-input>
               </td>
               <td class="input" :colspan="2">
-                现 居 住 地：
+                <span>现 居 住 地：</span>
                 <el-input v-model="personalInfo.address" placeholder="请输入现居地"></el-input>
               </td>
             </tr>
             <tr>
               <td class="border">
-                最 高 学 历：
+               <span> 最 高 学 历：</span>
                 <el-select v-model="personalInfo.education" clearable placeholder="请选择最高学历">
                   <el-option
                       v-for="item in degreeOptions"
@@ -514,11 +514,11 @@
                 </el-select>
               </td>
               <td class="input">
-                毕 业 院 校：
+                <span>毕 业 院 校：</span>
                 <el-input v-model="personalInfo.school" placeholder="请输入毕业院校"></el-input>
               </td>
               <td class="input">
-                所 学 专 业：
+                <span>所 学 专 业：</span>
                 <el-input v-model="personalInfo.speciality" placeholder="请输入所学专业"></el-input>
               </td>
 
@@ -673,7 +673,7 @@
             </tr>
             <tr>
               <td class="border">
-                部门：
+                <span>部门：</span>
                 <el-select v-model="personalInfo.department" clearable placeholder="请选择部门">
                   <el-option
                       v-for="item in departmentOptions"

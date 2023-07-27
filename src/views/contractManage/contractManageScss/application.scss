@@ -138,7 +138,7 @@
       }
 
       .input{
-        //display: flex;
+        display: flex;
         //align-items: center;
         //justify-content: flex-start;
         &>span{
@@ -315,9 +315,15 @@
       }
 
       .input{
-        //display: flex;
-        //align-items: center;
-        //justify-content: flex-start;
+        // display: flex;
+        // align-items: center;
+        // justify-content: flex-start;
+        .el-select {
+          width: 60%;
+          /deep/ .el-input {
+            width: 100%;
+          }
+        }
         &>span{
           //display: inline-block;
         }

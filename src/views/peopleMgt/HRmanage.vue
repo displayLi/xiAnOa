@@ -863,20 +863,22 @@ export default {
 
   .con_wrap {
     background-color: #FFF;
-    position: relative;
-    top: -20px;
-    left: -57px;
-    width: 103%;
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    // top: -20px;
+    // left: -57px;
+    // width: 103%;
     overflow: hidden;
 
     & /deep/ .el-tabs__item {
       font-size: 18px;
-      padding: 0 60px;
+      padding: 0 30px;
       line-height: 20px;
     }
 
     & /deep/ .el-tabs {
-      margin-left: 70px;
+      margin-left: 60px;
       margin-top: 20px;
     }
 
@@ -912,7 +914,7 @@ export default {
       margin: 30px 20px 30px 30px;
 
       .base-info {
-        width: 95.1%;
+        width: 100%;
         height: auto;
         margin: auto;
         background: #FFFFFF;
@@ -923,7 +925,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: 1.4375rem 0 1.25rem 1.875rem;
+          margin: 1.4375rem 30px 1.25rem 30px;
 
           .l-header {
             display: flex;
@@ -956,6 +958,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: flex-start;
+            // margin-right: 20px;
 
             .status {
               width: 5rem;
@@ -1017,7 +1020,8 @@ export default {
         }
 
         table {
-          width: 96.3%;
+          width: 100%;
+          padding: 0 30px;
           height: auto;
           margin: auto;
         }
