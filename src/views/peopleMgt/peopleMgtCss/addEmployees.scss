@@ -152,12 +152,19 @@
 
         }
 
+        .border {
+          & > span {
+            width: 108px !important;
+            display: inline-block;
+          }
+        }
+
         .input {
           //display: flex;
           //align-items: center;
           //justify-content: flex-start;
           & > span {
-            width: 120px !important;
+            width: 108px !important;
             display: inline-block;
           }
 
